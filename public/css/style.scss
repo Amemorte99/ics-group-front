@@ -44,23 +44,31 @@ This files table contents are outlined below>>>>>
 ** - Go Top CSS
 */
 
-/*================================================
-Default CSS
-=================================================*/
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+// ===========================
+// Variables principales
+// ===========================
 
 $main-font-family: 'Roboto', sans-serif;
 $optional-font-family: 'Raleway', sans-serif;
 $font-size: 16px;
-$main-color: #49B96D;//49B96D //238,9,121,1    
-$main-gradient-color: linear-gradient(90deg, rgba(73, 185, 109) 0%, rgba(128, 195, 83) 100%);;
-$optional-color: #44ce6f;
-$optional-gradient-color: linear-gradient(135deg, #227844 0%, #49B96D 100%);
+
+// Couleurs
+$main-color: #573695; // couleur primaire
+$optional-color: #E7376E; // couleur secondaire
 $white-color: #ffffff;
 $black-color: #212529;
 $paragraph-color: #57647c;
-$transition: .5s;
+
+// Dégradés
+$main-gradient-color: linear-gradient(90deg, #573695 0%, #E7376E 100%);
+$optional-gradient-color: linear-gradient(135deg, #573695 0%, #573695 100%);
+
+// Gris
+$gray-color: #A7A9AC;
+
+// Transition globale
+$transition: 0.5s;
+
 
 body {
     padding: 0;
@@ -1086,7 +1094,7 @@ Main Banner Area CSS
 .main-banner {
     height: 100vh;
     background: {
-        image: url(/images/main-banner1.jpg);
+        image: url(/images/main-banner-ICS-01.png);
         position: center center;
         size: cover;
         repeat: no-repeat;
@@ -1094,7 +1102,7 @@ Main Banner Area CSS
 }
 .main-banner-content {
     margin-top: -20px;
-    max-width: 600px;
+    max-width: 60px;
     position: relative;
 
     h1 {
