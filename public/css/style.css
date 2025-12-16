@@ -78,7 +78,7 @@ a {
 }
 
 a:hover {
-  color: #ee0979;
+  color: #49B96D;
   text-decoration: none;
 }
 
@@ -157,8 +157,8 @@ p:last-child {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   border-radius: 4px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -264,7 +264,7 @@ p:last-child {
 .form-control:focus {
   -webkit-box-shadow: unset !important;
           box-shadow: unset !important;
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 /*================================================
@@ -275,8 +275,8 @@ Preloader Area CSS
   width: 100%;
   height: 100%;
   z-index: 99999;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   top: 0;
   left: 0;
 }
@@ -465,7 +465,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item a:hover, .luvion-nav .navbar .navbar-nav .nav-item a:focus, .luvion-nav .navbar .navbar-nav .nav-item a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item a i {
@@ -482,7 +482,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item:hover a, .luvion-nav .navbar .navbar-nav .nav-item.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu {
@@ -523,7 +523,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu {
@@ -538,7 +538,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -553,7 +553,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -568,7 +568,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -583,7 +583,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -598,7 +598,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu {
@@ -613,11 +613,11 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -627,7 +627,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -637,7 +637,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -647,7 +647,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -657,7 +657,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li:hover .dropdown-menu {
@@ -667,7 +667,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li:hover .dropdown-menu {
@@ -699,7 +699,7 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .others-options .login-btn:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area {
@@ -748,11 +748,11 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item:hover a, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
@@ -760,7 +760,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a {
@@ -768,7 +768,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -776,7 +776,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -784,7 +784,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -792,7 +792,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -800,7 +800,7 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -808,31 +808,31 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn {
@@ -840,11 +840,11 @@ Navbar Area CSS
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn i {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .navbar-brand img {
@@ -856,11 +856,11 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item:hover a, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
@@ -868,7 +868,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a {
@@ -876,7 +876,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -884,7 +884,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -892,7 +892,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -900,7 +900,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -908,7 +908,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a {
@@ -916,31 +916,31 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:hover, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a:focus, .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li a.active {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li.active a {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .navbar-area.navbar-style-two .luvion-nav .others-options .login-btn {
@@ -952,7 +952,7 @@ Navbar Area CSS
 }
 
 .navbar-area.navbar-style-two .luvion-nav .others-options .login-btn:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 /* Navbar toggler */
@@ -1162,8 +1162,8 @@ Main Banner Area CSS
 .money-transfer-form form .form-group {
   margin-bottom: 15px;
   position: relative;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   padding: 36px 10px 12px 15px;
   border-radius: 5px;
 }
@@ -1268,8 +1268,8 @@ Main Banner Area CSS
 .money-transfer-form form .currency-info .bar {
   height: 100%;
   width: 2px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   position: absolute;
   left: 0;
   top: 50%;
@@ -1285,8 +1285,8 @@ Main Banner Area CSS
   position: absolute;
   top: -1px;
   left: -2px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
 }
 
 .money-transfer-form form .currency-info .bar::after {
@@ -1297,8 +1297,8 @@ Main Banner Area CSS
   position: absolute;
   bottom: -1px;
   left: -2px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
 }
 
 .money-transfer-form form .currency-info span {
@@ -1336,8 +1336,8 @@ Main Banner Area CSS
 }
 
 .money-transfer-form form .btn::after {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
 }
 
 .money-transfer-form form .terms-info {
@@ -1354,7 +1354,7 @@ Main Banner Area CSS
 }
 
 .money-transfer-form form .terms-info p a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .banner-section {
@@ -1463,8 +1463,8 @@ Main Banner Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   border-radius: 30px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -1519,7 +1519,7 @@ Main Banner Area CSS
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   background-color: #fff !important;
-  color: #ee0979 !important;
+  color: #49B96D !important;
   width: 40px;
   height: 40px;
   line-height: 40px !important;
@@ -1533,7 +1533,7 @@ Main Banner Area CSS
 }
 
 .main-banner-slider .owl-nav .owl-prev:hover {
-  background-color: #ee0979 !important;
+  background-color: #49B96D !important;
   color: #ffffff !important;
 }
 
@@ -1544,7 +1544,7 @@ Main Banner Area CSS
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   background-color: #fff !important;
-  color: #ee0979 !important;
+  color: #49B96D !important;
   width: 40px;
   height: 40px;
   line-height: 40px !important;
@@ -1558,7 +1558,7 @@ Main Banner Area CSS
 }
 
 .main-banner-slider .owl-nav .owl-next:hover {
-  background-color: #ee0979 !important;
+  background-color: #49B96D !important;
   color: #ffffff !important;
 }
 
@@ -1573,7 +1573,7 @@ About Area CSS
   display: block;
   margin-bottom: 10px;
   text-transform: uppercase;
-  color: #ee0979;
+  color: #49B96D;
   font-size: 12.5px;
   font-family: "Raleway", sans-serif;
   font-weight: 600;
@@ -1635,8 +1635,8 @@ About Area CSS
   top: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   z-index: -1;
   border-radius: 50%;
   -webkit-transition: 0.5s;
@@ -1718,7 +1718,7 @@ Featured Boxes Area CSS
 .single-featured-box .icon {
   -webkit-transition: .4s;
   transition: .4s;
-  color: #ee0979;
+  color: #49B96D;
   position: absolute;
   top: 40px;
   left: 50%;
@@ -1769,7 +1769,7 @@ Featured Boxes Area CSS
   visibility: hidden;
   -webkit-transition: .6;
   transition: .6;
-  color: #ee0979;
+  color: #49B96D;
   font-size: 15px;
   font-weight: 400;
 }
@@ -1783,8 +1783,8 @@ Featured Boxes Area CSS
   -webkit-transition: 0.5s;
   transition: 0.5s;
   height: 1px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
 }
 
 .single-featured-box .read-more-btn:hover::before {
@@ -1897,7 +1897,7 @@ Services Area CSS
   display: block;
   margin-bottom: 10px;
   text-transform: uppercase;
-  color: #ee0979;
+  color: #49B96D;
   font-size: 12.5px;
   font-family: "Raleway", sans-serif;
   font-weight: 500;
@@ -1992,7 +1992,7 @@ Services Area CSS
   position: absolute;
   left: 15px;
   top: 9px;
-  color: #ee0979;
+  color: #49B96D;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2010,8 +2010,8 @@ Services Area CSS
   width: 0;
   height: 100%;
   border-radius: 5px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2181,8 +2181,8 @@ Comparisons Area CSS
 }
 
 .comparisons-table table thead tr {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
 }
 
 .comparisons-table table thead th {
@@ -2220,7 +2220,7 @@ Comparisons Area CSS
   height: 20px;
   line-height: 17px;
   border-radius: 100%;
-  background-color: #ee0979;
+  background-color: #49B96D;
   color: #ffffff;
   display: block;
   margin: 0 auto;
@@ -2285,7 +2285,7 @@ Features Area CSS
   line-height: 65px;
   background-color: rgba(231, 70, 69, 0.2);
   border-radius: 50%;
-  color: #ee0979;
+  color: #49B96D;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   margin-bottom: 20px;
@@ -2342,8 +2342,8 @@ Features Area CSS
   z-index: -1;
   width: 0;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   border-radius: 5px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -2361,7 +2361,7 @@ Features Area CSS
 .single-features-box:hover .icon {
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
-  color: #ee0979;
+  color: #49B96D;
   background-color: #ffffff;
 }
 
@@ -2406,7 +2406,7 @@ Features Area CSS
   line-height: 65px;
   background-color: rgba(231, 70, 69, 0.2);
   border-radius: 50%;
-  color: #ee0979;
+  color: #49B96D;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   position: absolute;
@@ -2465,8 +2465,8 @@ Features Area CSS
   z-index: -1;
   width: 2px;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2483,7 +2483,7 @@ Features Area CSS
 .features-box:hover .icon {
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
-  color: #ee0979;
+  color: #49B96D;
   background-color: #ffffff;
 }
 
@@ -2594,7 +2594,7 @@ Team Area CSS
 }
 
 .single-team-member .member-image .social li a i {
-  background-color: #ee0979;
+  background-color: #49B96D;
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -2608,7 +2608,7 @@ Team Area CSS
 
 .single-team-member .member-image .social li a i:hover {
   background: #ffffff;
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .single-team-member .member-content {
@@ -2830,7 +2830,7 @@ Information Area CSS
   line-height: 45px;
   text-align: center;
   border-radius: 50%;
-  background-color: #ee0979;
+  background-color: #49B96D;
   color: #ffffff;
   position: absolute;
   left: 0;
@@ -2891,8 +2891,8 @@ Information Area CSS
   height: 100%;
   border-radius: 3px;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2965,8 +2965,8 @@ Information Area CSS
   height: 100%;
   border-radius: 3px;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
   opacity: 0;
@@ -3117,7 +3117,7 @@ Pricing Area CSS
 }
 
 .single-pricing-box .pricing-features li i {
-  color: #ee0979;
+  color: #49B96D;
   font-size: 12px;
   position: absolute;
   right: 0;
@@ -3131,8 +3131,8 @@ Pricing Area CSS
 }
 
 .single-pricing-box:hover .pricing-header::after {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   content: '';
   position: absolute;
   left: 0;
@@ -3144,15 +3144,15 @@ Pricing Area CSS
 }
 
 .single-pricing-box:hover .buy-btn .btn-primary::after {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   opacity: 1;
   visibility: visible;
 }
 
 .single-pricing-box.active .pricing-header::after {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   content: '';
   position: absolute;
   left: 0;
@@ -3164,8 +3164,8 @@ Pricing Area CSS
 }
 
 .single-pricing-box.active .buy-btn .btn-primary::before {
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   content: '';
   position: absolute;
   left: 0;
@@ -3204,7 +3204,7 @@ FunFacts Area CSS
 }
 
 .funfact h3 {
-  color: #ee0979;
+  color: #49B96D;
   margin-bottom: 2px;
   font-family: "Roboto", sans-serif;
   font-size: 35px;
@@ -3389,7 +3389,7 @@ Ready To Talk Area CSS
 }
 
 .ready-to-talk-content .btn-primary:hover, .ready-to-talk-content .btn-primary:focus {
-  color: #ee0979 !important;
+  color: #49B96D !important;
 }
 
 .ready-to-talk-content span a {
@@ -3579,8 +3579,8 @@ App Download Area CSS
   height: 100%;
   border-radius: 3px;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -3653,8 +3653,8 @@ App Download Area CSS
   height: 100%;
   border-radius: 3px;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
   opacity: 0;
@@ -3695,8 +3695,8 @@ Account Create Area CSS
 .account-create-area {
   position: relative;
   z-index: 1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   padding-top: 80px;
   padding-bottom: 80px;
 }
@@ -3830,13 +3830,13 @@ ul.entry-meta li a {
 }
 
 ul.entry-meta li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 ul.entry-meta li i {
   padding-right: 6px;
   font-style: normal;
-  color: #ee0979;
+  color: #49B96D;
 }
 
 /*================================================
@@ -3876,11 +3876,11 @@ Blog Details Area CSS
 }
 
 .blog-details .article-content .entry-meta ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .blog-details .article-content .entry-meta ul li i {
-  color: #ee0979;
+  color: #49B96D;
   margin-right: 2px;
 }
 
@@ -3891,7 +3891,7 @@ Blog Details Area CSS
   right: -15px;
   width: 6px;
   height: 1px;
-  background: #ee0979;
+  background: #49B96D;
 }
 
 .blog-details .article-content .entry-meta ul li:last-child {
@@ -3955,7 +3955,7 @@ Blog Details Area CSS
 }
 
 .blog-details .article-content .article-features-list li::before {
-  background: #ee0979;
+  background: #49B96D;
   height: 7px;
   width: 7px;
   content: '';
@@ -4009,7 +4009,7 @@ Blog Details Area CSS
 }
 
 .blog-details .article-footer .article-tags a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .blog-details .article-footer .article-share {
@@ -4045,7 +4045,7 @@ Blog Details Area CSS
 
 .blog-details .article-footer .article-share .social li a:hover {
   color: #ffffff;
-  background-color: #ee0979;
+  background-color: #49B96D;
 }
 
 blockquote, .blockquote {
@@ -4139,8 +4139,8 @@ blockquote::before, .blockquote::before {
 
 .comments-area .comment-body .reply a:hover {
   color: #ffffff;
-  background-color: #ee0979;
-  border-color: #ee0979;
+  background-color: #49B96D;
+  border-color: #49B96D;
 }
 
 .comments-area .comment-meta {
@@ -4185,7 +4185,7 @@ blockquote::before, .blockquote::before {
 }
 
 .comments-area .comment-metadata a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .comments-area .comment-content p {
@@ -4247,7 +4247,7 @@ blockquote::before, .blockquote::before {
 }
 
 .comments-area .comment-respond input[type="date"]:focus, .comments-area .comment-respond input[type="time"]:focus, .comments-area .comment-respond input[type="datetime-local"]:focus, .comments-area .comment-respond input[type="week"]:focus, .comments-area .comment-respond input[type="month"]:focus, .comments-area .comment-respond input[type="text"]:focus, .comments-area .comment-respond input[type="email"]:focus, .comments-area .comment-respond input[type="url"]:focus, .comments-area .comment-respond input[type="password"]:focus, .comments-area .comment-respond input[type="search"]:focus, .comments-area .comment-respond input[type="tel"]:focus, .comments-area .comment-respond input[type="number"]:focus, .comments-area .comment-respond textarea:focus {
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 .comments-area .comment-respond textarea {
@@ -4302,7 +4302,7 @@ blockquote::before, .blockquote::before {
 }
 
 .comments-area .comment-respond .form-submit input {
-  background-color: #ee0979;
+  background-color: #49B96D;
   border: none;
   color: #ffffff;
   padding: 11px 25px 10px;
@@ -4436,7 +4436,7 @@ Page Title Area CSS
 
 .page-title-text ul li {
   display: inline-block;
-  color: #ee0979;
+  color: #49B96D;
   margin-right: 10px;
   margin-left: 10px;
   position: relative;
@@ -4503,8 +4503,8 @@ Pagination Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: 0.5s;
@@ -4546,8 +4546,8 @@ Widget Sidebar Area CSS
 .widget-area .widget .widget-title::before {
   content: '';
   position: absolute;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   bottom: -1px;
   left: 0;
   width: 50px;
@@ -4587,7 +4587,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_search form .search-field:focus {
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 .widget-area .widget_search form button {
@@ -4610,8 +4610,8 @@ Widget Sidebar Area CSS
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   top: 0;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -4725,7 +4725,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_recent_entries ul li::before {
-  background: #ee0979;
+  background: #49B96D;
   position: absolute;
   height: 7px;
   width: 7px;
@@ -4739,7 +4739,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_recent_entries ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .widget-area .widget_recent_entries ul li .post-date {
@@ -4771,7 +4771,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_recent_comments ul li::before {
-  background: #ee0979;
+  background: #49B96D;
   height: 7px;
   width: 7px;
   content: '';
@@ -4790,7 +4790,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_recent_comments ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .widget-area .widget_categories ul {
@@ -4813,7 +4813,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_categories ul li::before {
-  background: #ee0979;
+  background: #49B96D;
   height: 7px;
   width: 7px;
   content: '';
@@ -4827,7 +4827,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_categories ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .widget-area .widget_categories ul li .post-count {
@@ -4855,7 +4855,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_meta ul li::before {
-  background: #ee0979;
+  background: #49B96D;
   height: 7px;
   width: 7px;
   content: '';
@@ -4869,7 +4869,7 @@ Widget Sidebar Area CSS
 }
 
 .widget-area .widget_meta ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .widget-area .widget_tag_cloud .widget-title {
@@ -4895,8 +4895,8 @@ Widget Sidebar Area CSS
   top: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   z-index: -1;
   opacity: 0;
   visibility: hidden;
@@ -4908,7 +4908,7 @@ Widget Sidebar Area CSS
 
 .widget-area .tagcloud a:hover, .widget-area .tagcloud a:focus {
   color: #ffffff;
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 .widget-area .tagcloud a:hover::before, .widget-area .tagcloud a:focus::before {
@@ -5021,7 +5021,7 @@ FAQ Area CSS
   width: 40px;
   text-align: center;
   height: 100%;
-  background: #ee0979;
+  background: #49B96D;
   color: #ffffff;
 }
 
@@ -5233,7 +5233,7 @@ Login Area CSS
 
 .login-content .login-form form .forgot-password a {
   display: inline-block;
-  color: #ee0979;
+  color: #49B96D;
   text-decoration: underline;
   font-size: 14px;
 }
@@ -5246,13 +5246,13 @@ Login Area CSS
   display: block;
   width: 100%;
   position: relative;
-  border: 1px solid #ee0979;
+  border: 1px solid #49B96D;
   background-color: transparent;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   padding: 11px 30px;
   border-radius: 2px;
-  color: #ee0979;
+  color: #49B96D;
   font-family: "Raleway", sans-serif;
   font-weight: 500;
 }
@@ -5290,9 +5290,9 @@ Login Area CSS
 }
 
 .login-content .login-form form .connect-with-social button:hover {
-  background-color: #ee0979;
+  background-color: #49B96D;
   color: #ffffff;
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 /*================================================
@@ -5383,13 +5383,13 @@ Signup Area CSS
   display: block;
   width: 100%;
   position: relative;
-  border: 1px solid #ee0979;
+  border: 1px solid #49B96D;
   background-color: transparent;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   padding: 11px 30px;
   border-radius: 2px;
-  color: #ee0979;
+  color: #49B96D;
   font-size: 15px;
   font-family: "Raleway", sans-serif;
   font-weight: 500;
@@ -5428,9 +5428,9 @@ Signup Area CSS
 }
 
 .signup-content .signup-form form .connect-with-social button:hover {
-  background-color: #ee0979;
+  background-color: #49B96D;
   color: #ffffff;
-  border-color: #ee0979;
+  border-color: #49B96D;
 }
 
 /*================================================
@@ -5527,7 +5527,7 @@ Contact Area CSS
 }
 
 .contact-info ul li .icon {
-  border: 1px dashed #ee0979;
+  border: 1px dashed #49B96D;
   width: 60px;
   height: 60px;
   line-height: 60px;
@@ -5550,8 +5550,8 @@ Contact Area CSS
   right: 0;
   top: 0;
   bottom: 0;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   border-radius: 50%;
   margin: 5px;
   z-index: -1;
@@ -5591,7 +5591,7 @@ Contact Area CSS
 }
 
 .contact-info ul li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .contact-info ul li:hover .icon {
@@ -5629,7 +5629,7 @@ Contact Area CSS
 Currency Rates Area CSS
 =================================================*/
 .currency-rates-area .section-title p strong {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .currency-rates-table table {
@@ -5720,7 +5720,7 @@ Footer Area CSS
 }
 
 .single-footer-widget h3::before {
-  background: #ee0979;
+  background: #49B96D;
   content: '';
   position: absolute;
   bottom: -1px;
@@ -5748,7 +5748,7 @@ Footer Area CSS
 
 .single-footer-widget .list li a:hover {
   padding-left: 5px;
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .single-footer-widget .list li:last-child {
@@ -5776,7 +5776,7 @@ Footer Area CSS
 }
 
 .single-footer-widget .footer-contact-info li a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .single-footer-widget .footer-contact-info li:last-child {
@@ -5810,15 +5810,15 @@ Footer Area CSS
   height: 30px;
   border: 1px solid #ece9e9;
   border-radius: 50%;
-  color: #ee0979;
+  color: #49B96D;
   display: inline-block;
   font-size: 12px;
 }
 
 .single-footer-widget .social-links li a:hover {
   color: #ffffff;
-  border-color: #ee0979;
-  background-color: #ee0979;
+  border-color: #49B96D;
+  background-color: #49B96D;
 }
 
 .copyright-area {
@@ -5836,12 +5836,12 @@ Footer Area CSS
 
 .copyright-area p a {
   display: inline-block;
-  color: #ee0979;
+  color: #49B96D;
   font-weight: 400;
 }
 
 .copyright-area p a:hover {
-  color: #ee0979;
+  color: #49B96D;
 }
 
 .map-image {
@@ -5869,8 +5869,8 @@ Go Top CSS
   cursor: pointer;
   bottom: 15px;
   right: 15px;
-  background: -webkit-gradient(linear, left top, right top, from(#ee0979), to(#ff6a00));
-  background: linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#49B96D), to(#80C353));
+  background: linear-gradient(90deg, #49B96D 0%, #80C353 100%);
   z-index: 4;
   width: 40px;
   text-align: center;
@@ -5916,7 +5916,7 @@ Go Top CSS
 }
 
 .main-text-content a {
-  color: #ee0979;
+  color: #49B96D;
   text-decoration: underline;
 }
 

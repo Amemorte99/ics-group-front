@@ -1,8 +1,20 @@
 {
+  "../components/AboutUs/AboutContent.js -> react-modal-video": {
+    "id": "./node_modules/react-modal-video/lib/index.js",
+    "files": [
+      "static/chunks/node_modules_react-modal-video_lib_index_js.js"
+    ]
+  },
   "../components/Common/CustomersFeedback.js -> react-owl-carousel3": {
     "id": "./node_modules/react-owl-carousel3/lib/OwlCarousel.js",
     "files": [
       "static/chunks/node_modules_react-owl-carousel3_lib_OwlCarousel_js.js"
+    ]
+  },
+  "../components/HomeFour/MainBanner.js -> react-modal-video": {
+    "id": "./node_modules/react-modal-video/lib/index.js",
+    "files": [
+      "static/chunks/node_modules_react-modal-video_lib_index_js.js"
     ]
   },
   "../node_modules/next/dist/client/next-dev.js -> ./dev/noop": {
