@@ -709,7 +709,7 @@ Navbar Area CSS
   width: 100%;
   height: auto;
   z-index: 999;
-  background-color: #573695 !important;
+  background-color: transparent !important;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   padding-top: 25px;
@@ -1049,7 +1049,7 @@ Main Banner Area CSS
   height: 80vh;
   background-image: url(/images/main-banner-ICS-01.png);
   background-position: center 12%;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
