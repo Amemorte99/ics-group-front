@@ -1,20 +1,19 @@
-
 import React, { Component } from 'react';
 import Link from '../../utils/ActiveLink';
 
 class Navbar extends Component {
-
-    // Navbar 
     _isMounted = false;
     state = {
         display: false,
         collapsed: true
     };
+
     toggleNavbar = () => {
         this.setState({
             collapsed: !this.state.collapsed,
         });
     }
+
     componentDidMount() {
         let elementId = document.getElementById("navbar");
         document.addEventListener("scroll", () => {
@@ -26,12 +25,12 @@ class Navbar extends Component {
         });
         window.scrollTo(0, 0);
     }
+
     componentWillUnmount() {
         this._isMounted = false;
     }
 
     render() {
-
         const { collapsed } = this.state;
         const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
         const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
@@ -54,7 +53,8 @@ class Navbar extends Component {
                                     className={classTwo}
                                     type="button"
                                     data-toggle="collapse"
-                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    data-target="#navbarSupportedContent"
+                                    aria-controls="navbarSupportedContent"
                                     aria-expanded="false"
                                     aria-label="Toggle navigation"
                                 >
@@ -70,64 +70,62 @@ class Navbar extends Component {
                                                 <a className="nav-link">Accueil</a>
                                             </Link>
                                         </li>
+
                                         <li className="nav-item">
                                             <Link href="/about-us" activeClassName="active">
                                                 <a className="nav-link">À propos</a>
                                             </Link>
                                         </li>
-                                        {/* <li className="nav-item">
-                                            
-                                            <Link href="#">
-                                                <a className="nav-link" onClick={e => e.preventDefault()}>
-                                                    Home <i className="fas fa-chevron-down"></i>
-                                                </a>
-                                            </Link>
 
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/" activeClassName="active">
-                                                        <a className="nav-link">Home demo one</a>
-                                                    </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link href="/index2" activeClassName="active">
-                                                        <a className="nav-link">Home demo two</a>
-                                                    </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link href="/index3" activeClassName="active">
-                                                        <a className="nav-link">Home demo three</a>
-                                                    </Link>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <Link href="/index4" activeClassName="active">
-                                                        <a className="nav-link">Home demo four</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li> */}
-
-                                        {/* SERVICES */}
-                                        <li className="nav-item dropdown">
-                                           <Link href="#">
-                                                <a className="nav-link" onClick={e => e.preventDefault()}>
+                                        {/* Menu Services - Identique sur mobile et desktop */}
+                                        <li className="nav-item">
+                                            <Link href="/services">
+                                                <a className="nav-link dropdown-toggle" onClick={e => e.preventDefault()}>
                                                     Services <i className="fas fa-chevron-down"></i>
                                                 </a>
                                             </Link>
                                             <ul className="dropdown-menu">
-                                                <li><Link href="/services/marketing"><a className="nav-link">Marketing digital</a></Link></li>
-                                                <li><Link href="/services/design"><a className="nav-link">Design graphique</a></Link></li>
-                                                <li><Link href="/services/web"><a className="nav-link">Web & Applications</a></Link></li>
-                                                <li><Link href="/services/cybersecurite"><a className="nav-link">Cybersécurité</a></Link></li>
-                                                <li><Link href="/services/energie"><a className="nav-link">Énergies renouvelables</a></Link></li>
-                                                <li><Link href="/services/data"><a className="nav-link">Data Analysis</a></Link></li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/design" activeClassName="active">
+                                                        <a className="nav-link">Design graphique</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/web" activeClassName="active">
+                                                        <a className="nav-link">Web & Applications</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/cybersecurite" activeClassName="active">
+                                                        <a className="nav-link">Cybersécurité</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/energie" activeClassName="active">
+                                                        <a className="nav-link">Énergies renouvelables</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/reseaux" activeClassName="active">
+                                                        <a className="nav-link">Réseaux & Télécoms</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/data" activeClassName="active">
+                                                        <a className="nav-link">Data Analysis</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/consulting" activeClassName="active">
+                                                        <a className="nav-link">Consulting & Formations</a>
+                                                    </Link>
+                                                </li>
                                             </ul>
                                         </li>
 
-
                                         <li className="nav-item">
-                                            <Link href="/solutions" activeClassName="active">
-                                                <a className="nav-link">Solutions</a>
+                                            <Link href="/team" activeClassName="active">
+                                                <a className="nav-link">Équipe</a>
                                             </Link>
                                         </li>
 
@@ -137,108 +135,19 @@ class Navbar extends Component {
                                             </Link>
                                         </li>
 
-                                  
-                                
-                                        <li className="nav-item">
-                                            <Link href="#">
-                                                <a className="nav-link" onClick={e => e.preventDefault()}>
-                                                    Pages <i className="fas fa-chevron-down"></i>
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/about-us" activeClassName="active">
-                                                        <a className="nav-link">About us</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="#">
-                                                        <a className="nav-link" onClick={e => e.preventDefault()}>
-                                                            New dropdown <i className="fas fa-chevron-down"></i>
-                                                        </a>
-                                                    </Link>
-
-                                                    <ul className="dropdown-menu">
-                                                        <li className="nav-item">
-                                                            <Link href="#" activeClassName="active">
-                                                                <a className="nav-link">2nd level</a>
-                                                            </Link>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <Link href="#">
-                                                                <a className="nav-link" onClick={e => e.preventDefault()}>
-                                                                    Another dropdown <i className="fas fa-chevron-down"></i>
-                                                                </a>
-                                                            </Link>
-
-                                                            <ul className="dropdown-menu">
-                                                                <li className="nav-item">
-                                                                    <Link href="#" activeClassName="active">
-                                                                        <a className="nav-link">3rd level</a>
-                                                                    </Link>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/team" activeClassName="active">
-                                                        <a className="nav-link">Team</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/pricing" activeClassName="active">
-                                                        <a className="nav-link">Pricing</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/faq" activeClassName="active">
-                                                        <a className="nav-link">FAQ</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/sign-up" activeClassName="active">
-                                                        <a className="nav-link">Signup</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/login" activeClassName="active">
-                                                        <a className="nav-link">Login</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/404" activeClassName="active">
-                                                        <a className="nav-link">404 error</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
                                         <li className="nav-item">
                                             <Link href="/contact" activeClassName="active">
                                                 <a className="nav-link">Contact</a>
                                             </Link>
                                         </li>
                                     </ul>
-                                  
 
                                     <div className="others-options">
-                                        <Link href="/login">
-                                            <a className="login-btn">
-                                                <i className="flaticon-user"></i> Login
-                                            </a>
+                                        <Link href="/contact">
+                                            <a className="btn btn-primary">Nous contacter</a>
                                         </Link>
                                     </div>
                                 </div>
-
                             </nav>
                         </div>
                     </div>
