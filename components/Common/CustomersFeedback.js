@@ -20,10 +20,10 @@ class CustomersFeedback extends Component {
 
     _isMounted = false;
     state = {
-        display:false
+        display: false
     }
 
-    componentDidMount(){ 
+    componentDidMount() { 
         this._isMounted = true;
         this.setState({ display: true }) 
     }
@@ -37,9 +37,9 @@ class CustomersFeedback extends Component {
             <section className="feedback-area ptb-70 bg-f7fafd">
                 <div className="container">
                     <div className="section-title">
-                        <h2>What customers say about Us</h2>
+                        <h2>Ce que nos clients disent de nous</h2>
                         <div className="bar"></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>La satisfaction de nos clients est au cœur de notre démarche. Découvrez les retours d’expérience de ceux qui nous ont fait confiance pour leurs projets en design, développement digital, cybersécurité, énergies renouvelables et réseaux télécoms.</p>
                     </div>
 
                     {this.state.display ? <OwlCarousel 
@@ -50,13 +50,13 @@ class CustomersFeedback extends Component {
                             <div className="single-feedback">
                                 <i className="fas fa-quote-left quote-icon"></i>
                                 <p>
-                                    <q>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</q>
+                                    <q>ICS GROUPE a su parfaitement comprendre nos besoins en communication visuelle. Les supports conçus ont boosté notre image de marque et nos argumentaires commerciaux font désormais la différence sur le terrain. Une équipe à l'écoute et très professionnelle !</q>
                                 </p>
 
                                 <div className="client-img">
                                     <img src="/images/clients/client1.jpg" alt="image" />
-                                    <h3>John Lucy</h3>
-                                    <span>Founder & Consultant</span>
+                                    <h3>Marie Dupont</h3>
+                                    <span>Directrice Marketing</span>
                                 </div>
                             </div>
                         </div>
@@ -65,13 +65,13 @@ class CustomersFeedback extends Component {
                             <div className="single-feedback">
                                 <i className="fas fa-quote-left quote-icon"></i>
                                 <p>
-                                    <q>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</q>
+                                    <q>Grâce à ICS GROUPE, notre site web et notre application mobile sont enfin modernes et performants. L’informatisation de nos systèmes nous fait gagner un temps précieux au quotidien. Je recommande vivement !</q>
                                 </p>
 
                                 <div className="client-img">
                                     <img src="/images/clients/client2.jpg" alt="image" />
-                                    <h3>John Smith</h3>
-                                    <span>CTO  & Consultant</span>
+                                    <h3>Pierre Martin</h3>
+                                    <span>PDG d’une PME</span>
                                 </div>
                             </div>
                         </div>
@@ -80,13 +80,13 @@ class CustomersFeedback extends Component {
                             <div className="single-feedback">
                                 <i className="fas fa-quote-left quote-icon"></i>
                                 <p>
-                                    <q>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</q>
+                                    <q>L’équipe cybersécurité d’ICS GROUPE nous a accompagnés dans l’audit et le renforcement de nos infrastructures. Nous abordons désormais la transformation digitale en toute sérénité. Expertise et réactivité au top !</q>
                                 </p>
 
                                 <div className="client-img">
                                     <img src="/images/clients/client3.jpg" alt="image" />
-                                    <h3>Maxwel Warner</h3>
-                                    <span>Chief Manager</span>
+                                    <h3>Sophie Bernard</h3>
+                                    <span>Responsable IT</span>
                                 </div>
                             </div>
                         </div>
@@ -95,13 +95,13 @@ class CustomersFeedback extends Component {
                             <div className="single-feedback">
                                 <i className="fas fa-quote-left quote-icon"></i>
                                 <p>
-                                    <q>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</q>
+                                    <q>Installation complète de panneaux solaires avec un suivi personnalisé et un respect total du budget. Notre consommation énergétique a fortement baissé et l’équipe reste disponible pour la maintenance. Excellent service !</q>
                                 </p>
 
                                 <div className="client-img">
                                     <img src="/images/clients/client4.jpg" alt="image" />
-                                    <h3>Ross Taylor</h3>
-                                    <span>Web Developer</span>
+                                    <h3>Thomas Leclerc</h3>
+                                    <span>Propriétaire d’entreprise</span>
                                 </div>
                             </div>
                         </div>
@@ -110,13 +110,13 @@ class CustomersFeedback extends Component {
                             <div className="single-feedback">
                                 <i className="fas fa-quote-left quote-icon"></i>
                                 <p>
-                                    <q>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</q>
+                                    <q>ICS GROUPE a interconnecté nos différents sites avec une liaison fiable et optimisé toute notre infrastructure réseau. La connectivité est enfin stable et performante. Un vrai partenaire de confiance.</q>
                                 </p>
 
                                 <div className="client-img">
                                     <img src="/images/clients/client5.jpg" alt="image" />
-                                    <h3>James Anderson</h3>
-                                    <span>Web Developer</span>
+                                    <h3>Lucas Moreau</h3>
+                                    <span>Administrateur Réseau</span>
                                 </div>
                             </div>
                         </div>

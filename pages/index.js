@@ -29,7 +29,7 @@ class Index extends Component {
 
                 <ServicesCard />
 
-                <ComparisonsTable />
+                {/* <ComparisonsTable /> */}
 
                 <OurFeaturesContent />
 

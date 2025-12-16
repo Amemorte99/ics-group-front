@@ -7,9 +7,9 @@ class FunFacts extends Component {
             <section className="funfacts-area ptb-70 pt-0">
                 <div className="container">
                     <div className="section-title">
-                        <h2>We always try to understand customers expectation</h2>
+                        <h2>Nous nous efforçons toujours de comprendre les attentes de nos clients</h2>
                         <div className="bar"></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>Chez ICS GROUPE, la satisfaction client est notre priorité. Nous mettons tout en œuvre pour proposer des solutions innovantes, sécurisées et parfaitement adaptées à vos besoins en transformation digitale, cybersécurité et énergies renouvelables.</p>
                     </div>
 
                     <div className="row">
@@ -43,11 +43,11 @@ class FunFacts extends Component {
                     </div>
 
                     <div className="contact-cta-box">
-                        <h3>Have any questions about us?</h3>
-                        <p>Don't hesitate to contact us</p>
+                        <h3>Des questions à nous poser ?</h3>
+                        <p>N’hésitez pas à nous contacter</p>
 
                         <Link href="/contact">
-                            <a className="btn btn-primary">Contact Us</a>
+                            <a className="btn btn-primary">Nous Contacter</a>
                         </Link>
                     </div>
 
