@@ -9,13 +9,13 @@ class EasyPaymentBorrow extends Component {
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12">
                             <div className="invoicing-content">
-                                <h2>Easy Payment to borrow free get a better filling at home</h2>
+                                <h2>Votre partenaire pour une transformation digitale et énergétique réussie</h2>
                                 <div className="bar"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer.</p>
+                                <p>ICS GROUPE vous accompagne avec des solutions innovantes en cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting sur mesure.</p>
+                                <p>De l’étude de vos besoins à la mise en œuvre et la maintenance, notre équipe d’experts certifiés assure une transition fluide, sécurisée et rentable, tout en respectant votre budget et vos objectifs écologiques.</p>
 
-                                <Link href="/contact">
-                                    <a className="btn btn-primary">Get Started</a>
+                     ß           <Link href="/contact">
+                                    <a className="btn btn-primary">Nous Contacter</a>
                                 </Link>
                             </div>
                         </div>

@@ -10,39 +10,39 @@ class AppDownloadContent extends Component {
                         <div className="col-lg-6 col-md-12">
                             <div className="app-image">
                                 <div className="main-image">
-                                    <img src="/images/mobile-app1.png" className="wow fadeInLeft" data-wow-delay="0.6s" alt="image" />
-                                    <img src="/images/mobile-app2.png" className="wow fadeInUp" data-wow-delay="0.9s" alt="image" />
+                                    <img src="/images/mobile-app1.png" className="wow fadeInLeft" data-wow-delay="0.6s" alt="Application mobile ICS GROUPE" />
+                                    <img src="/images/mobile-app2.png" className="wow fadeInUp" data-wow-delay="0.9s" alt="Interface app ICS GROUPE" />
                                 </div>
 
                                 <div className="main-mobile-image">
-                                    <img src="/images/main-mobile.png" className="wow fadeInUp" data-wow-delay="0.6s" alt="image" />
+                                    <img src="/images/main-mobile.png" className="wow fadeInUp" data-wow-delay="0.6s" alt="Application mobile ICS GROUPE" />
                                 </div>
 
                                 <div className="circle-img">
-                                    <img src="/images/circle.png" alt="image" />
+                                    <img src="/images/circle.png" alt="décoratif" />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-lg-6 col-md-12">
                             <div className="app-download-content">
-                                <h2>You can find all the thing you need to payout</h2>
+                                <h2>Une application mobile pour gérer tous vos projets avec ICS GROUPE</h2>
                                 <div className="bar"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                                <p>Suivez en temps réel vos installations solaires, consultez vos audits cybersécurité, gérez vos réseaux et accédez à vos analyses de données où que vous soyez.</p>
 
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.</p>
+                                <p>Notre application vous permet de rester connecté à vos projets, recevoir des alertes, demander une intervention ou consulter vos rapports en toute simplicité et sécurité.</p>
 
                                 <div className="btn-box">
-                                    <a href="https://www.apple.com/app-store/" className="app-store-btn" target="_blank">
+                                    <a href="https://www.apple.com/app-store/" className="app-store-btn" target="_blank" rel="noopener noreferrer">
                                         <i className="flaticon-apple"></i>
-                                        Download on
+                                        Télécharger sur
                                         <span>App Store</span>
                                     </a>
 
-                                    <a href="https://play.google.com/store/apps" className="play-store-btn" target="_blank">
+                                    <a href="https://play.google.com/store/apps" className="play-store-btn" target="_blank" rel="noopener noreferrer">
                                         <i className="flaticon-play-store"></i>
-                                        Download on
-                                        <span>Google play</span>
+                                        Télécharger sur
+                                        <span>Google Play</span>
                                     </a> 
                                 </div>
                             </div>
