@@ -41,7 +41,7 @@ class FeaturedCard extends Component {
                             <div className="col-lg-3 col-sm-6 col-md-6 p-0">
                                 <div className="single-featured-box">
                                     <div className="icon color-1ac0c6">
-                                        <i className="flaticon-wallet"></i>
+                                        <i className="flaticon-shield"></i>
                                     </div>
                                     <h3>Cybersécurité</h3>
                                     <p>Renforcement de la résilience face aux cybermenaces avec des experts certifiés et solutions innovantes.</p>
@@ -55,7 +55,7 @@ class FeaturedCard extends Component {
                             <div className="col-lg-3 col-sm-6 col-md-6 p-0">
                                 <div className="single-featured-box">
                                     <div className="icon">
-                                        <i className="flaticon-shield"></i>
+                                        <i className="flaticon-wallet"></i>
                                     </div>
                                     <h3>Énergies Renouvelables</h3>
                                     <p>Solutions solaires complètes : vente, installation, maintenance et optimisation énergétique sur mesure.</p>
