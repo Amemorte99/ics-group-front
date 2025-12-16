@@ -6,7 +6,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({});
 /************************************************************************/
@@ -45,20 +45,20 @@
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
+/******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/create fake namespace object */
-/******/ 	!function() {
-/******/ 		var getProto = Object.getPrototypeOf ? function(obj) { return Object.getPrototypeOf(obj); } : function(obj) { return obj.__proto__; };
+/******/ 	(() => {
+/******/ 		var getProto = Object.getPrototypeOf ? (obj) => (Object.getPrototypeOf(obj)) : (obj) => (obj.__proto__);
 /******/ 		var leafPrototypes;
 /******/ 		// create a fake namespace object
 /******/ 		// mode & 1: value is a module id, require it
@@ -78,78 +78,78 @@
 /******/ 			var def = {};
 /******/ 			leafPrototypes = leafPrototypes || [null, getProto({}), getProto([]), getProto(getProto)];
 /******/ 			for(var current = mode & 2 && value; typeof current == 'object' && !~leafPrototypes.indexOf(current); current = getProto(current)) {
-/******/ 				Object.getOwnPropertyNames(current).forEach(function(key) { def[key] = function() { return value[key]; }; });
+/******/ 				Object.getOwnPropertyNames(current).forEach((key) => (def[key] = () => (value[key])));
 /******/ 			}
-/******/ 			def['default'] = function() { return value; };
+/******/ 			def['default'] = () => (value);
 /******/ 			__webpack_require__.d(ns, def);
 /******/ 			return ns;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/ensure chunk */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		__webpack_require__.f = {};
 /******/ 		// This file contains only the entry chunk.
 /******/ 		// The chunk loading function for additional chunks
-/******/ 		__webpack_require__.e = function(chunkId) {
-/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce(function(promises, key) {
+/******/ 		__webpack_require__.e = (chunkId) => {
+/******/ 			return Promise.all(Object.keys(__webpack_require__.f).reduce((promises, key) => {
 /******/ 				__webpack_require__.f[key](chunkId, promises);
 /******/ 				return promises;
 /******/ 			}, []));
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/get javascript chunk filename */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// This function allow to reference async chunks and sibling chunks for the entrypoint
-/******/ 		__webpack_require__.u = function(chunkId) {
+/******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/startup entrypoint */
-/******/ 	!function() {
-/******/ 		__webpack_require__.X = function(result, chunkIds, fn) {
+/******/ 	(() => {
+/******/ 		__webpack_require__.X = (result, chunkIds, fn) => {
 /******/ 			// arguments: chunkIds, moduleId are deprecated
 /******/ 			var moduleId = chunkIds;
-/******/ 			if(!fn) chunkIds = result, fn = function() { return __webpack_require__(__webpack_require__.s = moduleId); };
+/******/ 			if(!fn) chunkIds = result, fn = () => (__webpack_require__(__webpack_require__.s = moduleId));
 /******/ 			chunkIds.map(__webpack_require__.e, __webpack_require__)
 /******/ 			var r = fn();
 /******/ 			return r === undefined ? result : r;
 /******/ 		}
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/require chunk loading */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// no baseURI
 /******/ 		
 /******/ 		// object to store loaded chunks
@@ -160,7 +160,7 @@
 /******/ 		
 /******/ 		// no on chunks loaded
 /******/ 		
-/******/ 		var installChunk = function(chunk) {
+/******/ 		var installChunk = (chunk) => {
 /******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids, runtime = chunk.runtime;
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
@@ -174,7 +174,7 @@
 /******/ 		};
 /******/ 		
 /******/ 		// require() chunk loading for javascript
-/******/ 		__webpack_require__.f.require = function(chunkId, promises) {
+/******/ 		__webpack_require__.f.require = (chunkId, promises) => {
 /******/ 			// "1" is the signal for "already loaded"
 /******/ 			if(!installedChunks[chunkId]) {
 /******/ 				if("webpack-runtime" != chunkId) {
@@ -189,7 +189,7 @@
 /******/ 		// no HMR
 /******/ 		
 /******/ 		// no HMR manifest
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
