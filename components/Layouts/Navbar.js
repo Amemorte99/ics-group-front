@@ -142,11 +142,15 @@ class Navbar extends Component {
                                         </li>
                                     </ul>
 
+                                   
+
                                     <div className="others-options">
-                                        <Link href="/contact">
-                                            <a className="btn btn-primary">Nous contacter</a>
-                                        </Link>
-                                    </div>
+                                        <Link href="/login">
+                                            <a className="login-btn">
+                                                <i className="flaticon-user"></i> Se connecter
+                                            </a>
+                                        </Link>
+                                    </div>
                                 </div>
                             </nav>
                         </div>
