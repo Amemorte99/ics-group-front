@@ -9,8 +9,9 @@ class ContactInfoContent extends Component {
                         <div className="icon">
                             <i className="fas fa-map-marker-alt"></i>
                         </div>
-                        <span>Address</span>
-                        27 Division St, New York, NY 10002, USA
+                        <span>Adresse</span>
+                        Rue de Corniche, Sabangali,<br />
+                        N'Djamena, Tchad
                     </li>
 
                     <li>
@@ -18,17 +19,25 @@ class ContactInfoContent extends Component {
                             <i className="fas fa-envelope"></i>
                         </div>
                         <span>Email</span> 
-                        <a href="mailto:infohaiper@haiper.com">infohaiper@haiper.com</a>  
-                        <a href="mailto:fax@haiper.com">fax@haiper.com</a>
+                        <a href="mailto:info@icsgroupe.com">info@icsgroupe.com</a>  
                     </li>
 
                     <li>
                         <div className="icon">
                             <i className="fas fa-phone-volume"></i>
                         </div>
-                        <span>Phone</span> 
-                        <a href="tel:+(321)984754">+ (321) 984 754</a>
-                        <a href="tel:+1-212-9876543">+1-212-9876543</a>
+                        <span>Téléphone</span> 
+                        <a href="tel:+23564788831">+235 64 78 88 31</a>
+                    </li>
+
+                    <li>
+                        <div className="icon">
+                            <i className="fas fa-globe"></i>
+                        </div>
+                        <span>Site web</span> 
+                        <a href="https://www.icsgroupe.com" target="_blank" rel="noopener noreferrer">
+                            www.icsgroupe.com
+                        </a>
                     </li>
                 </ul>
             </div>
