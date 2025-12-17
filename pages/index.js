@@ -27,7 +27,7 @@ class Index extends Component {
 
                 <FeaturedCard limit={4}/>
 
-                <Rates />
+                {/* <Rates /> */}
 
                 <ServicesCard />
 
