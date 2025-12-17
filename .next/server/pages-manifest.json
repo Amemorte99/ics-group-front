@@ -2,7 +2,17 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/services/design": "pages/services/design.js",
+  "/services/energie": "pages/services/energie.js",
   "/services/marketing": "pages/services/marketing.js",
+  "/services/web": "pages/services/web.js",
+  "/services/reseaux": "pages/services/reseaux.js",
+  "/404": "pages/404.js",
+  "/services/consulting": "pages/services/consulting.js",
+  "/services/cybersecurite": "pages/services/cybersecurite.js",
   "/services/data": "pages/services/data.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/about-us": "pages/about-us.js",
+  "/pricing": "pages/pricing.js",
+  "/contact": "pages/contact.js"
 }

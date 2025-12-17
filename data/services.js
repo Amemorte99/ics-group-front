@@ -1,41 +1,53 @@
-
+// data/services.js
 const services = [
   {
-    title: "Marketing digital",
     slug: "marketing",
-    icon: "fas fa-bullhorn",
-    description: "Stratégie digitale, réseaux sociaux, publicité en ligne."
+    title: "Marketing Digital",
+    caption: "Stratégie digitale personnalisée pour booster votre visibilité et vos ventes",
+    image: "https://img.freepik.com/free-vector/digital-marketing-team-with-laptops-light-bulb_1262-17389.jpg"
   },
   {
-    title: "Design graphique",
     slug: "design",
-    icon: "fas fa-palette",
-    description: "Identité visuelle, branding, supports de communication."
+    title: "Design Graphique & Communication",
+    caption: "Supports visuels impactants pour renforcer votre image de marque",
+    image: "https://img.freepik.com/free-vector/graphic-designer-workplace_23-2148479690.jpg"
   },
   {
-    title: "Web & Applications",
     slug: "web",
-    icon: "fas fa-code",
-    description: "Sites web, applications métier, solutions sur mesure."
+    title: "Sites Web & Applications Mobiles",
+    caption: "Solutions digitales performantes et sur mesure",
+    image: "https://img.freepik.com/free-vector/web-development-illustration-concept_114360-173.jpg"
   },
   {
-    title: "Cybersécurité",
     slug: "cybersecurite",
-    icon: "fas fa-shield-alt",
-    description: "Audit, protection des systèmes, sécurité des données."
+    title: "Cybersécurité",
+    caption: "Protégez votre entreprise contre les menaces numériques",
+    image: "https://img.freepik.com/free-vector/cyber-security-concept_23-2148524799.jpg"
   },
   {
-    title: "Énergies renouvelables",
     slug: "energie",
-    icon: "fas fa-solar-panel",
-    description: "Solutions solaires et alternatives énergétiques."
+    title: "Énergies Renouvelables",
+    caption: "Solutions solaires complètes pour réduire votre facture énergétique",
+    image: "https://img.freepik.com/free-vector/solar-energy-concept-illustration_114360-1109.jpg"
   },
   {
-    title: "Data Analysis",
+    slug: "reseaux",
+    title: "Réseaux & Télécommunications",
+    caption: "Connectivité fiable et performante pour votre infrastructure",
+    image: "https://img.freepik.com/free-vector/network-concept-illustration_114360-147.jpg"
+  },
+  {
     slug: "data",
-    icon: "fas fa-chart-line",
-    description: "Analyse de données, reporting, aide à la décision."
-  }
+    title: "Data Analysis",
+    caption: "Transformez vos données en décisions stratégiques",
+    image: "https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-916.jpg"
+  },
+  {
+    slug: "consulting",
+    title: "Consulting & Formations",
+    caption: "Expertise et transfert de compétences pour vos équipes",
+    image: "https://img.freepik.com/free-vector/business-consulting-concept-illustration_114360-1039.jpg"
+  },
 ];
 
 export default services;

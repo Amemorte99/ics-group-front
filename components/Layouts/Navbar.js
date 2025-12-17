@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import Link from '../../utils/ActiveLink';
-import ServicesMenu from "../services/ServicesMenu";
 
 
 class Navbar extends Component {
@@ -108,23 +107,58 @@ class Navbar extends Component {
                                             </ul>            <a className="nav-link">Home demo two</a>
                                                     <
                                         </li> */}
-                                      
 
 
-                                        {/* SERVICES */}
-                                        <li className="nav-item dropdown">
-                                           <Link href="#">
-                                                <a className="nav-link" onClick={e => e.preventDefault()}>
+
+
+                                        {/* Menu Services - Complet et enrichi avec toutes les informations fournies */}
+                                        <li className="nav-item">
+                                            <Link href="/services">
+                                                <a className="nav-link dropdown" onClick={e => e.preventDefault()}>
                                                     Services <i className="fas fa-chevron-down"></i>
                                                 </a>
                                             </Link>
                                             <ul className="dropdown-menu">
-                                                <li><Link href="/services/marketing"><a className="nav-link">Marketing digital</a></Link></li>
-                                                <li><Link href="/services/design"><a className="nav-link">Design graphique</a></Link></li>
-                                                <li><Link href="/services/web"><a className="nav-link">Web & Applications</a></Link></li>
-                                                <li><Link href="/services/cybersecurite"><a className="nav-link">Cybersécurité</a></Link></li>
-                                                <li><Link href="/services/energie"><a className="nav-link">Énergies renouvelables</a></Link></li>
-                                                <li><Link href="/services/data"><a className="nav-link">Data Analysis</a></Link></li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/marketing" activeClassName="active">
+                                                        <a className="nav-link">Marketing Digital</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/design" activeClassName="active">
+                                                        <a className="nav-link">Design Graphique & Communication</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/web" activeClassName="active">
+                                                        <a className="nav-link">Sites Web & Applications Mobiles</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/cybersecurite" activeClassName="active">
+                                                        <a className="nav-link">Cybersécurité</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/energie" activeClassName="active">
+                                                        <a className="nav-link">Énergies Renouvelables</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/reseaux" activeClassName="active">
+                                                        <a className="nav-link">Réseaux & Télécommunications</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/data" activeClassName="active">
+                                                        <a className="nav-link">Data Analysis</a>
+                                                    </Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link href="/services/consulting" activeClassName="active">
+                                                        <a className="nav-link">Consulting & Formations</a>
+                                                    </Link>
+                                                </li>
                                             </ul>
                                         </li>
 
@@ -141,8 +175,8 @@ class Navbar extends Component {
                                             </Link>
                                         </li>
 
-                                  
-                                
+
+
                                         <li className="nav-item">
                                             <Link href="#">
                                                 <a className="nav-link" onClick={e => e.preventDefault()}>
@@ -232,7 +266,7 @@ class Navbar extends Component {
                                             </Link>
                                         </li>
                                     </ul>
-                                  
+
 
                                     <div className="others-options">
                                         <Link href="/login">
