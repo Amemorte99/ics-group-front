@@ -263,12 +263,12 @@ const PortfolioContent = ({ limit }) => {
 
             {/* Modal avec fond semi-transparent (on voit derrière) */}
             {selectedProject && (
-                <div className="portfolio-modal-backdrop" onClick={closeModal}>
-                    <div className="portfolio-modal-content" onClick={(e) => e.stopPropagation()}>
+                <div className="portfolio-modal-backdrop " onClick={closeModal}>
+                    <div className="portfolio-modal-content  " onClick={(e) => e.stopPropagation()}>
                         <button className="modal-close-btn" onClick={closeModal}>×</button>
 
-                        <div className="modal-header text-center py-4 bg-primary text-white">
-                            <h3 className="mb-0">{selectedProject.title}</h3>
+                        <div className="modal-header text-center py-4  text-white">
+                            <h3 className="mb-0 ">{selectedProject.title}</h3>
                             <p className="mb-0 mt-2 opacity-90">
                                 {categories.find(c => c.key === selectedProject.category)?.label}
                             </p>
