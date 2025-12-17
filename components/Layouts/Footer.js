@@ -12,7 +12,7 @@ class Footer extends Component {
                             <div className="single-footer-widget">
                                 <div className="logo">
                                     <Link href="/">
-                                <a><img src="/images/logo-primary.png" alt="logo" style={{width:'150px', height:'100%',}}/></a>
+                                <a><img src="/images/logo-blanc.png" alt="logo" style={{width:'150px', height:'100%',}}/></a>
                                     </Link>
                                     <p>ICS GROUPE accompagne les entreprises et particuliers dans leurs projets de transformation digitale, cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting. Des solutions innovantes, sécurisées et durables, adaptées à vos besoins et à votre budget.</p>
                                 </div>
