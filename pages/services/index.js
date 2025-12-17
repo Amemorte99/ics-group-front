@@ -18,7 +18,7 @@ const ServicesPage = () => {
       />
 
       {/* Liste des services en cartes jolies */}
-      <section className="services-list-area ptb-100 bg-light my-5">
+      <section className="services-list-area ptb-100 bg-light py-5">
         <div className="container">
           <div className="row justify-content-center">
             {services.map((service) => (

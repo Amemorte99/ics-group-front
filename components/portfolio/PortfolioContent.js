@@ -41,10 +41,10 @@ const PortfolioContent = ({ limit }) => {  // Nouvelle prop "limit"
   ];
 
   return (
-    <section className="portfolio-content ptb-100 bg-light">
+    <section className="portfolio-content ptb-100 bg-light py-5">
       <div className="container">
         {/* Titre différent selon la page */}
-        <div className="section-title text-center mb-5">
+        <div className="section-title text-center y-5">
           <h2>{limit ? "Nos Réalisations Récentes" : "Notre Portfolio Complet"}</h2>
           {!limit && <p className="lead mt-3">Filtrez par catégorie pour découvrir tous nos projets</p>}
         </div>
