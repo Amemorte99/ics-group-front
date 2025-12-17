@@ -1,36 +1,43 @@
-import Link from "next/link";
-import services from "../../data/services";
+import React from 'react';
+import Link from 'next/link';
+import Navbar from '../../components/Layouts/Navbar';
+import Footer from '../../components/Layouts/Footer';
+import PageBannerContent from '../../components/Common/PageBannerContent';
+import services from '../../data/services';
 
-export default function ServicesPage() {
+const ServicesPage = () => {
   return (
     <>
-      <section className="services-list-area ptb-100">
-        <div className="container">
-          <div className="section-title text-center mb-50">
-            <h1>Nos Services</h1>
-            <div className="bar mx-auto"></div>
-            <p className="mt-3">
-              ICS GROUPE vous accompagne dans tous vos projets numériques, sécuritaires et énergétiques avec des solutions sur mesure.
-            </p>
-          </div>
+      {/* Navbar */}
+      <Navbar />
 
+      {/* Bannière */}
+      <PageBannerContent 
+        pageTitle="Nos Services" 
+        pageCaption="ICS GROUPE vous accompagne dans tous vos projets numériques, sécuritaires et énergétiques avec des solutions innovantes et sur mesure."
+      />
+
+      {/* Liste des services en cartes jolies */}
+      <section className="services-list-area ptb-100 bg-light my-5">
+        <div className="container">
           <div className="row justify-content-center">
             {services.map((service) => (
-              <div key={service.slug} className="col-lg-4 col-md-6 col-sm-8 mb-4">
-                <div className="service-card text-center h-100 shadow-sm rounded overflow-hidden">
-                  <div className="service-image">
+              <div key={service.slug} className="col-lg-4 col-md-6 col-sm-10 mb-5">
+                <div className="service-card h-100 rounded-lg shadow-lg overflow-hidden bg-white position-relative transition-all">
+                  <div className="service-img-wrapper">
                     <img 
                       src={service.image} 
-                      alt={service.title} 
-                      className="img-fluid w-100" 
-                      style={{ height: "220px", objectFit: "cover" }}
+                      alt={service.title}
+                      className="img-fluid w-100"
+                      style={{ height: "240px", objectFit: "cover" }}
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="h4 mb-3">{service.title}</h3>
-                    <p className="text-muted mb-4">{service.caption}</p>
+
+                  <div className="p-5 text-center">
+                    <h3 className="h4 fw-bold text-dark mb-3">{service.title}</h3>
+                    <p className="text-muted mb-4 px-3">{service.caption}</p>
                     <Link href={`/services/${service.slug}`}>
-                      <a className="btn btn-primary btn-sm">
+                      <a className="btn btn-primary rounded-pill px-5 py-2 shadow-sm">
                         En savoir plus →
                       </a>
                     </Link>
@@ -42,22 +49,57 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Footer */}
+      <Footer />
+
+      {/* Styles améliorés pour plus de beauté */}
       <style jsx>{`
+        .services-list-area {
+          background: #f8f9fa;
+        }
+
         .service-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          background: white;
+          transition: all 0.4s ease;
+          border: none;
         }
+
         .service-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+          transform: translateY(-15px);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15) !important;
         }
-        .section-title .bar {
-          width: 80px;
-          height: 4px;
+
+        .service-img-wrapper {
+          overflow: hidden;
+        }
+
+        .service-img-wrapper img {
+          transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-img-wrapper img {
+          transform: scale(1.1);
+        }
+
+        .btn-primary {
           background: #007bff;
-          margin: 20px auto;
+          border: none;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+          background: #0056b3;
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(0,123,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+          .service-card {
+            margin-bottom: 30px;
+          }
         }
       `}</style>
     </>
   );
-}
+};
+
+export default ServicesPage;

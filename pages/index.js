@@ -14,6 +14,8 @@ import AccountCreateArea from '../components/Common/AccountCreateArea';
 import BlogCard from '../components/Common/BlogCard';
 import Footer from '../components/Layouts/Footer';
 import Rates from '../components/Rates/Rates';
+import PortfolioContent from '../components/portfolio/PortfolioContent';
+
 
 class Index extends Component {
     render() {
@@ -23,7 +25,7 @@ class Index extends Component {
                 
                 <MainBanner />
 
-                <FeaturedCard />
+                <FeaturedCard limit={4}/>
 
                 <Rates />
 
@@ -45,7 +47,7 @@ class Index extends Component {
 
                 <AccountCreateArea />
 
-                <BlogCard />
+                <PortfolioContent limit={9}/>
 
                 <Footer />
             </>

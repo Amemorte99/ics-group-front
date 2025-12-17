@@ -6065,4 +6065,79 @@ Go Top CSS
     padding-bottom: 60px;
   }
 }
+
+/* //==================== Portoflio Styles ====================// */
+  .bg-gradient {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .page-banner-area h1 {
+          text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .banner-bar {
+          width: 120px;
+          height: 6px;
+          background: white;
+          margin: 25px auto;
+          border-radius: 3px;
+        }
+        .max-w-900 {
+          max-width: 900px;
+        }
+
+        .portfolio-filters .filter-btn {
+          background: white;
+          color: #333;
+          border: 2px solid #e0e0e0;
+          border-radius: 50px;
+          padding: 12px 28px;
+          font-weight: 600;
+          transition: all 0.4s ease;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .portfolio-filters .filter-btn:hover,
+        .portfolio-filters .filter-btn.active {
+          background: #E7376E;
+          color: white;
+          border-color: #E7376E;
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(167, 169, 172,0.3);
+        }
+
+        .portfolio-card {
+          background: white;
+          transition: all 0.5s ease;
+        }
+        .portfolio-card:hover {
+          transform: translateY(-20px);
+          box-shadow: 0 30px 60px rgba(0,0,0,0.2) !important;
+        }
+
+        .portfolio-img-wrapper {
+          position: relative;
+          overflow: hidden;
+        }
+        .portfolio-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          display: flex;
+          align-items: flex-end;
+          padding: 20px;
+        }
+        .portfolio-card:hover .portfolio-overlay {
+          opacity: 1;
+        }
+        .overlay-content h4, .overlay-content p {
+          color: white;
+          margin: 0;
+        }
+        .overlay-content h4 {
+          font-size: 1.3rem;
+          font-weight: 700;
+        }
 /*# sourceMappingURL=style.css.map */
