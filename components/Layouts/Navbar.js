@@ -44,8 +44,8 @@ class Navbar extends Component {
                             <nav className="navbar navbar-expand-md navbar-light">
                                 <Link href="/">
                                     <a className="navbar-brand">
-                                        <img src="/images/logo.png" alt="logo" />
-                                        <img src="/images/black-logo.png" alt="logo" />
+                                        <img src="/images/logo-blancrm.png" alt="logo" style={{ width: '100px', height: '100%' }} />
+                                        <img src="/images/logo-primary.png" alt="logo" style={{ width: '100px', height: '100%' }} />
                                     </a>
                                 </Link>
 
@@ -91,8 +91,7 @@ class Navbar extends Component {
                                                 </li>
                                                 <li className="nav-item">
                                                     <Link href="/index2" activeClassName="active">
-                                                        <a className="nav-link">Home demo two</a>
-                                                    </Link>
+                                            /Link>
                                                 </li>
                                                 <li className="nav-item">
                                                     <Link href="/index3" activeClassName="active">
@@ -104,7 +103,8 @@ class Navbar extends Component {
                                                         <a className="nav-link">Home demo four</a>
                                                     </Link>
                                                 </li>
-                                            </ul>
+                                            </ul>            <a className="nav-link">Home demo two</a>
+                                                    <
                                         </li> */}
 
                                         {/* SERVICES */}
