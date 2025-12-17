@@ -66,7 +66,7 @@ class Navbar extends Component {
                                 <div className={classOne} id="navbarSupportedContent">
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <Link href="/about-us" activeClassName="active">
+                                            <Link href="/" activeClassName="active">
                                                 <a className="nav-link">Accueil</a>
                                             </Link>
                                         </li>
