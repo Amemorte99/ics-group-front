@@ -15,7 +15,7 @@ export default async (req, res) => {
     const {name, email, number, subject, text} = req.body;
 
     const data = {
-        to: 'example@gmail.com',
+        to: 'info@icsgroupe.com',
         from: email,
         subject: 'Hi there',
         text: text,
