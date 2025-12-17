@@ -195,7 +195,7 @@ const PortfolioContent = ({ limit }) => {
                 {/* Titre */}
                 <div className="text-center mb-5">
                     <h2 className="display-5 fw-bold">
-                        {limit ? "Nos Réalisations Récentes" : "Notre Portfolio Complet"}
+                        {limit ? "Nos Récentes Réalisations " : "Notre Portfolio Complet"}
                     </h2>
                     {!limit && <p className="lead text-muted mt-3">Filtrez par catégorie pour découvrir tous nos projets</p>}
                 </div>
