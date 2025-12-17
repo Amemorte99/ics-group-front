@@ -43,8 +43,8 @@ class Navbar extends Component {
                             <nav className="navbar navbar-expand-md navbar-light">
                                 <Link href="/">
                                     <a className="navbar-brand">
-                                        <img src="/images/logo-blancrm.png" alt="logo" style={{ width: '100px', height: 'auto' }} />
-                                        <img src="/images/logo-blanc.png" alt="logo" style={{ width: '100px', height: 'auto' }} />
+                                        <img src="/images/logo-vert.png" alt="logo" style={{ width: '100px', height: 'auto' }} />
+                                        <img src="/images/logo-vert.png" alt="logo" style={{ width: '100px', height: 'auto' }} />
                                     </a>
                                 </Link>
 
