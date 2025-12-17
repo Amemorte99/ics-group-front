@@ -6184,5 +6184,100 @@ Go Top CSS
   background: #E7376E;
   color: white;
 }
+        /* Fond semi-transparent → on voit derrière */
+       .portfolio-modal-backdrop {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.7); /* 70% opacity → on voit derrière */
+          backdrop-filter: blur(10px); /* Effet flou moderne */
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
 
+        .portfolio-modal-content {
+          max-width: 1000px;
+          width: 100%;
+          max-height: 90vh;
+          background: white;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+          animation: modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-close-btn {
+          position: absolute;
+          top: 15px;
+          right: 25px;
+          background: rgba(0,0,0,0.6);
+          color: white;
+          border: none;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 10;
+        }
+
+        .modal-carousel {
+          background: #000;
+          text-align: center;
+        }
+
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255,255,255,0.8);
+          color: #333;
+          border: none;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          font-size: 28px;
+          cursor: pointer;
+        }
+
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        .thumbnails .thumb-img {
+          width: 100px;
+          height: 70px;
+          object-fit: cover;
+          border-radius: 10px;
+          cursor: pointer;
+          opacity: 0.6;
+          border: 3px solid transparent;
+          transition: all 0.3s;
+        }
+
+        .thumbnails .thumb-img.active {
+          opacity: 1;
+          border-color: #E7376E;
+        }
+
+        @media (max-width: 768px) {
+          .portfolio-modal-content {
+            max-height: 95vh;
+            border-radius: 15px;
+          }
+          .carousel-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+          }
+        }
 /*# sourceMappingURL=style.css.map */

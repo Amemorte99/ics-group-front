@@ -47,7 +47,7 @@ class Index extends Component {
 
                 <AccountCreateArea />
 
-                <PortfolioContent limit={9}/>
+                <PortfolioContent limit={6}/>
 
                 <Footer />
             </>
