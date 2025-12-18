@@ -75,6 +75,31 @@ class PartnerContent extends Component {
                                     <img src="https://cdn-jiaid.nitrocdn.com/sBOmYoPflieFmyCBYUQxHgieeDkCXAdy/assets/images/optimized/rev-1a1179f/csesolarusa.com/wp-content/uploads/2023/06/SolarEdge-logo-2.png" alt="Partenaire SolarEdge" />
                                 </a>
                             </div>
+
+
+                              {/* Société des Hydrocarbures du Tchad (SHT) */}
+                            <div className="single-partner-item">
+                                <a href="https://sht-td.com/" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/sht.jpeg" className="img-fluid" 
+                                            style={{ maxHeight: "100px", width: "100%" }} alt="Partenaire Microsoft" />
+                                </a>
+                            </div>
+
+                             {/* CFAO Equipment Tchad */}
+                            <div className="single-partner-item">
+                                <a href="https://cfaoequipment-tchad.com" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/CFAO-Motor-TCHAD.jpg" className="img-fluid" 
+                                            style={{ maxHeight: "100px", width: "100%" }} alt="Partenaire Oracle" />
+                                </a>
+                            </div>
+
+                           {/* CPA Tchad */}
+                            <div className="single-partner-item">
+                                <a href="https://cpa-tchad.org" target="_blank" rel="noopener noreferrer">
+                                    <img src="/images/logo-cpa-1.png" className="img-fluid" 
+                                            style={{ maxHeight: "100px", width: "100%" }} alt="Partenaire SolarEdge" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
