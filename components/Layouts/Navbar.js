@@ -116,11 +116,18 @@ class Navbar extends Component {
                                         </li>
                                     </ul>
 
-                                    {/* Ton login remis comme tu voulais */}
-                                    <div className="others-options">
+                                    
+                                    {/* <div className="others-options">
                                         <Link href="/login">
                                             <a className="login-btn">
                                                 <i className="flaticon-user"></i> Se connecter
+                                            </a>
+                                        </Link>
+                                    </div> */}
+                                    <div className="others-options">
+                                        <Link href="/contact">
+                                            <a className="btn btn-primary">
+                                                Nous contacter
                                             </a>
                                         </Link>
                                     </div>
