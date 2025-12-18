@@ -1047,7 +1047,7 @@ Main Banner Area CSS
 =================================================*/
 .main-banner {
   height: 80vh;
-  background-image: url(/images/main-banner-ICS-01.png);
+  background-image: url(/images/vert5.webp);
   background-position: center 12%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -4367,11 +4367,13 @@ Page Title Area CSS
 }
 
 .page-title-area.item-bg1 {
-  background-image: url(/images/page-title-bg2.jpg);
+  background-image: url(/images/vert1.jpg);
+  background-size: contain;
+  background-position: center top;
 }
 
 .page-title-area.item-bg2 {
-  background-image: url(/images/page-title-bg2.jpg);
+  background-image: url(/images/room-8779510_1920.png);
 }
 
 .page-title-content {
