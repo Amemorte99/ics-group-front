@@ -1,0 +1,23 @@
+import axios from 'axios';
+
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+
+export const getPortfolios = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/api/portfolios?populate=*`);
+    return res.data.data; // Strapi v4 retourne { data: [...] }
+  } catch (error) {
+    console.error("Erreur getPortfolios:", error);
+    return [];
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/api/categories?populate=*`);
+    return res.data.data;
+  } catch (error) {
+    console.error("Erreur getCategories:", error);
+    return [];
+  }
+};
