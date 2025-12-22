@@ -1,7 +1,7 @@
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import PageBannerContent from '../../components/Common/PageBannerContent';
-import BlogContent from '../../components/blog/BlogContent';
+import BlogContent from '../../components/BlogOne/BlogContent';
 
 const BlogPage = () => {
   return (
