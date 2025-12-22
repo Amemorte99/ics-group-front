@@ -284,7 +284,7 @@ export async function getStaticPaths() {
     paths: Object.values(blogPosts).map((post) => ({
       params: { id: post.id },
     })),
-    fallback: 'blocking',
+    fallback: false,
   };
 }
 
