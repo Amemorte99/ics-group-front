@@ -12,10 +12,11 @@ export const getPortfolios = async () => {
   }
 };
 
+// utils/api.js
 export const getCategories = async () => {
   try {
     const res = await axios.get(`${API_URL}/api/categories?populate=*`);
-    return res.data.data;
+    return res.data.data; // Retourne directement le tableau des catégories
   } catch (error) {
     console.error("Erreur getCategories:", error);
     return [];
