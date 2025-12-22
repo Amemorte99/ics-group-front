@@ -39,15 +39,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/blog.js"
     ],
-    "/blog-one": [
+    "/blog/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/blog-one.js"
-    ],
-    "/contact": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/contact.js"
+      "static/chunks/pages/blog/[id].js"
     ]
   },
   "ampFirstPages": []
