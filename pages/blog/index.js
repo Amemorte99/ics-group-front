@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import PageBannerContent from '../../components/Common/PageBannerContent';
@@ -13,8 +12,7 @@ const BlogPage = () => {
         pageTitle="Notre Blog" 
         pageCaption="Découvrez nos derniers articles sur la cybersécurité, les solutions digitales et les bonnes pratiques pour protéger votre entreprise."
       />
-
-      <BlogContent />
+    <BlogContent />
 
       <Footer />
     </>
