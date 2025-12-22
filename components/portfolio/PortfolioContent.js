@@ -156,31 +156,45 @@ const [projects, setProjects] = useState([]);
 
 useEffect(() => {
   const loadPortfolios = async () => {
-    const items = await getPortfolios();
+    const items = await getPortfolios(); // ← ici items est défini
+
+    if (!items || items.length === 0) {
+      setProjects([]);
+      return;
+    }
 
     const mapped = items.map(item => {
-      // 🖼️ Images Strapi v4
-      const images =
-        item.images?.data?.length > 0
-          ? item.images.data.map(img =>
-              `${process.env.NEXT_PUBLIC_STRAPI_URL}${img.attributes.url}`
-            )
-          : ["/images/placeholder.png"];
+      // Gestion des images (Strapi v4 avec populate=*)
+      const images = item.images?.length > 0
+        ? item.images.map(img => 
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}${img.url}`
+          )
+        : ["/images/placeholder.png"];
+
+      // Gestion du texte riche longDesc
+      const longDesc = Array.isArray(item.longDesc)
+        ? item.longDesc
+            .map(block => {
+              if (block.type === "paragraph" && Array.isArray(block.children)) {
+                return block.children
+                  .map(child => child.text || "")
+                  .join("");
+              }
+              return "";
+            })
+            .filter(Boolean)
+            .join("\n\n")
+        : "Description longue non disponible";
+
+      // Catégorie : on prend le "key" que tu as défini dans Strapi
+      const categoryKey = item.category?.key || "autre";
 
       return {
         id: item.id,
-        title: item.title || "Titre non défini",
+        title: item.title || "Sans titre",
         shortDesc: item.shortDesc || "Description courte non disponible",
-
-        longDesc: item.longDesc
-          ? item.longDesc
-              .map(p =>
-                p.children?.map(c => c.text).join("")
-              )
-              .join("\n")
-          : "Description longue non disponible",
-
-        category: item.category?.data?.attributes?.slug || "autre",
+        longDesc,
+        category: categoryKey,
         client: item.client || "Confidentiel",
         duration: item.duration || "N/C",
         technologies: item.technologies || "Divers",
