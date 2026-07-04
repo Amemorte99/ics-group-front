@@ -22,7 +22,7 @@ const ServicesPage = () => {
         <div className="container">
           <div className="row justify-content-center">
             {services.map((service) => (
-              <div key={service.slug} className="col-lg-4 col-md-6 col-sm-10 mb-5">
+              <div key={service.} className="col-lg-4 col-md-6 col-sm-10 mb-5">
                 <div className="service-card h-100 rounded-lg shadow-lg overflow-hidden bg-white position-relative transition-all">
                   <div className="service-img-wrapper">
                     <img 
