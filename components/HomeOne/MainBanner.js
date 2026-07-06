@@ -319,10 +319,11 @@ class MainBanner extends Component {
                     .highlight {
                         background: linear-gradient(135deg, #49B96D, #80C353);
                         -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
+                        -webkit-text-fill-color: #49B96D;;
                         background-clip: text;
                         position: relative;
                     }
+                       
 
                     .banner-description {
                         font-size: 18px;

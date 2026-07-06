@@ -275,7 +275,7 @@ class FunFacts extends Component {
                     .highlight {
                         background: var(--ics-gradient);
                         -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
+                        -webkit-text-fill-color: #49B96D;
                         background-clip: text;
                     }
 

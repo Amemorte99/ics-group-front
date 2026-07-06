@@ -289,7 +289,13 @@ class PartnerContent extends Component {
                         right: -150px;
                         animation: float 12s ease-in-out infinite;
                     }
+ .highlight {
+                        background: var(--gradient-main);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: #49B96D;
+                        background-clip: text;
 
+                    }
                     .bg-circle-2 {
                         width: 400px;
                         height: 400px;

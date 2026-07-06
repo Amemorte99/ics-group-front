@@ -302,7 +302,7 @@ class ServicesCard extends Component {
                     .highlight {
                         background: var(--ics-gradient);
                         -webkit-background-clip: text;
-                        -webkit-text-fill-color: var(--ics-primary);
+                        -webkit-text-fill-color: #49B96D;
                         background-clip: text;
                     }
 
@@ -572,7 +572,7 @@ class ServicesCard extends Component {
                     .service-number {
                         font-size: 72px;
                         font-weight: 900;
-                        opacity: 0.04;
+                        opacity: 0.7;
                         line-height: 1;
                         position: absolute;
                         top: -20px;
