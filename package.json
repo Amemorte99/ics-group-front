@@ -4,9 +4,9 @@
     "description": "Haiper - React Next Online Banking & Payment Template",
     "main": "index.js",
     "scripts": {
-        "dev": "next dev",
-        "build": "set NODE_OPTIONS=--openssl-legacy-provider && next build",
-        "start": "next start"
+        "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider next dev",
+        "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build",
+        "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider next start"
     },
     "author": "EnvyTheme.com",
     "license": "ISC",
@@ -29,5 +29,8 @@
         "sass": "^1.35.2",
         "sweetalert2": "^10.16.9",
         "sweetalert2-react-content": "^3.3.3"
+    },
+    "devDependencies": {
+        "cross-env": "^10.1.0"
     }
 }
