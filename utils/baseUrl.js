@@ -1,5 +1,4 @@
-const baseUrl = process.env.NODE_ENV === "production" 
-? 'https://haiper-react.envytheme.com' 
-: 'http://localhost:3000';
+// utils/baseUrl.js
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
-export default baseUrl;
+export const getApiUrl = (endpoint) => `${API_URL}${endpoint}`;
