@@ -40,6 +40,24 @@ export default function AdminBlog() {
     }
   };
 
+  const handleTogglePublish = async (id) => {
+    try {
+      await adminBlogApi.togglePublish(id);
+      fetchItems();
+    } catch (error) {
+      alert('Erreur lors du changement de statut');
+    }
+  };
+
+  const handleToggleFeatured = async (id) => {
+    try {
+      await adminBlogApi.toggleFeatured(id);
+      fetchItems();
+    } catch (error) {
+      alert('Erreur lors du changement de statut');
+    }
+  };
+
   if (loading) {
     return <AdminLayout title="Blog"><div className="text-center py-5">Chargement...</div></AdminLayout>;
   }
@@ -78,9 +96,10 @@ export default function AdminBlog() {
                 <td>{item.title}</td>
                 <td>{item.author || 'ICS GROUPE'}</td>
                 <td>
-                  {item.tags?.map((tag, i) => (
+                  {item.tags?.slice(0, 2).map((tag, i) => (
                     <span key={i} className="badge bg-secondary me-1">{tag}</span>
                   ))}
+                  {item.tags?.length > 2 && <span className="badge bg-secondary">+{item.tags.length - 2}</span>}
                 </td>
                 <td>
                   <span className={`badge ${item.isPublished ? 'bg-success' : 'bg-warning'}`}>
@@ -89,12 +108,20 @@ export default function AdminBlog() {
                   {item.isFeatured && <span className="badge bg-info ms-1">⭐ Vedette</span>}
                 </td>
                 <td>
-                  <Link href={`/admin/blog/${item.id}`} className="btn btn-sm btn-primary me-1">
-                    ✏️
-                  </Link>
-                  <button onClick={() => handleDelete(item.id)} className="btn btn-sm btn-danger">
-                    🗑️
-                  </button>
+                  <div className="btn-group btn-group-sm">
+                    <Link href={`/admin/blog/${item.id}`} className="btn btn-primary">
+                      ✏️
+                    </Link>
+                    <button onClick={() => handleTogglePublish(item.id)} className="btn btn-secondary">
+                      {item.isPublished ? '📌' : '📄'}
+                    </button>
+                    <button onClick={() => handleToggleFeatured(item.id)} className="btn btn-warning">
+                      ⭐
+                    </button>
+                    <button onClick={() => handleDelete(item.id)} className="btn btn-danger">
+                      🗑️
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

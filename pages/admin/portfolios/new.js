@@ -126,6 +126,11 @@ export default function NewPortfolio() {
               onChange={handleChange}
               placeholder="https://example.com/image.jpg"
             />
+            {formData.image && (
+              <div className="mt-2">
+                <img src={formData.image} alt="Prévisualisation" style={{ maxHeight: '100px' }} />
+              </div>
+            )}
           </div>
 
           <div className="col-12 mb-3">

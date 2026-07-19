@@ -10,25 +10,38 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
 
-    try {
-      const response = await authApi.login(email, password);
-      const { token, user } = response.data;
-      
-      localStorage.setItem('adminToken', token);
-      localStorage.setItem('adminUser', JSON.stringify(user));
-      
-      router.push('/admin');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Email ou mot de passe incorrect');
-    } finally {
-      setLoading(false);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
+
+  try {
+    const response = await fetch('http://localhost:3001/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Erreur de connexion');
     }
-  };
+
+    localStorage.setItem('adminToken', data.token);
+    localStorage.setItem('adminUser', JSON.stringify(data.user));
+    
+    // ✅ Redirection avec window.location pour éviter les problèmes
+    window.location.href = '/admin';
+  } catch (err) {
+    setError(err.message || 'Email ou mot de passe incorrect');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>

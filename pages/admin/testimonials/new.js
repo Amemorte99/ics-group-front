@@ -119,6 +119,11 @@ export default function NewTestimonial() {
               onChange={handleChange}
               placeholder="https://example.com/photo.jpg"
             />
+            {formData.photo && (
+              <div className="mt-2">
+                <img src={formData.photo} alt={formData.clientName} style={{ maxHeight: '100px', borderRadius: '50%' }} />
+              </div>
+            )}
           </div>
 
           <div className="col-12 mb-3">

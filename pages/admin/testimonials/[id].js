@@ -141,7 +141,7 @@ export default function EditTestimonial() {
             />
             {formData.photo && (
               <div className="mt-2">
-                <img src={formData.photo} alt="Prévisualisation" style={{ maxHeight: '100px', borderRadius: '50%' }} />
+                <img src={formData.photo} alt={formData.clientName} style={{ maxHeight: '100px', borderRadius: '50%' }} />
               </div>
             )}
           </div>

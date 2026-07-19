@@ -1,15 +1,15 @@
 // utils/adminApi.js
 import axios from 'axios';
-import { getApiUrl } from './baseUrl';
 
+// ✅ URL correcte
 const adminApi = axios.create({
-  baseURL: getApiUrl(''),
+  baseURL: 'http://localhost:3001/api',  // Pas de / à la fin !
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Intercepteur pour ajouter le token
+// Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
@@ -28,7 +28,9 @@ adminApi.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('adminToken');
       localStorage.removeItem('adminUser');
-      window.location.href = '/admin/login';
+      if (typeof window !== 'undefined') {
+        window.location.href = '/admin/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -40,14 +42,22 @@ export const authApi = {
   logout: () => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('adminUser');
-    window.location.href = '/admin/login';
+    if (typeof window !== 'undefined') {
+      window.location.href = '/admin/login';
+    }
   },
   getCurrentUser: () => {
-    const user = localStorage.getItem('adminUser');
-    return user ? JSON.parse(user) : null;
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('adminUser');
+      return user ? JSON.parse(user) : null;
+    }
+    return null;
   },
   isAuthenticated: () => {
-    return !!localStorage.getItem('adminToken');
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('adminToken');
+    }
+    return false;
   },
 };
 
@@ -76,6 +86,8 @@ export const adminBlogApi = {
   create: (data) => adminApi.post('/blogs', data),
   update: (id, data) => adminApi.put(`/blogs/${id}`, data),
   delete: (id) => adminApi.delete(`/blogs/${id}`),
+  togglePublish: (id) => adminApi.post(`/blogs/${id}/toggle-publish`),
+  toggleFeatured: (id) => adminApi.post(`/blogs/${id}/toggle-featured`),
 };
 
 // ============ TESTIMONIALS ============

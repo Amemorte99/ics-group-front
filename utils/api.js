@@ -2,26 +2,31 @@
 import axios from 'axios';
 import { getApiUrl } from './baseUrl';
 
-// Instance Axios
 const api = axios.create({
-  baseURL: getApiUrl(''),
+  baseURL: getApiUrl('http://localhost:3001/api'),
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Intercepteur pour ajouter le token si besoin plus tard
+// Intercepteur pour le token
 api.interceptors.request.use(
   (config) => {
-    // Ajouter un token si tu implémentes l'auth plus tard
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)
 );
+
+// ============ AUTH ============
+export const authApi = {
+  login: (email, password) => api.post('/auth/login', { email, password }),
+  register: (data) => api.post('/auth/register', data),
+  profile: () => api.get('/auth/profile'),
+};
 
 // ============ PORTFOLIO ============
 export const portfolioApi = {
@@ -45,6 +50,7 @@ export const serviceApi = {
   update: (id, data) => api.put(`/services/${id}`, data),
   delete: (id) => api.delete(`/services/${id}`),
   getCount: () => api.get('/services/stats/count'),
+  getRecent: (limit = 5) => api.get(`/services/stats/recent?limit=${limit}`),
 };
 
 // ============ BLOG ============
@@ -57,7 +63,11 @@ export const blogApi = {
   create: (data) => api.post('/blogs', data),
   update: (id, data) => api.put(`/blogs/${id}`, data),
   delete: (id) => api.delete(`/blogs/${id}`),
+  togglePublish: (id) => api.post(`/blogs/${id}/toggle-publish`),
+  toggleFeatured: (id) => api.post(`/blogs/${id}/toggle-featured`),
   getCount: () => api.get('/blogs/stats/count'),
+  getRecent: (limit = 5) => api.get(`/blogs/stats/recent?limit=${limit}`),
+  getStats: () => api.get('/blogs/stats'),
 };
 
 // ============ TESTIMONIALS ============

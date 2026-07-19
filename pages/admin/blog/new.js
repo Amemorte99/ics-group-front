@@ -123,6 +123,11 @@ export default function NewBlog() {
               onChange={handleChange}
               placeholder="https://example.com/image.jpg"
             />
+            {formData.featuredImage && (
+              <div className="mt-2">
+                <img src={formData.featuredImage} alt="Prévisualisation" style={{ maxHeight: '100px' }} />
+              </div>
+            )}
           </div>
 
           <div className="col-12 mb-3">

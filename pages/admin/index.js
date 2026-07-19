@@ -10,6 +10,7 @@ import {
   adminTestimonialApi,
   adminPartnerApi,
 } from '../../utils/adminApi';
+import AdminLayout from '../../components/AdminLayout';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -24,7 +25,6 @@ export default function AdminDashboard() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Vérifier l'authentification
     if (!authApi.isAuthenticated()) {
       router.push('/admin/login');
       return;
@@ -81,90 +81,61 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        {/* Sidebar */}
-        <nav className="col-md-2 d-md-block bg-dark vh-100 p-3">
-          <h5 className="text-white mb-4">ICS Admin</h5>
-          <ul className="nav flex-column">
-            <li className="nav-item">
-              <Link href="/admin" className="nav-link text-white active">
-                <span>📊</span> Dashboard
-              </Link>
-            </li>
-            {menuItems.map((item) => (
-              <li key={item.path} className="nav-item">
-                <Link href={item.path} className="nav-link text-white">
-                  <span>{item.icon}</span> {item.name}
-                  <span className="badge bg-primary float-end">{item.count}</span>
-                </Link>
-              </li>
-            ))}
-            <li className="nav-item mt-3">
-              <button onClick={handleLogout} className="btn btn-danger w-100">
-                🚪 Déconnexion
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        {/* Main content */}
-        <main className="col-md-10 ms-sm-auto px-md-4 py-4">
-          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 className="h2">Dashboard</h1>
-            <div>
-              <span className="me-3">👋 Bonjour {user?.name || 'Admin'}</span>
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="row g-4">
-            {menuItems.map((item) => (
-              <div key={item.path} className="col-md-3">
-                <Link href={item.path} className="text-decoration-none">
-                  <div className="card shadow-sm h-100">
-                    <div className="card-body text-center">
-                      <div className="display-1">{item.icon}</div>
-                      <h2 className="display-4">{item.count}</h2>
-                      <p className="text-muted">{item.name}</p>
-                      <button className="btn btn-outline-primary btn-sm">
-                        Gérer →
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          {/* Quick Actions */}
-          <div className="mt-5">
-            <h3>Actions rapides</h3>
-            <div className="row g-3">
-              <div className="col-md-3">
-                <Link href="/admin/services/new" className="btn btn-primary w-100">
-                  ➕ Nouveau Service
-                </Link>
-              </div>
-              <div className="col-md-3">
-                <Link href="/admin/portfolios/new" className="btn btn-primary w-100">
-                  ➕ Nouveau Portfolio
-                </Link>
-              </div>
-              <div className="col-md-3">
-                <Link href="/admin/blog/new" className="btn btn-primary w-100">
-                  ➕ Nouvel Article
-                </Link>
-              </div>
-              <div className="col-md-3">
-                <Link href="/admin/testimonials/new" className="btn btn-primary w-100">
-                  ➕ Nouveau Témoignage
-                </Link>
-              </div>
-            </div>
-          </div>
-        </main>
+    <AdminLayout title="Dashboard" module="">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 className="h2">Dashboard</h1>
+        <div>
+          <span className="me-3">👋 Bonjour {user?.name || 'Admin'}</span>
+        </div>
       </div>
-    </div>
+
+      {/* Stats Cards */}
+      <div className="row g-4">
+        {menuItems.map((item) => (
+          <div key={item.path} className="col-md-3">
+            <Link href={item.path}>
+              {/* ✅ Un seul enfant : un span ou div */}
+              <span className="text-decoration-none d-block">
+                <div className="card shadow-sm h-100">
+                  <div className="card-body text-center">
+                    <div className="display-1">{item.icon}</div>
+                    <h2 className="display-4">{item.count}</h2>
+                    <p className="text-muted">{item.name}</p>
+                    <span className="btn btn-outline-primary btn-sm">Gérer →</span>
+                  </div>
+                </div>
+              </span>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Quick Actions */}
+      <div className="mt-5">
+        <h3>Actions rapides</h3>
+        <div className="row g-3">
+          <div className="col-md-3">
+            <Link href="/admin/services/new">
+              <span className="btn btn-primary w-100">➕ Nouveau Service</span>
+            </Link>
+          </div>
+          <div className="col-md-3">
+            <Link href="/admin/portfolios/new">
+              <span className="btn btn-primary w-100">➕ Nouveau Portfolio</span>
+            </Link>
+          </div>
+          <div className="col-md-3">
+            <Link href="/admin/blog/new">
+              <span className="btn btn-primary w-100">➕ Nouvel Article</span>
+            </Link>
+          </div>
+          <div className="col-md-3">
+            <Link href="/admin/testimonials/new">
+              <span className="btn btn-primary w-100">➕ Nouveau Témoignage</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
   );
 }

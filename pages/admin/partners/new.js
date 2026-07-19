@@ -92,6 +92,11 @@ export default function NewPartner() {
               placeholder="https://example.com/logo.png"
               required
             />
+            {formData.logo && (
+              <div className="mt-2">
+                <img src={formData.logo} alt={formData.name} style={{ maxHeight: '80px', objectFit: 'contain' }} />
+              </div>
+            )}
           </div>
 
           <div className="col-12 mb-3">
