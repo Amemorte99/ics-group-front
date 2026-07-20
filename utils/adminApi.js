@@ -10,6 +10,7 @@ const adminApi = axios.create({
 });
 
 
+
 // Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
@@ -38,6 +39,7 @@ adminApi.interceptors.response.use(
   }
 );
 
+
 // ============ AUTH ============
 export const authApi = {
   login: (email, password) => adminApi.post('/auth/login', { email, password }),
@@ -62,6 +64,18 @@ export const authApi = {
     return false;
   },
 };
+
+
+
+// ============ USERS ============
+export const adminUserApi = {
+  getAll: () => adminApi.get('/users'),
+  getById: (id) => adminApi.get(`/users/${id}`),
+  create: (data) => adminApi.post('/users', data),
+  update: (id, data) => adminApi.put(`/users/${id}`, data),
+  delete: (id) => adminApi.delete(`/users/${id}`),
+};
+
 
 // ============ PORTFOLIO ============
 export const adminPortfolioApi = {

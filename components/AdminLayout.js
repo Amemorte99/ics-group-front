@@ -33,15 +33,16 @@ export default function AdminLayout({ children, title, module }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const menuItems = [
-    { name: 'Dashboard', icon: '📊', path: '/admin', description: 'Vue d\'ensemble' },
-    { name: 'Services', icon: '🛠️', path: '/admin/services', description: 'Gérer les services' },
-    { name: 'Portfolio', icon: '🎨', path: '/admin/portfolios', description: 'Gérer les projets' },
-    { name: 'Blog', icon: '✍️', path: '/admin/blog', description: 'Gérer les articles' },
-    { name: 'Témoignages', icon: '💬', path: '/admin/testimonials', description: 'Gérer les avis' },
-    { name: 'Partenaires', icon: '🤝', path: '/admin/partners', description: 'Gérer les partenaires' },
-  ];
 
+const menuItems = [
+  { name: 'Dashboard', icon: '📊', path: '/admin', description: "Vue d'ensemble" },
+  { name: 'Services', icon: '🛠️', path: '/admin/services', description: 'Gérer les services' },
+  { name: 'Portfolio', icon: '🎨', path: '/admin/portfolios', description: 'Gérer les projets' },
+  { name: 'Blog', icon: '✍️', path: '/admin/blog', description: 'Gérer les articles' },
+  { name: 'Témoignages', icon: '💬', path: '/admin/testimonials', description: 'Gérer les avis' },
+  { name: 'Partenaires', icon: '🤝', path: '/admin/partners', description: 'Gérer les partenaires' },
+  { name: 'Utilisateurs', icon: '👥', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT
+];
   const handleLogout = () => {
     if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
       authApi.logout();
