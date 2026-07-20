@@ -30,10 +30,19 @@ export default function NewPortfolio() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    
+    // ✅ Convertir les nombres si nécessaire
+    if (name === 'order') {
+      setFormData({
+        ...formData,
+        [name]: value === '' ? 0 : parseInt(value, 10),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
+    }
   };
 
   const handleImageUpload = (url) => {
@@ -45,8 +54,27 @@ export default function NewPortfolio() {
     setLoading(true);
     setError('');
 
+    // ✅ Valider les champs avant l'envoi
+    if (formData.title.length < 3) {
+      setError('Le titre doit contenir au moins 3 caractères');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.description.length < 10) {
+      setError('La description doit contenir au moins 10 caractères');
+      setLoading(false);
+      return;
+    }
+
     try {
-      await adminPortfolioApi.create(formData);
+      // ✅ S'assurer que la date est au bon format
+      const submitData = {
+        ...formData,
+        completionDate: formData.completionDate || null,
+      };
+
+      await adminPortfolioApi.create(submitData);
       router.push('/admin/portfolios');
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur lors de la création');
@@ -67,18 +95,25 @@ export default function NewPortfolio() {
 
       <form onSubmit={handleSubmit} className="card shadow p-4">
         <div className="row">
+          {/* Titre */}
           <div className="col-md-6 mb-3">
-            <label className="form-label">Titre *</label>
+            <label className="form-label">Titre * <span className="text-danger">(min 3 caractères)</span></label>
             <input
               type="text"
               name="title"
               className="form-control"
               value={formData.title}
               onChange={handleChange}
+              placeholder="ex: Site E-commerce"
+              minLength="3"
               required
             />
+            {formData.title && formData.title.length < 3 && (
+              <small className="text-danger">Le titre doit contenir au moins 3 caractères</small>
+            )}
           </div>
 
+          {/* Slug */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Slug *</label>
             <input
@@ -93,6 +128,7 @@ export default function NewPortfolio() {
             <small className="text-muted">Identifiant unique pour l'URL</small>
           </div>
 
+          {/* Catégorie */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Catégorie *</label>
             <select
@@ -112,6 +148,7 @@ export default function NewPortfolio() {
             </select>
           </div>
 
+          {/* Client */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Client</label>
             <input
@@ -120,9 +157,11 @@ export default function NewPortfolio() {
               className="form-control"
               value={formData.client}
               onChange={handleChange}
+              placeholder="Nom du client"
             />
           </div>
 
+          {/* Image */}
           <div className="col-12 mb-3">
             <label className="form-label">Image du projet</label>
             <ImageUpload
@@ -138,18 +177,25 @@ export default function NewPortfolio() {
             )}
           </div>
 
+          {/* Description */}
           <div className="col-12 mb-3">
-            <label className="form-label">Description *</label>
+            <label className="form-label">Description * <span className="text-danger">(min 10 caractères)</span></label>
             <textarea
               name="description"
               className="form-control"
               rows="5"
               value={formData.description}
               onChange={handleChange}
+              placeholder="Description détaillée du projet..."
+              minLength="10"
               required
             />
+            {formData.description && formData.description.length < 10 && (
+              <small className="text-danger">La description doit contenir au moins 10 caractères</small>
+            )}
           </div>
 
+          {/* Date de livraison */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Date de livraison</label>
             <input
@@ -159,8 +205,10 @@ export default function NewPortfolio() {
               value={formData.completionDate}
               onChange={handleChange}
             />
+            <small className="text-muted">Format: JJ/MM/AAAA (sélectionnez dans le calendrier)</small>
           </div>
 
+          {/* Lien du projet */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Lien du projet</label>
             <input
@@ -169,10 +217,11 @@ export default function NewPortfolio() {
               className="form-control"
               value={formData.link}
               onChange={handleChange}
-              placeholder="https://example.com"
+              placeholder="https://exemple.com"
             />
           </div>
 
+          {/* Actif */}
           <div className="col-12 mb-3 form-check">
             <input
               type="checkbox"
@@ -184,6 +233,7 @@ export default function NewPortfolio() {
             <label className="form-check-label">Actif</label>
           </div>
 
+          {/* Bouton */}
           <div className="col-12">
             <button type="submit" className="btn btn-ics-primary" disabled={loading}>
               {loading ? 'Création...' : 'Créer le projet'}
@@ -232,6 +282,45 @@ export default function NewPortfolio() {
           background: #FFEBEE;
           border: 1px solid #FFCDD2;
           color: #C62828;
+        }
+        .form-control {
+          width: 100%;
+          padding: 10px 14px;
+          border: 1px solid #eef0f2;
+          border-radius: 8px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+        .form-control:focus {
+          outline: none;
+          border-color: #4CAF50;
+          box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        .form-select {
+          width: 100%;
+          padding: 10px 14px;
+          border: 1px solid #eef0f2;
+          border-radius: 8px;
+          font-size: 14px;
+          background: #fff;
+        }
+        .form-check-input {
+          width: 18px;
+          height: 18px;
+          margin-right: 8px;
+          accent-color: #4CAF50;
+        }
+        .form-check-label {
+          font-size: 14px;
+          color: #4a4d5e;
+        }
+        .text-muted {
+          color: #8c8f9c;
+          font-size: 12px;
+        }
+        .text-danger {
+          color: #EF5350;
+          font-size: 12px;
         }
       `}</style>
     </AdminLayout>

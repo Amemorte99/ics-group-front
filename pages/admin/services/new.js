@@ -28,10 +28,19 @@ export default function NewService() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    
+    // ✅ Convertir 'order' en nombre
+    if (name === 'order') {
+      setFormData({
+        ...formData,
+        [name]: value === '' ? 0 : parseInt(value, 10),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
+    }
   };
 
   const handleFeatures = (e) => {
@@ -48,8 +57,14 @@ export default function NewService() {
     setLoading(true);
     setError('');
 
+    // ✅ Vérifier que l'ordre est un nombre
+    const submitData = {
+      ...formData,
+      order: parseInt(formData.order, 10) || 0,
+    };
+
     try {
-      await adminServiceApi.create(formData);
+      await adminServiceApi.create(submitData);
       router.push('/admin/services');
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur lors de la création');
@@ -131,7 +146,9 @@ export default function NewService() {
               value={formData.order}
               onChange={handleChange}
               min="0"
+              step="1"
             />
+            <small className="text-muted">Nombre entier positif</small>
           </div>
 
           <div className="col-12 mb-3">
@@ -193,6 +210,43 @@ export default function NewService() {
         }
         .btn-secondary:hover {
           background: #e0e1e3;
+        }
+        .alert {
+          padding: 12px 16px;
+          border-radius: 10px;
+          margin-bottom: 16px;
+        }
+        .alert-danger {
+          background: #FFEBEE;
+          border: 1px solid #FFCDD2;
+          color: #C62828;
+        }
+        .form-control {
+          width: 100%;
+          padding: 10px 14px;
+          border: 1px solid #eef0f2;
+          border-radius: 8px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+        .form-control:focus {
+          outline: none;
+          border-color: #4CAF50;
+          box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        .form-check-input {
+          width: 18px;
+          height: 18px;
+          margin-right: 8px;
+          accent-color: #4CAF50;
+        }
+        .form-check-label {
+          font-size: 14px;
+          color: #4a4d5e;
+        }
+        .text-muted {
+          color: #8c8f9c;
+          font-size: 12px;
         }
       `}</style>
     </AdminLayout>

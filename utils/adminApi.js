@@ -9,10 +9,12 @@ const adminApi = axios.create({
   },
 });
 
+
 // Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
+    console.log('🔑 Token dans interceptor:', token ? 'Présent' : 'Manquant');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
