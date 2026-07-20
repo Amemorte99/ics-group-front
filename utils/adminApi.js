@@ -1,21 +1,23 @@
 // utils/adminApi.js
 import axios from 'axios';
 
-// ✅ URL correcte
+// ✅ Forcer l'URL du backend
+const API_BASE = 'http://localhost:3001/api';
+
+console.log('🔗 API URL (forcée):', API_BASE);
+
 const adminApi = axios.create({
-  baseURL: 'http://localhost:3001/api',  // Pas de / à la fin !
+  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-
-
 // Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
-    console.log('🔑 Token dans interceptor:', token ? 'Présent' : 'Manquant');
+    console.log('🔑 Token:', token ? 'Présent' : 'Manquant');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,7 +26,7 @@ adminApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Intercepteur pour gérer les erreurs 401
+// Intercepteur pour les erreurs 401
 adminApi.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -38,7 +40,6 @@ adminApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 // ============ AUTH ============
 export const authApi = {
@@ -65,8 +66,6 @@ export const authApi = {
   },
 };
 
-
-
 // ============ USERS ============
 export const adminUserApi = {
   getAll: () => adminApi.get('/users'),
@@ -75,7 +74,6 @@ export const adminUserApi = {
   update: (id, data) => adminApi.put(`/users/${id}`, data),
   delete: (id) => adminApi.delete(`/users/${id}`),
 };
-
 
 // ============ PORTFOLIO ============
 export const adminPortfolioApi = {
@@ -124,8 +122,6 @@ export const adminPartnerApi = {
   delete: (id) => adminApi.delete(`/partners/${id}`),
 };
 
-
-
 // ============ UPLOAD ============
 export const uploadApi = {
   upload: (file) => {
@@ -147,4 +143,5 @@ export const uploadApi = {
     });
   },
 };
+
 export default adminApi;
