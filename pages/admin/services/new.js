@@ -1,9 +1,10 @@
-// pages/admin/services/new.js - CORRIGÉ
+// pages/admin/services/new.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { adminServiceApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
+import ImageUpload from '../../../components/ImageUpload';
 
 export default function NewService() {
   const router = useRouter();
@@ -38,6 +39,10 @@ export default function NewService() {
     setFormData({ ...formData, features });
   };
 
+  const handleImageUpload = (url) => {
+    setFormData({ ...formData, icon: url });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -55,8 +60,7 @@ export default function NewService() {
   return (
     <AdminLayout title="Nouveau Service" module="services">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Nouveau Service</h1>
-        {/* ✅ CORRECTION : Link avec un seul enfant */}
+        <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>Nouveau Service</h1>
         <Link href="/admin/services">
           <span className="btn btn-secondary">← Retour</span>
         </Link>
@@ -103,19 +107,17 @@ export default function NewService() {
             />
           </div>
 
-          <div className="col-md-6 mb-3">
-            <label className="form-label">Icône (URL)</label>
-            <input
-              type="text"
-              name="icon"
-              className="form-control"
-              value={formData.icon}
-              onChange={handleChange}
-              placeholder="https://example.com/icon.png"
+          <div className="col-12 mb-3">
+            <label className="form-label">Icône / Image</label>
+            <ImageUpload
+              onUpload={handleImageUpload}
+              currentImage={formData.icon}
+              label="Icône du service"
+              folder="services"
             />
             {formData.icon && (
               <div className="mt-2">
-                <img src={formData.icon} alt="Icône" style={{ maxHeight: '60px' }} />
+                <small className="text-muted">URL: {formData.icon}</small>
               </div>
             )}
           </div>
@@ -154,12 +156,45 @@ export default function NewService() {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-ics-primary" disabled={loading}>
               {loading ? 'Création...' : 'Créer le service'}
             </button>
           </div>
         </div>
       </form>
+
+      <style jsx>{`
+        .btn-ics-primary {
+          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+          color: #fff;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .btn-ics-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+          color: #fff;
+        }
+        .btn-secondary {
+          background: #f0f1f3;
+          color: #4a4d5e;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-block;
+          text-decoration: none;
+        }
+        .btn-secondary:hover {
+          background: #e0e1e3;
+        }
+      `}</style>
     </AdminLayout>
   );
 }

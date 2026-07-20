@@ -108,4 +108,27 @@ export const adminPartnerApi = {
   delete: (id) => adminApi.delete(`/partners/${id}`),
 };
 
+
+
+// ============ UPLOAD ============
+export const uploadApi = {
+  upload: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return adminApi.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+  uploadMultiple: (files) => {
+    const formData = new FormData();
+    files.forEach(file => formData.append('files', file));
+    return adminApi.post('/upload/multiple', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+};
 export default adminApi;

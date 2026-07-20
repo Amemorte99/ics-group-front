@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { adminTestimonialApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
+import ImageUpload from '../../../components/ImageUpload';
 
 export default function NewTestimonial() {
   const router = useRouter();
@@ -33,6 +34,10 @@ export default function NewTestimonial() {
     });
   };
 
+  const handleImageUpload = (url) => {
+    setFormData({ ...formData, photo: url });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -50,8 +55,10 @@ export default function NewTestimonial() {
   return (
     <AdminLayout title="Nouveau Témoignage" module="testimonials">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Nouveau Témoignage</h1>
-        <Link href="/admin/testimonials" ><span class="btn btn-secondary">← Retour</span></Link>
+        <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>Nouveau Témoignage</h1>
+        <Link href="/admin/testimonials">
+          <span className="btn btn-secondary">← Retour</span>
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -110,18 +117,16 @@ export default function NewTestimonial() {
           </div>
 
           <div className="col-12 mb-3">
-            <label className="form-label">Photo (URL)</label>
-            <input
-              type="text"
-              name="photo"
-              className="form-control"
-              value={formData.photo}
-              onChange={handleChange}
-              placeholder="https://example.com/photo.jpg"
+            <label className="form-label">Photo du client</label>
+            <ImageUpload
+              onUpload={handleImageUpload}
+              currentImage={formData.photo}
+              label="Photo du client"
+              folder="testimonials"
             />
             {formData.photo && (
               <div className="mt-2">
-                <img src={formData.photo} alt={formData.clientName} style={{ maxHeight: '100px', borderRadius: '50%' }} />
+                <small className="text-muted">URL: {formData.photo}</small>
               </div>
             )}
           </div>
@@ -151,13 +156,55 @@ export default function NewTestimonial() {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-ics-primary" disabled={loading}>
               {loading ? 'Création...' : 'Créer le témoignage'}
             </button>
           </div>
         </div>
       </form>
+
+      <style jsx>{`
+        .btn-ics-primary {
+          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+          color: #fff;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .btn-ics-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+          color: #fff;
+        }
+        .btn-secondary {
+          background: #f0f1f3;
+          color: #4a4d5e;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-block;
+          text-decoration: none;
+        }
+        .btn-secondary:hover {
+          background: #e0e1e3;
+        }
+        .alert {
+          padding: 12px 16px;
+          border-radius: 10px;
+          margin-bottom: 16px;
+        }
+        .alert-danger {
+          background: #FFEBEE;
+          border: 1px solid #FFCDD2;
+          color: #C62828;
+        }
+      `}</style>
     </AdminLayout>
   );
 }
-

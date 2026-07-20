@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { adminTestimonialApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
+import ImageUpload from '../../../components/ImageUpload';
 
 export default function EditTestimonial() {
   const router = useRouter();
@@ -51,6 +52,10 @@ export default function EditTestimonial() {
     });
   };
 
+  const handleImageUpload = (url) => {
+    setFormData({ ...formData, photo: url });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -66,14 +71,26 @@ export default function EditTestimonial() {
   };
 
   if (loading) {
-    return <AdminLayout title="Modifier Témoignage"><div className="text-center py-5">Chargement...</div></AdminLayout>;
+    return (
+      <AdminLayout title="Modifier Témoignage" module="testimonials">
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout title="Modifier Témoignage" module="testimonials">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Modifier : {formData.clientName}</h1>
-        <Link href="/admin/testimonials" className="btn btn-secondary">← Retour</Link>
+        <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>
+          Modifier : {formData.clientName}
+        </h1>
+        <Link href="/admin/testimonials">
+          <span className="btn btn-secondary">← Retour</span>
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -131,17 +148,16 @@ export default function EditTestimonial() {
           </div>
 
           <div className="col-12 mb-3">
-            <label className="form-label">Photo (URL)</label>
-            <input
-              type="text"
-              name="photo"
-              className="form-control"
-              value={formData.photo}
-              onChange={handleChange}
+            <label className="form-label">Photo du client</label>
+            <ImageUpload
+              onUpload={handleImageUpload}
+              currentImage={formData.photo}
+              label="Photo du client"
+              folder="testimonials"
             />
             {formData.photo && (
               <div className="mt-2">
-                <img src={formData.photo} alt={formData.clientName} style={{ maxHeight: '100px', borderRadius: '50%' }} />
+                <small className="text-muted">URL: {formData.photo}</small>
               </div>
             )}
           </div>
@@ -170,12 +186,45 @@ export default function EditTestimonial() {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={saving}>
+            <button type="submit" className="btn btn-ics-primary" disabled={saving}>
               {saving ? 'Enregistrement...' : 'Enregistrer'}
             </button>
           </div>
         </div>
       </form>
+
+      <style jsx>{`
+        .btn-ics-primary {
+          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+          color: #fff;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .btn-ics-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+          color: #fff;
+        }
+        .btn-secondary {
+          background: #f0f1f3;
+          color: #4a4d5e;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-block;
+          text-decoration: none;
+        }
+        .btn-secondary:hover {
+          background: #e0e1e3;
+        }
+      `}</style>
     </AdminLayout>
   );
 }

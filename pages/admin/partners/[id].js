@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { adminPartnerApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
+import ImageUpload from '../../../components/ImageUpload';
 
 export default function EditPartner() {
   const router = useRouter();
@@ -50,6 +51,10 @@ export default function EditPartner() {
     });
   };
 
+  const handleImageUpload = (url) => {
+    setFormData({ ...formData, logo: url });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
@@ -65,14 +70,26 @@ export default function EditPartner() {
   };
 
   if (loading) {
-    return <AdminLayout title="Modifier Partenaire"><div className="text-center py-5">Chargement...</div></AdminLayout>;
+    return (
+      <AdminLayout title="Modifier Partenaire" module="partners">
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout title="Modifier Partenaire" module="partners">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Modifier : {formData.name}</h1>
-        <Link href="/admin/partners" className="btn btn-secondary">← Retour</Link>
+        <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>
+          Modifier : {formData.name}
+        </h1>
+        <Link href="/admin/partners">
+          <span className="btn btn-secondary">← Retour</span>
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -103,18 +120,16 @@ export default function EditPartner() {
           </div>
 
           <div className="col-12 mb-3">
-            <label className="form-label">Logo (URL) *</label>
-            <input
-              type="text"
-              name="logo"
-              className="form-control"
-              value={formData.logo}
-              onChange={handleChange}
-              required
+            <label className="form-label">Logo du partenaire</label>
+            <ImageUpload
+              onUpload={handleImageUpload}
+              currentImage={formData.logo}
+              label="Logo du partenaire"
+              folder="partners"
             />
             {formData.logo && (
               <div className="mt-2">
-                <img src={formData.logo} alt={formData.name} style={{ maxHeight: '80px', objectFit: 'contain' }} />
+                <small className="text-muted">URL: {formData.logo}</small>
               </div>
             )}
           </div>
@@ -153,12 +168,45 @@ export default function EditPartner() {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={saving}>
+            <button type="submit" className="btn btn-ics-primary" disabled={saving}>
               {saving ? 'Enregistrement...' : 'Enregistrer'}
             </button>
           </div>
         </div>
       </form>
+
+      <style jsx>{`
+        .btn-ics-primary {
+          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+          color: #fff;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .btn-ics-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+          color: #fff;
+        }
+        .btn-secondary {
+          background: #f0f1f3;
+          color: #4a4d5e;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-block;
+          text-decoration: none;
+        }
+        .btn-secondary:hover {
+          background: #e0e1e3;
+        }
+      `}</style>
     </AdminLayout>
   );
 }
