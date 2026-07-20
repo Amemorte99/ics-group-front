@@ -50,7 +50,7 @@ export default function NewPartner() {
     <AdminLayout title="Nouveau Partenaire" module="partners">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Nouveau Partenaire</h1>
-        <Link href="/admin/partners" className="btn btn-secondary">← Retour</Link>
+        <Link href="/admin/partners" ><span class="btn btn-secondary">← Retour</span></Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -143,3 +143,4 @@ export default function NewPartner() {
     </AdminLayout>
   );
 }
+

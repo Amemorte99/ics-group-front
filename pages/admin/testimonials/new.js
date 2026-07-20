@@ -51,7 +51,7 @@ export default function NewTestimonial() {
     <AdminLayout title="Nouveau Témoignage" module="testimonials">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Nouveau Témoignage</h1>
-        <Link href="/admin/testimonials" className="btn btn-secondary">← Retour</Link>
+        <Link href="/admin/testimonials" ><span class="btn btn-secondary">← Retour</span></Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -160,3 +160,4 @@ export default function NewTestimonial() {
     </AdminLayout>
   );
 }
+

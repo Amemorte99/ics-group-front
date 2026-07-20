@@ -1,4 +1,4 @@
-// pages/admin/services/new.js
+// pages/admin/services/new.js - CORRIGÉ
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -56,7 +56,10 @@ export default function NewService() {
     <AdminLayout title="Nouveau Service" module="services">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Nouveau Service</h1>
-        <Link href="/admin/services" className="btn btn-secondary">← Retour</Link>
+        {/* ✅ CORRECTION : Link avec un seul enfant */}
+        <Link href="/admin/services">
+          <span className="btn btn-secondary">← Retour</span>
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -125,6 +128,7 @@ export default function NewService() {
               className="form-control"
               value={formData.order}
               onChange={handleChange}
+              min="0"
             />
           </div>
 

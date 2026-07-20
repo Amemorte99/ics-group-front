@@ -1,0 +1,86 @@
+/* public/css/admin-custom.css */
+
+/* Couleurs ICS */
+:root {
+  --ics-green: #1B5E20;
+  --ics-green-light: #4CAF50;
+  --ics-green-dark: #0D3B0F;
+  --ics-dark: #0A0A2E;
+  --ics-grey: #F5F5F5;
+}
+
+/* Typographie */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Boutons ICS */
+.btn-ics-primary {
+  background: linear-gradient(135deg, #1B5E20, #4CAF50);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-ics-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(27, 94, 32, 0.3);
+  color: #fff;
+}
+
+/* Cartes */
+.card-ics {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card-ics:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+/* Badges */
+.badge-ics {
+  background: linear-gradient(135deg, #1B5E20, #4CAF50);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 400;
+}
+
+/* Tables */
+.table-ics thead {
+  background: linear-gradient(135deg, #1B5E20, #4CAF50);
+  color: #fff;
+}
+
+.table-ics thead th {
+  padding: 12px 16px;
+  font-weight: 600;
+  border: none;
+}
+
+.table-ics tbody tr:hover {
+  background: #E8F5E9;
+}
+
+/* Sidebar active */
+.nav-link.active-ics {
+  background: linear-gradient(90deg, #1B5E20, #4CAF50);
+  color: #fff !important;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Alertes */
+.alert-ics-success {
+  background: #E8F5E9;
+  border: 1px solid #4CAF50;
+  color: #1B5E20;
+  border-radius: 10px;
+}

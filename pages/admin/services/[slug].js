@@ -1,5 +1,4 @@
 // pages/admin/services/[slug].js
-// ⚠️ Ce fichier est pour l'ADMIN - Utiliser adminServiceApi
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -34,7 +33,6 @@ export default function EditService() {
 
   const fetchItem = async () => {
     try {
-      // ⚠️ Utiliser adminServiceApi
       const response = await adminServiceApi.getById(slug);
       setFormData(response.data);
     } catch (error) {
@@ -64,7 +62,6 @@ export default function EditService() {
     setError('');
 
     try {
-      // ⚠️ Utiliser adminServiceApi
       await adminServiceApi.update(slug, formData);
       router.push('/admin/services');
     } catch (err) {
@@ -74,14 +71,27 @@ export default function EditService() {
   };
 
   if (loading) {
-    return <AdminLayout title="Modifier Service"><div className="text-center py-5">Chargement...</div></AdminLayout>;
+    return (
+      <AdminLayout title="Modifier Service" module="services">
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout title="Modifier Service" module="services">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Modifier : {formData.name}</h1>
-        <Link href="/admin/services" className="btn btn-secondary">← Retour</Link>
+        <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>
+          Modifier : {formData.name}
+        </h1>
+        {/* ✅ CORRECTION : Link avec un seul enfant <span> */}
+        <Link href="/admin/services">
+          <span className="btn btn-secondary">← Retour</span>
+        </Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}

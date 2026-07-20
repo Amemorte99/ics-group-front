@@ -53,7 +53,7 @@ export default function NewPortfolio() {
     <AdminLayout title="Nouveau Projet" module="portfolios">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Nouveau Projet Portfolio</h1>
-        <Link href="/admin/portfolios" className="btn btn-secondary">← Retour</Link>
+        <Link href="/admin/portfolios" ><span class="btn btn-secondary">← Retour</span></Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -189,3 +189,4 @@ export default function NewPortfolio() {
     </AdminLayout>
   );
 }
+

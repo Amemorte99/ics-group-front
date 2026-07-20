@@ -58,7 +58,7 @@ export default function NewBlog() {
     <AdminLayout title="Nouvel Article" module="blog">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Nouvel Article</h1>
-        <Link href="/admin/blog" className="btn btn-secondary">← Retour</Link>
+        <Link href="/admin/blog" ><span class="btn btn-secondary">← Retour</span></Link>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -184,3 +184,4 @@ export default function NewBlog() {
     </AdminLayout>
   );
 }
+
