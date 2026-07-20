@@ -1,4 +1,5 @@
-FROM node:16
+# Version Node.js 18 ou 20 recommandée
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
@@ -7,8 +8,18 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
+# Modifier le script de build dans package.json
 RUN npm run build
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]

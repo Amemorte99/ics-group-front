@@ -45,10 +45,18 @@ export default function EditService() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    // ✅ Convertir 'order' en nombre
+    if (name === 'order') {
+      setFormData({
+        ...formData,
+        [name]: value === '' ? 0 : parseInt(value, 10),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
+    }
   };
 
   const handleFeatures = (e) => {
@@ -88,7 +96,6 @@ export default function EditService() {
         <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>
           Modifier : {formData.name}
         </h1>
-        {/* ✅ CORRECTION : Link avec un seul enfant <span> */}
         <Link href="/admin/services">
           <span className="btn btn-secondary">← Retour</span>
         </Link>
@@ -135,7 +142,7 @@ export default function EditService() {
           </div>
 
           <div className="col-md-6 mb-3">
-            <label className="form-label">Icône (URL)</label>
+            <label className="form-label">Icône / Image</label>
             <input
               type="text"
               name="icon"
@@ -146,7 +153,7 @@ export default function EditService() {
             />
             {formData.icon && (
               <div className="mt-2">
-                <img src={formData.icon} alt="Icône" style={{ maxHeight: '60px' }} />
+                <img src={formData.icon} alt="Icône" style={{ maxHeight: '60px', objectFit: 'contain' }} />
               </div>
             )}
           </div>
@@ -160,7 +167,9 @@ export default function EditService() {
               value={formData.order}
               onChange={handleChange}
               min="0"
+              step="1"
             />
+            <small className="text-muted">Nombre entier positif</small>
           </div>
 
           <div className="col-12 mb-3">
@@ -170,6 +179,7 @@ export default function EditService() {
               rows="5"
               defaultValue={formData.features?.join('\n')}
               onChange={handleFeatures}
+              placeholder="Audit & conseil en sécurité&#10;Déploiement de solutions de protection&#10;Continuité d'activité"
             />
           </div>
 
@@ -185,12 +195,82 @@ export default function EditService() {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary" disabled={saving}>
+            <button type="submit" className="btn btn-ics-primary" disabled={saving}>
               {saving ? 'Enregistrement...' : 'Enregistrer'}
             </button>
           </div>
         </div>
       </form>
+
+      <style jsx>{`
+        .btn-ics-primary {
+          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+          color: #fff;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 10px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .btn-ics-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(27, 94, 32, 0.3);
+          color: #fff;
+        }
+        .btn-secondary {
+          background: #f0f1f3;
+          color: #4a4d5e;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 10px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-block;
+          text-decoration: none;
+        }
+        .btn-secondary:hover {
+          background: #e0e1e3;
+        }
+        .alert {
+          padding: 12px 16px;
+          border-radius: 10px;
+          margin-bottom: 16px;
+        }
+        .alert-danger {
+          background: #FFEBEE;
+          border: 1px solid #FFCDD2;
+          color: #C62828;
+        }
+        .form-control {
+          width: 100%;
+          padding: 10px 14px;
+          border: 1px solid #eef0f2;
+          border-radius: 8px;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+        .form-control:focus {
+          outline: none;
+          border-color: #4CAF50;
+          box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        .form-check-input {
+          width: 18px;
+          height: 18px;
+          margin-right: 8px;
+          accent-color: #4CAF50;
+        }
+        .form-check-label {
+          font-size: 14px;
+          color: #4a4d5e;
+        }
+        .text-muted {
+          color: #8c8f9c;
+          font-size: 12px;
+        }
+      `}</style>
     </AdminLayout>
   );
 }
