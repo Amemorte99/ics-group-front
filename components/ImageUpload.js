@@ -53,7 +53,7 @@ export default function ImageUpload({
       }
 
       // Utiliser l'URL en dur pour éviter les problèmes
-      const API_URL = 'http://localhost:3001/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.icsolution.fr/api';
       
       const response = await axios.post(`${API_URL}/upload`, formData, {
         headers: {

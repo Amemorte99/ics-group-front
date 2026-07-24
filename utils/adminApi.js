@@ -1,23 +1,21 @@
 // utils/adminApi.js
 import axios from 'axios';
+import { API_URL } from './baseUrl';
 
-// ✅ Forcer l'URL du backend
-const API_BASE = 'http://localhost:3001/api';
-
-console.log('🔗 API URL (forcée):', API_BASE);
+console.log('🔗 API URL:', API_URL);
 
 const adminApi = axios.create({
-  baseURL: API_BASE,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
-    console.log('🔑 Token:', token ? 'Présent' : 'Manquant');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,7 +24,7 @@ adminApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Intercepteur pour les erreurs 401
+// Intercepteur pour gérer les erreurs 401
 adminApi.interceptors.response.use(
   (response) => response,
   (error) => {
