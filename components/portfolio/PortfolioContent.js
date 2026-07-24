@@ -37,30 +37,32 @@ const PortfolioContent = ({ limit }) => {
           return;
         }
 
-const mapped = items.map((item) => ({
-  id: item.id,
-  title: item.title || 'Sans titre',
-  shortDesc: item.description?.substring(0, 120) || 'Description courte non disponible',
-  longDesc: item.description || 'Description longue non disponible',
-  category: item.category || 'autre',
-  client: item.client || 'Confidentiel',
-  completionDate: item.completionDate
-    ? new Date(item.completionDate).toLocaleDateString('fr-FR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    : 'N/C',
-  link: item.link || null,
-  // ✅ Utiliser jusqu'à 3 images
-  images: item.images?.length > 0
-    ? item.images.slice(0, 3) // Limiter à 3 images
-    : item.image
-    ? [item.image]
-    : ['/images/placeholder.png'],
-  isActive: item.isActive !== undefined ? item.isActive : true,
-  createdAt: item.createdAt,
-}));
+        const mapped = items.map((item) => ({
+          id: item.id,
+          title: item.title || 'Sans titre',
+          shortDesc: item.description?.substring(0, 120) || 'Description courte non disponible',
+          longDesc: item.description || 'Description longue non disponible',
+          category: item.category || 'autre',
+          client: item.client || 'Confidentiel',
+          completionDate: item.completionDate
+            ? new Date(item.completionDate).toLocaleDateString('fr-FR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+            : 'N/C',
+          link: item.link || null,
+          // ✅ IMAGE PRINCIPALE
+          image: item.image || null,
+          // ✅ Utiliser jusqu'à 3 images
+          images: item.images?.length > 0
+            ? item.images.slice(0, 3)
+            : item.image
+            ? [item.image]
+            : ['/images/placeholder.png'],
+          isActive: item.isActive !== undefined ? item.isActive : true,
+          createdAt: item.createdAt,
+        }));
         setProjects(mapped);
 
         const uniqueCategories = [...new Set(mapped.map((p) => p.category))];
@@ -154,6 +156,11 @@ const mapped = items.map((item) => ({
       consulting: '#4F46E5',
     };
     return colors[category] || '#6B7280';
+  };
+
+  // ✅ Fonction pour obtenir l'image principale
+  const getMainImage = (project) => {
+    return project.image || project.images?.[0] || '/images/placeholder.png';
   };
 
   if (loading) {
@@ -250,6 +257,9 @@ const mapped = items.map((item) => ({
             ) : (
               displayedProjects.map((project, index) => {
                 const delay = (index % 6) * 0.08;
+                // ✅ Récupérer l'image principale
+                const mainImage = getMainImage(project);
+                
                 return (
                   <div
                     key={project.id}
@@ -261,7 +271,7 @@ const mapped = items.map((item) => ({
                       <div className="card-media">
                         <div className="card-image-wrapper">
                           <img
-                            src={project.images?.[0] || '/images/placeholder.png'}
+                            src={mainImage}
                             alt={project.title}
                             className="card-image"
                             loading="lazy"
@@ -368,7 +378,12 @@ const mapped = items.map((item) => ({
                     </div>
                   )}
                   <img
-                    src={selectedProject.images[currentImgIndex]}
+                    src={
+                      // ✅ Afficher l'image principale ou l'image courante
+                      currentImgIndex === 0 && selectedProject.image
+                        ? selectedProject.image
+                        : selectedProject.images?.[currentImgIndex] || '/images/placeholder.png'
+                    }
                     alt={selectedProject.title}
                     className={`main-image ${isImageLoading ? 'loading' : 'loaded'}`}
                     onLoad={() => setIsImageLoading(false)}

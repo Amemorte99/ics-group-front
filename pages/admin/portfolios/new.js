@@ -1,16 +1,14 @@
-// pages/admin/portfolios/[slug].js
-import { useState, useEffect } from 'react';
+// pages/admin/portfolios/new.js
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { adminPortfolioApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
 import ImageUpload from '../../../components/ImageUpload';
 
-export default function EditPortfolio() {
+export default function NewPortfolio() {
   const router = useRouter();
-  const { slug } = router.query;
   const [formData, setFormData] = useState({
-    id: '',
     title: '',
     slug: '',
     category: '',
@@ -22,69 +20,15 @@ export default function EditPortfolio() {
     link: '',
     isActive: true,
   });
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (!authApi.isAuthenticated()) {
-      router.push('/admin/login');
-      return;
-    }
-    if (slug) {
-      fetchItem();
-    }
-  }, [slug]);
-
-  const fetchItem = async () => {
-    try {
-      setLoading(true);
-      console.log('🔍 Récupération du projet avec slug:', slug);
-      
-      // ✅ Utiliser getBySlug pour récupérer par slug
-      const response = await adminPortfolioApi.getBySlug(slug);
-      
-      if (response && response.data) {
-        console.log('✅ Projet trouvé:', response.data);
-        setFormData({
-          id: response.data.id || '',
-          title: response.data.title || '',
-          slug: response.data.slug || '',
-          category: response.data.category || '',
-          image: response.data.image || '',
-          images: response.data.images || [],
-          description: response.data.description || '',
-          client: response.data.client || '',
-          completionDate: response.data.completionDate || '',
-          link: response.data.link || '',
-          isActive: response.data.isActive !== undefined ? response.data.isActive : true,
-        });
-        setError('');
-      } else {
-        setError('Projet non trouvé');
-      }
-    } catch (err) {
-      console.error('❌ Erreur fetch:', err);
-      console.error('❌ Détails:', err.response?.data);
-      setError('Projet non trouvé');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (name === 'order') {
-      setFormData({
-        ...formData,
-        [name]: value === '' ? 0 : parseInt(value, 10),
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: type === 'checkbox' ? checked : value,
-      });
-    }
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
   const handleImageUpload = (url) => {
@@ -114,8 +58,7 @@ export default function EditPortfolio() {
     setError('');
 
     try {
-      // ✅ Utiliser l'ID pour la mise à jour
-      const updateData = {
+      const createData = {
         title: formData.title,
         slug: formData.slug,
         category: formData.category,
@@ -128,49 +71,21 @@ export default function EditPortfolio() {
         isActive: formData.isActive,
       };
 
-      console.log('📝 Mise à jour du projet:', formData.id, updateData);
-      await adminPortfolioApi.update(formData.id, updateData);
+      console.log('📝 Création du projet:', createData);
+      await adminPortfolioApi.create(createData);
       router.push('/admin/portfolios');
     } catch (err) {
-      console.error('❌ Erreur update:', err);
-      setError(err.response?.data?.message || 'Erreur lors de la mise à jour');
+      console.error('❌ Erreur create:', err);
+      setError(err.response?.data?.message || 'Erreur lors de la création');
       setSaving(false);
     }
   };
 
-  if (loading) {
-    return (
-      <AdminLayout title="Modifier Projet" module="portfolios">
-        <div className="text-center py-5">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Chargement...</span>
-          </div>
-        </div>
-      </AdminLayout>
-    );
-  }
-
-  if (error || !formData.id) {
-    return (
-      <AdminLayout title="Modifier Projet" module="portfolios">
-        <div className="text-center py-5">
-          <div className="alert alert-danger" style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <h4>❌ Projet non trouvé</h4>
-            <p>Le projet que vous essayez de modifier n'existe pas.</p>
-            <Link href="/admin/portfolios">
-              <span className="btn btn-ics-primary">Retour au portfolio</span>
-            </Link>
-          </div>
-        </div>
-      </AdminLayout>
-    );
-  }
-
   return (
-    <AdminLayout title="Modifier Projet" module="portfolios">
+    <AdminLayout title="Nouveau Projet" module="portfolios">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>
-          Modifier : {formData.title}
+          Nouveau projet portfolio
         </h1>
         <Link href="/admin/portfolios">
           <span className="btn btn-secondary">← Retour</span>
@@ -190,6 +105,7 @@ export default function EditPortfolio() {
               value={formData.title}
               onChange={handleChange}
               required
+              placeholder="Nom du projet"
             />
           </div>
 
@@ -202,7 +118,9 @@ export default function EditPortfolio() {
               value={formData.slug}
               onChange={handleChange}
               required
+              placeholder="slug-du-projet"
             />
+            <small className="text-muted">Identifiant unique pour l'URL</small>
           </div>
 
           <div className="col-md-6 mb-3">
@@ -232,6 +150,7 @@ export default function EditPortfolio() {
               className="form-control"
               value={formData.client}
               onChange={handleChange}
+              placeholder="Nom du client"
             />
           </div>
 
@@ -245,13 +164,17 @@ export default function EditPortfolio() {
             />
             {formData.image && (
               <div className="mt-2">
-                <small className="text-muted">Image principale</small>
+                <img 
+                  src={formData.image} 
+                  alt="Aperçu" 
+                  style={{ width: '100px', height: '70px', objectFit: 'cover', borderRadius: '4px' }} 
+                />
                 <button
                   type="button"
-                  className="btn btn-sm btn-danger mt-1"
+                  className="btn btn-danger btn-sm mt-1"
                   onClick={removeMainImage}
                 >
-                  Supprimer l'image principale
+                  Supprimer
                 </button>
               </div>
             )}
@@ -301,6 +224,7 @@ export default function EditPortfolio() {
               value={formData.description}
               onChange={handleChange}
               required
+              placeholder="Description du projet..."
             />
           </div>
 
@@ -340,7 +264,7 @@ export default function EditPortfolio() {
 
           <div className="col-12">
             <button type="submit" className="btn btn-ics-primary" disabled={saving}>
-              {saving ? 'Enregistrement...' : 'Enregistrer'}
+              {saving ? 'Création en cours...' : 'Créer le projet'}
             </button>
           </div>
         </div>
@@ -420,10 +344,6 @@ export default function EditPortfolio() {
         }
         .text-muted {
           color: #8c8f9c;
-          font-size: 12px;
-        }
-        .text-danger {
-          color: #EF5350;
           font-size: 12px;
         }
       `}</style>
