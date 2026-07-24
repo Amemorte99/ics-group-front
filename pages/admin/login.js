@@ -1,7 +1,8 @@
 // pages/admin/login.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { authApi } from '../../utils/adminApi'; // ✅ Utiliser adminApi
+import Link from 'next/link';
+import { authApi } from '../../utils/adminApi';
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -24,7 +25,6 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      // ✅ Utiliser authApi au lieu de fetch direct
       const response = await authApi.login(email, password);
       console.log('✅ Login success:', response.data);
 
@@ -36,7 +36,6 @@ export default function AdminLogin() {
       console.error('❌ Erreur:', err);
       console.error('❌ Response:', err.response);
       
-      // Afficher l'erreur exacte
       const errorMessage = err.response?.data?.message || 
                           err.response?.data?.error ||
                           'Email ou mot de passe incorrect. Veuillez réessayer.';
@@ -55,7 +54,17 @@ export default function AdminLogin() {
         <div className="bg-circle c3"></div>
       </div>
 
-      <div className="login-card">
+      <div className="login-card" >
+        {/* ✅ Bouton retour à l'accueil */}
+        <Link href="/" >
+          <a className="back-home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Retour à l'accueil
+          </a>
+        </Link>
+
         {/* Logo */}
         <div className="login-header">
           <div className="logo-container">
@@ -463,6 +472,33 @@ export default function AdminLogin() {
           border-radius: 50%;
           background: #4CAF50;
           display: inline-block;
+        }
+
+        /* ✅ Bouton retour à l'accueil */
+        .back-home {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #1B5E20;
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 400;
+          transition: all 0.3s ease;
+          margin-bottom: 20px;
+          padding: 6px 14px;
+          border-radius: 50px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .back-home:hover {
+          color: #fff;
+          background: #4CAF50;
+          transform: translateX(-4px);
+        }
+
+        .back-home svg {
+          flex-shrink: 0;
         }
 
         /* Responsive */
