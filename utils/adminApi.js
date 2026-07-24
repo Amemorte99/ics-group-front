@@ -77,9 +77,11 @@ export const adminUserApi = {
 export const adminPortfolioApi = {
   getAll: () => adminApi.get('/portfolios/all'),
   getById: (id) => adminApi.get(`/portfolios/${id}`),
+  getBySlug: (slug) => adminApi.get(`/portfolios/slug/${slug}`), // ✅ AJOUTÉ
   create: (data) => adminApi.post('/portfolios', data),
   update: (id, data) => adminApi.put(`/portfolios/${id}`, data),
   delete: (id) => adminApi.delete(`/portfolios/${id}`),
+  toggleActive: (id) => adminApi.post(`/portfolios/${id}/toggle-active`), // ✅ AJOUTÉ
 };
 
 // ============ SERVICES ============
@@ -89,6 +91,7 @@ export const adminServiceApi = {
   create: (data) => adminApi.post('/services', data),
   update: (id, data) => adminApi.put(`/services/${id}`, data),
   delete: (id) => adminApi.delete(`/services/${id}`),
+  toggleActive: (id) => adminApi.post(`/services/${id}/toggle-active`), // ✅ AJOUTÉ
 };
 
 // ============ BLOG ============
@@ -109,6 +112,8 @@ export const adminTestimonialApi = {
   create: (data) => adminApi.post('/testimonials', data),
   update: (id, data) => adminApi.put(`/testimonials/${id}`, data),
   delete: (id) => adminApi.delete(`/testimonials/${id}`),
+  toggleActive: (id) => adminApi.post(`/testimonials/${id}/toggle-active`), // ✅ AJOUTÉ
+  toggleFeatured: (id) => adminApi.post(`/testimonials/${id}/toggle-featured`), // ✅ AJOUTÉ
 };
 
 // ============ PARTNERS ============
@@ -118,6 +123,8 @@ export const adminPartnerApi = {
   create: (data) => adminApi.post('/partners', data),
   update: (id, data) => adminApi.put(`/partners/${id}`, data),
   delete: (id) => adminApi.delete(`/partners/${id}`),
+  toggleActive: (id) => adminApi.post(`/partners/${id}/toggle-active`), // ✅ AJOUTÉ
+  toggleFeatured: (id) => adminApi.post(`/partners/${id}/toggle-featured`), // ✅ AJOUTÉ
 };
 
 // ============ UPLOAD ============

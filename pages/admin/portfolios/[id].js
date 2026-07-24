@@ -1,4 +1,4 @@
-// pages/admin/portfolios/[slug].js
+// pages/admin/portfolios/[id].js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import ImageUpload from '../../../components/ImageUpload';
 
 export default function EditPortfolio() {
   const router = useRouter();
-  const { slug } = router.query;
+  const { id } = router.query; // ✅ Utiliser ID
   const [formData, setFormData] = useState({
     id: '',
     title: '',
@@ -31,18 +31,17 @@ export default function EditPortfolio() {
       router.push('/admin/login');
       return;
     }
-    if (slug) {
+    if (id) {
       fetchItem();
     }
-  }, [slug]);
+  }, [id]);
 
   const fetchItem = async () => {
     try {
       setLoading(true);
-      console.log('🔍 Récupération du projet avec slug:', slug);
+      console.log('🔍 Récupération du projet avec ID:', id);
       
-      // ✅ Utiliser getBySlug pour récupérer par slug
-      const response = await adminPortfolioApi.getBySlug(slug);
+      const response = await adminPortfolioApi.getById(id);
       
       if (response && response.data) {
         console.log('✅ Projet trouvé:', response.data);
@@ -65,7 +64,6 @@ export default function EditPortfolio() {
       }
     } catch (err) {
       console.error('❌ Erreur fetch:', err);
-      console.error('❌ Détails:', err.response?.data);
       setError('Projet non trouvé');
     } finally {
       setLoading(false);
@@ -74,17 +72,10 @@ export default function EditPortfolio() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (name === 'order') {
-      setFormData({
-        ...formData,
-        [name]: value === '' ? 0 : parseInt(value, 10),
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: type === 'checkbox' ? checked : value,
-      });
-    }
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
   const handleImageUpload = (url) => {
@@ -114,7 +105,6 @@ export default function EditPortfolio() {
     setError('');
 
     try {
-      // ✅ Utiliser l'ID pour la mise à jour
       const updateData = {
         title: formData.title,
         slug: formData.slug,
@@ -128,7 +118,7 @@ export default function EditPortfolio() {
         isActive: formData.isActive,
       };
 
-      console.log('📝 Mise à jour du projet:', formData.id, updateData);
+      console.log('📝 Mise à jour du projet ID:', formData.id);
       await adminPortfolioApi.update(formData.id, updateData);
       router.push('/admin/portfolios');
     } catch (err) {

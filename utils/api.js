@@ -31,7 +31,10 @@ export const authApi = {
 
 // ============ PORTFOLIO ============
 export const portfolioApi = {
-  getAll: () => api.get('/portfolios'),
+  getAll: () => {
+  console.log('📡 Appel API: /portfolios');
+  return api.get('/portfolios');
+},
   getAllAdmin: () => api.get('/portfolios/all'),
   getById: (id) => api.get(`/portfolios/${id}`),
   getBySlug: (slug) => api.get(`/portfolios/slug/${slug}`),
