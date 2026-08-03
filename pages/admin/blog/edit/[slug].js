@@ -1,14 +1,16 @@
-// pages/admin/blog/new.js
+// pages/admin/blog/edit/[slug].js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { adminBlogApi, authApi } from '../../../utils/adminApi';
-import AdminLayout from '../../../components/AdminLayout';
-import ImageUpload from '../../../components/ImageUpload';
+import { adminBlogApi, authApi } from '../../../../utils/adminApi';
+import AdminLayout from '../../../../components/AdminLayout';
+import ImageUpload from '../../../../components/ImageUpload';
 
-export default function NewBlog() {
+export default function EditBlog() {
   const router = useRouter();
+  const { slug } = router.query;
   const [formData, setFormData] = useState({
+    id: '',
     title: '',
     slug: '',
     content: '',
@@ -20,14 +22,52 @@ export default function NewBlog() {
     isPublished: true,
     isFeatured: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (!authApi.isAuthenticated()) {
       router.push('/admin/login');
+      return;
     }
-  }, []);
+    if (slug) {
+      fetchItem();
+    }
+  }, [slug]);
+
+  const fetchItem = async () => {
+    try {
+      setLoading(true);
+      let response;
+      
+      if (!isNaN(slug)) {
+        response = await adminBlogApi.getById(parseInt(slug));
+      } else {
+        response = await adminBlogApi.getBySlug(slug);
+      }
+      
+      const data = response.data;
+      setFormData({
+        id: data.id || '',
+        title: data.title || '',
+        slug: data.slug || '',
+        content: data.content || '',
+        featuredImage: data.featuredImage || '',
+        images: data.images || [],
+        authorName: data.authorName || data.author || '', // ✅ CHANGÉ
+        tags: data.tags || [],
+        publishedDate: data.publishedDate || '',
+        isPublished: data.isPublished !== undefined ? data.isPublished : true,
+        isFeatured: data.isFeatured || false,
+      });
+    } catch (err) {
+      console.error('❌ Erreur fetch:', err);
+      setError('Article non trouvé');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -69,12 +109,12 @@ export default function NewBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSaving(true);
     setError('');
 
     try {
       // ✅ CHANGÉ : author → authorName
-      const createData = {
+      const updateData = {
         title: formData.title,
         slug: formData.slug,
         content: formData.content,
@@ -87,23 +127,52 @@ export default function NewBlog() {
         isFeatured: formData.isFeatured,
       };
       
-      console.log('📝 Création:', createData);
-      await adminBlogApi.create(createData);
+      console.log('📝 Mise à jour:', updateData);
+      await adminBlogApi.update(formData.id, updateData);
       router.push('/admin/blog');
     } catch (err) {
-      console.error('❌ Erreur création:', err);
+      console.error('❌ Erreur update:', err);
       console.error('❌ Response:', err.response?.data);
-      setError(err.response?.data?.message || 'Erreur lors de la création');
-      setLoading(false);
+      setError(err.response?.data?.message || 'Erreur lors de la mise à jour');
+      setSaving(false);
     }
   };
 
+  if (loading) {
+    return (
+      <AdminLayout title="Chargement..." module="blog">
+        <div className="text-center py-5">
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden">Chargement...</span>
+          </div>
+          <p className="text-muted mt-3">Chargement de l'article...</p>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  if (error || !formData.id) {
+    return (
+      <AdminLayout title="Article non trouvé" module="blog">
+        <div className="text-center py-5">
+          <div className="alert alert-danger" style={{ maxWidth: '500px', margin: '0 auto' }}>
+            <h4>❌ Article non trouvé</h4>
+            <p>L'article que vous essayez de modifier n'existe pas.</p>
+            <Link href="/admin/blog">
+              <span className="btn btn-ics-primary">Retour au blog</span>
+            </Link>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
-    <AdminLayout title="Nouvel Article" module="blog">
+    <AdminLayout title={`Modifier : ${formData.title}`} module="blog">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>✍️ Nouvel Article</h1>
-          <p className="text-muted small mt-1">Rédigez un nouvel article pour le blog ICS GROUPE</p>
+          <h1 className="h3 mb-0" style={{ color: '#1a1a2e' }}>✏️ Modifier : {formData.title}</h1>
+          <p className="text-muted small mt-1">Modifiez votre article de blog</p>
         </div>
         <Link href="/admin/blog">
           <span className="btn btn-secondary">← Retour</span>
@@ -114,7 +183,6 @@ export default function NewBlog() {
 
       <form onSubmit={handleSubmit} className="card shadow p-4">
         <div className="row">
-          {/* Titre */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Titre *</label>
             <input
@@ -123,12 +191,10 @@ export default function NewBlog() {
               className="form-control"
               value={formData.title}
               onChange={handleChange}
-              placeholder="Titre de l'article"
               required
             />
           </div>
 
-          {/* Slug */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Slug *</label>
             <input
@@ -137,18 +203,15 @@ export default function NewBlog() {
               className="form-control"
               value={formData.slug}
               onChange={handleChange}
-              placeholder="titre-de-l-article"
               required
             />
-            <small className="text-muted">Identifiant unique pour l'URL</small>
           </div>
 
-          {/* Auteur - CHANGÉ */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Auteur</label>
             <input
               type="text"
-              name="authorName"
+              name="authorName" // ✅ CHANGÉ
               className="form-control"
               value={formData.authorName}
               onChange={handleChange}
@@ -156,7 +219,6 @@ export default function NewBlog() {
             />
           </div>
 
-          {/* Date de publication */}
           <div className="col-md-6 mb-3">
             <label className="form-label">Date de publication</label>
             <input
@@ -195,7 +257,7 @@ export default function NewBlog() {
             )}
           </div>
 
-          {/* Images supplémentaires (multiple) */}
+          {/* Images multiples */}
           <div className="col-12 mb-3">
             <label className="form-label">Images supplémentaires (max 5)</label>
             <ImageUpload
@@ -228,14 +290,14 @@ export default function NewBlog() {
             )}
           </div>
 
-          {/* Tags */}
           <div className="col-12 mb-3">
             <label className="form-label">Tags (séparés par des virgules)</label>
             <input
               type="text"
               className="form-control"
+              value={formData.tags.join(', ')}
               onChange={handleTags}
-              placeholder="tech, innovation, IA, cybersécurité"
+              placeholder="tech, innovation, IA"
             />
             {formData.tags.length > 0 && (
               <div className="mt-2 d-flex flex-wrap gap-2">
@@ -246,7 +308,6 @@ export default function NewBlog() {
             )}
           </div>
 
-          {/* Contenu */}
           <div className="col-12 mb-3">
             <label className="form-label">Contenu *</label>
             <textarea
@@ -255,12 +316,10 @@ export default function NewBlog() {
               rows="12"
               value={formData.content}
               onChange={handleChange}
-              placeholder="Rédigez le contenu de votre article ici..."
               required
             />
           </div>
 
-          {/* Options */}
           <div className="col-md-6 mb-3 form-check">
             <input
               type="checkbox"
@@ -270,9 +329,7 @@ export default function NewBlog() {
               onChange={handleChange}
               id="isPublished"
             />
-            <label className="form-check-label" htmlFor="isPublished">
-              ✅ Publié
-            </label>
+            <label className="form-check-label" htmlFor="isPublished">✅ Publié</label>
           </div>
 
           <div className="col-md-6 mb-3 form-check">
@@ -284,25 +341,18 @@ export default function NewBlog() {
               onChange={handleChange}
               id="isFeatured"
             />
-            <label className="form-check-label" htmlFor="isFeatured">
-              ⭐ Article en vedette
-            </label>
+            <label className="form-check-label" htmlFor="isFeatured">⭐ En vedette</label>
           </div>
 
-          {/* Bouton */}
           <div className="col-12">
-            <button 
-              type="submit" 
-              className="btn btn-ics-primary"
-              disabled={loading}
-            >
-              {loading ? (
+            <button type="submit" className="btn btn-ics-primary" disabled={saving}>
+              {saving ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                  Création en cours...
+                  Enregistrement...
                 </>
               ) : (
-                '📤 Publier l\'article'
+                '💾 Enregistrer'
               )}
             </button>
           </div>

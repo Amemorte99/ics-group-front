@@ -28,14 +28,12 @@ export default function ImageUpload({
       const uploadedUrls = [];
 
       for (const file of files) {
-        // Vérifier la taille
         if (file.size > 5 * 1024 * 1024) {
           setError(`Le fichier ${file.name} est trop volumineux (max 5MB)`);
           setUploading(false);
           return;
         }
 
-        // Vérifier le type
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
         if (!allowedTypes.includes(file.type)) {
           setError(`Format de fichier non supporté: ${file.name}`);
@@ -47,7 +45,6 @@ export default function ImageUpload({
         formData.append('file', file);
 
         const token = localStorage.getItem('adminToken');
-        
         if (!token) {
           setError('Vous devez être connecté');
           setUploading(false);
@@ -68,15 +65,12 @@ export default function ImageUpload({
         }
       }
 
-      // Gérer les différents cas d'upload
       if (multiple && onMultipleUpload) {
-        // Upload multiple
         const newImages = [...uploadedImages, ...uploadedUrls];
         setUploadedImages(newImages);
         onMultipleUpload(newImages);
         setPreview(null);
       } else if (!multiple) {
-        // Upload simple
         if (uploadedUrls.length > 0) {
           setPreview(uploadedUrls[0]);
           if (onUpload) {
@@ -125,7 +119,6 @@ export default function ImageUpload({
 
   return (
     <div className="image-upload-container">
-      {/* Upload dropzone */}
       <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${uploading ? 'uploading' : ''}`}>
         <input {...getInputProps()} />
         <div className="dropzone-content">
@@ -150,7 +143,6 @@ export default function ImageUpload({
 
       {error && <p className="error-message">{error}</p>}
 
-      {/* Image principale */}
       {!multiple && preview && (
         <div className="image-preview-wrapper">
           <div className="image-preview">
@@ -173,7 +165,6 @@ export default function ImageUpload({
         </div>
       )}
 
-      {/* Images multiples */}
       {multiple && uploadedImages.length > 0 && (
         <div className="multiple-images-preview">
           <div className="row g-2">
@@ -196,10 +187,7 @@ export default function ImageUpload({
       )}
 
       <style jsx>{`
-        .image-upload-container { 
-          width: 100%; 
-        }
-
+        .image-upload-container { width: 100%; }
         .dropzone {
           border: 2px dashed #d0d2d8;
           border-radius: 12px;
@@ -210,55 +198,15 @@ export default function ImageUpload({
           background: #f8f9fb;
           margin-bottom: 12px;
         }
-
-        .dropzone:hover { 
-          border-color: #4CAF50; 
-          background: #f0f7f0; 
-        }
-
-        .dropzone.active { 
-          border-color: #4CAF50; 
-          background: #e8f5e9; 
-        }
-
-        .dropzone.uploading { 
-          opacity: 0.6; 
-          cursor: wait; 
-        }
-
-        .dropzone-content { 
-          display: flex; 
-          flex-direction: column; 
-          align-items: center; 
-          gap: 8px; 
-        }
-
-        .dropzone-icon { 
-          font-size: 40px; 
-        }
-
-        .dropzone-text { 
-          font-size: 14px; 
-          color: #4a4d5e; 
-          margin: 0; 
-        }
-
-        .dropzone-hint { 
-          font-size: 12px; 
-          color: #8c8f9c; 
-          margin: 0; 
-        }
-
-        .error-message { 
-          color: #EF5350; 
-          font-size: 13px; 
-          margin-top: 8px; 
-        }
-
-        .image-preview-wrapper {
-          margin-top: 12px;
-        }
-
+        .dropzone:hover { border-color: #4CAF50; background: #f0f7f0; }
+        .dropzone.active { border-color: #4CAF50; background: #e8f5e9; }
+        .dropzone.uploading { opacity: 0.6; cursor: wait; }
+        .dropzone-content { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .dropzone-icon { font-size: 40px; }
+        .dropzone-text { font-size: 14px; color: #4a4d5e; margin: 0; }
+        .dropzone-hint { font-size: 12px; color: #8c8f9c; margin: 0; }
+        .error-message { color: #EF5350; font-size: 13px; margin-top: 8px; }
+        .image-preview-wrapper { margin-top: 12px; }
         .image-preview {
           border-radius: 12px;
           overflow: hidden;
@@ -266,54 +214,21 @@ export default function ImageUpload({
           padding: 10px;
           background: #f8f9fb;
         }
-
-        .image-preview img { 
-          width: 100%; 
-          max-height: 200px; 
-          object-fit: contain; 
-        }
-
+        .image-preview img { width: 100%; max-height: 200px; object-fit: contain; }
         .image-actions {
-          display: flex; 
-          gap: 8px; 
-          padding: 10px;
-          justify-content: center; 
-          border-top: 1px solid #eef0f2;
+          display: flex; gap: 8px; padding: 10px;
+          justify-content: center; border-top: 1px solid #eef0f2;
           background: #fff;
         }
-
         .btn-change, .btn-remove {
-          padding: 6px 16px; 
-          border: none; 
-          border-radius: 6px;
-          font-size: 13px; 
-          font-weight: 500; 
-          cursor: pointer; 
-          transition: all 0.3s ease;
+          padding: 6px 16px; border: none; border-radius: 6px;
+          font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
         }
-
-        .btn-change { 
-          background: #E8F5E9; 
-          color: #1B5E20; 
-        }
-
-        .btn-change:hover { 
-          background: #C8E6C9; 
-        }
-
-        .btn-remove { 
-          background: #FFEBEE; 
-          color: #C62828; 
-        }
-
-        .btn-remove:hover { 
-          background: #FFCDD2; 
-        }
-
-        .multiple-images-preview {
-          margin-top: 12px;
-        }
-
+        .btn-change { background: #E8F5E9; color: #1B5E20; }
+        .btn-change:hover { background: #C8E6C9; }
+        .btn-remove { background: #FFEBEE; color: #C62828; }
+        .btn-remove:hover { background: #FFCDD2; }
+        .multiple-images-preview { margin-top: 12px; }
         .image-preview-mini {
           position: relative;
           border-radius: 8px;
@@ -322,13 +237,7 @@ export default function ImageUpload({
           background: #f8f9fb;
           aspect-ratio: 1;
         }
-
-        .image-preview-mini img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
+        .image-preview-mini img { width: 100%; height: 100%; object-fit: cover; }
         .btn-remove-mini {
           position: absolute;
           top: 4px;
@@ -346,24 +255,13 @@ export default function ImageUpload({
           justify-content: center;
           transition: all 0.3s ease;
         }
-
-        .btn-remove-mini:hover {
-          background: #EF5350;
-          transform: scale(1.1);
-        }
-
+        .btn-remove-mini:hover { background: #EF5350; transform: scale(1.1); }
         .spinner {
-          width: 40px; 
-          height: 40px;
-          border: 3px solid #eef0f2; 
-          border-top-color: #4CAF50;
-          border-radius: 50%; 
-          animation: spin 0.8s linear infinite;
+          width: 40px; height: 40px;
+          border: 3px solid #eef0f2; border-top-color: #4CAF50;
+          border-radius: 50%; animation: spin 0.8s linear infinite;
         }
-
-        @keyframes spin { 
-          to { transform: rotate(360deg); } 
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
       `}</style>
     </div>
   );

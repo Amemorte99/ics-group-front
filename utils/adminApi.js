@@ -15,15 +15,16 @@ const adminApi = axios.create({
 // Intercepteur pour le token
 adminApi.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
-
 // Intercepteur pour gérer les erreurs 401
 adminApi.interceptors.response.use(
   (response) => response,
@@ -98,6 +99,7 @@ export const adminServiceApi = {
 export const adminBlogApi = {
   getAll: () => adminApi.get('/blogs/all'),
   getById: (id) => adminApi.get(`/blogs/${id}`),
+  getBySlug: (slug) => adminApi.get(`/blogs/slug/${slug}`),
   create: (data) => adminApi.post('/blogs', data),
   update: (id, data) => adminApi.put(`/blogs/${id}`, data),
   delete: (id) => adminApi.delete(`/blogs/${id}`),
