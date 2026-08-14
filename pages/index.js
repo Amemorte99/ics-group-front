@@ -64,9 +64,9 @@ class Index extends Component {
                     {/* Canonical URL */}
                     <link rel="canonical" href="https://icsolution.fr" />
                     
-                    {/* Alternates pour les langues */}
-                    <link rel="alternate" href="https://icsolution.fr" hreflang="fr" />
-                    <link rel="alternate" href="https://icsolution.fr/en" hreflang="en" />
+                    {/* ✅ CORRECTION : hrefLang au lieu de hreflang */}
+                    <link rel="alternate" href="https://icsolution.fr" hrefLang="fr" />
+                    <link rel="alternate" href="https://icsolution.fr/en" hrefLang="en" />
                     
                     {/* Indexation */}
                     <meta name="robots" content="index, follow" />

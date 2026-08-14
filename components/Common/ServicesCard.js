@@ -177,7 +177,7 @@ class ServicesCard extends Component {
                                     <div className="service-image-frame">
                                         <div className="image-glow" style={{ background: `radial-gradient(circle, ${service.color}30, transparent 70%)` }}></div>
                                         
-                                        {/* Utilisation de next/image pour l'optimisation */}
+                                        {/* ✅ CORRECTION : Suppression de priority pour ne garder que loading="lazy" */}
                                         <Image 
                                             src={service.image} 
                                             alt={`${service.title} - Services ICS GROUPE`}
@@ -185,7 +185,6 @@ class ServicesCard extends Component {
                                             height={600}
                                             className="service-image"
                                             loading="lazy"
-                                            priority={index < 2}
                                         />
                                         
                                         <div className="image-overlay-gradient"></div>
