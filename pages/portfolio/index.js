@@ -273,22 +273,7 @@ const PortfolioPage = () => {
 
       <Navbar />
 
-      {/* ============================================
-          BREADCRUMB - FIL D'ARIANE
-          (Ajouter juste après Navbar)
-          ============================================ */}
-      <nav className="breadcrumb" aria-label="Fil d'Ariane">
-        <div className="container">
-          <ol>
-            <li>
-              <Link href="/">Accueil</Link>
-            </li>
-            <li aria-current="page">
-              <span>Portfolio</span>
-            </li>
-          </ol>
-        </div>
-      </nav>
+   
 
       {/* ============================================
           HERO CINÉMATIQUE
