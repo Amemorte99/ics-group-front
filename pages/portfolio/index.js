@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import PortfolioContent from '../../components/portfolio/PortfolioContent';
@@ -76,27 +77,222 @@ const PortfolioPage = () => {
 
   return (
     <>
+      {/* ============================================
+          HEAD - META TAGS OPTIMISÉS SEO
+          ============================================ */}
       <Head>
-        <title>Notre Portfolio | ICS GROUPE - Réalisations & Projets</title>
+        {/* Titre principal avec mots-clés forts */}
+        <title>Portfolio ICS GROUPE | 150+ Projets en Cybersécurité, Énergie & Web au Tchad</title>
+        
+        {/* Meta description avec CTA et statistiques */}
         <meta 
           name="description" 
-          content="Découvrez le portfolio d'ICS GROUPE : nos réalisations en cybersécurité, énergies renouvelables, développement web et transformation digitale au Tchad et en Afrique." 
+          content="Découvrez le portfolio d'ICS GROUPE : +150 projets réalisés en cybersécurité, énergies renouvelables et développement web au Tchad et en Afrique. Taux de satisfaction 98%." 
         />
+        
+        {/* Mots-clés secondaires */}
         <meta 
           name="keywords" 
-          content="portfolio, réalisations, projets, cybersécurité, énergie, web, Tchad, Afrique" 
+          content="portfolio ICS GROUPE, réalisations cybersécurité Tchad, projets énergie Afrique, développement web N'Djamena, transformation digitale, études de cas, agence digitale Afrique" 
         />
-        <meta property="og:title" content="Notre Portfolio | ICS GROUPE" />
-        <meta property="og:description" content="Découvrez nos réalisations et projets innovants" />
+        
+        {/* Open Graph / Facebook / LinkedIn */}
+        <meta property="og:title" content="Portfolio ICS GROUPE - Nos Réalisations en Afrique" />
+        <meta property="og:description" content="Découvrez nos 150+ projets innovants en cybersécurité, énergie et digital au Tchad et en Afrique." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://icsolution.fr/portfolio" />
         <meta property="og:image" content="https://icsolution.fr/images/og-portfolio.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="ICS GROUPE" />
+        <meta property="og:image:alt" content="Portfolio ICS GROUPE - Réalisations en Afrique" />
+        
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Portfolio ICS GROUPE - Nos Réalisations en Afrique" />
+        <meta name="twitter:description" content="Découvrez nos 150+ projets innovants en cybersécurité, énergie et digital." />
+        <meta name="twitter:image" content="https://icsolution.fr/images/og-portfolio.jpg" />
+        <meta name="twitter:site" content="@ics_groupe" />
+        
+        {/* Canonical URL - Évite le contenu dupliqué */}
         <link rel="canonical" href="https://icsolution.fr/portfolio" />
+        
+        {/* Alternates pour les langues (si multilingue) */}
+        <link rel="alternate" href="https://icsolution.fr/portfolio" hreflang="fr" />
+        <link rel="alternate" href="https://icsolution.fr/en/portfolio" hreflang="en" />
+        
+        {/* Indexation */}
+        <meta name="robots" content="index, follow" />
+        
+        {/* Author et Publisher */}
+        <meta name="author" content="ICS GROUPE" />
+        <meta name="publisher" content="ICS GROUPE" />
+        
+        {/* Vérification Google Search Console (à remplacer par votre code) */}
+        <meta name="google-site-verification" content="VOTRE_CODE_VERIFICATION" />
       </Head>
+
+      {/* ============================================
+          SCHEMA.ORG - DONNÉES STRUCTURÉES
+          (Ajouter juste après le Head)
+          ============================================ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Portfolio ICS GROUPE",
+            "description": "Découvrez nos réalisations en cybersécurité, énergie et développement web au Tchad et en Afrique.",
+            "url": "https://icsolution.fr/portfolio",
+            "inLanguage": "fr",
+            "about": {
+              "@type": "Organization",
+              "name": "ICS GROUPE",
+              "url": "https://icsolution.fr",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://icsolution.fr/images/logo.png"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/ics-groupe",
+                "https://twitter.com/ics_groupe",
+                "https://www.facebook.com/icsgroupe"
+              ],
+              "description": "ICS GROUPE est une entreprise spécialisée en cybersécurité, énergies renouvelables et transformation digitale au Tchad et en Afrique.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "N'Djamena",
+                "addressCountry": "Tchad"
+              }
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Projets réalisés par ICS GROUPE",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "url": "https://icsolution.fr/portfolio/cybersecurite-banque",
+                  "name": "Cybersécurité - Banque Africaine"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "url": "https://icsolution.fr/portfolio/energie-solaire-ecole",
+                  "name": "Énergie solaire - École Tchadienne"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "url": "https://icsolution.fr/portfolio/web-ecommerce",
+                  "name": "Site web e-commerce - N'Djamena"
+                }
+              ]
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Accueil",
+                  "item": "https://icsolution.fr"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Portfolio",
+                  "item": "https://icsolution.fr/portfolio"
+                }
+              ]
+            }
+          })
+        }}
+      />
+
+      {/* ============================================
+          SCHEMA.ORG - SERVICES OFFERTS
+          ============================================ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Services numériques et énergétiques",
+            "provider": {
+              "@type": "Organization",
+              "name": "ICS GROUPE",
+              "url": "https://icsolution.fr"
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "XAF",
+              "availability": "https://schema.org/InStock",
+              "description": "Services de cybersécurité, énergies renouvelables, développement web et transformation digitale en Afrique"
+            },
+            "areaServed": {
+              "@type": "Place",
+              "name": "Afrique centrale et de l'Ouest"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Catalogue de services ICS GROUPE",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Cybersécurité",
+                    "description": "Protection des systèmes d'information et infrastructures critiques"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Énergies renouvelables",
+                    "description": "Solutions solaires et énergies durables pour entreprises et collectivités"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Développement Web",
+                    "description": "Sites vitrines, e-commerce et applications web sur mesure"
+                  }
+                }
+              ]
+            }
+          })
+        }}
+      />
 
       <Navbar />
 
-      {/* ===== HERO CINÉMATIQUE ===== */}
+      {/* ============================================
+          BREADCRUMB - FIL D'ARIANE
+          (Ajouter juste après Navbar)
+          ============================================ */}
+      <nav className="breadcrumb" aria-label="Fil d'Ariane">
+        <div className="container">
+          <ol>
+            <li>
+              <Link href="/">Accueil</Link>
+            </li>
+            <li aria-current="page">
+              <span>Portfolio</span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      {/* ============================================
+          HERO CINÉMATIQUE
+          ============================================ */}
       <section className="hero-cinematic">
         <div className="hero-background">
           <div className="hero-particles">
@@ -121,20 +317,27 @@ const PortfolioPage = () => {
                 <span className="badge-pulse"></span>
               </div>
               
+              {/* H1 optimisé avec mots-clés */}
               <h1 className="hero-title animate-on-scroll">
                 <span className="title-line">Nos</span>
-                <span className="title-highlight">réalisations</span>
+                <span className="title-highlight">réalisations en Afrique</span>
               </h1>
               
+              {/* Description enrichie avec mots-clés et statistiques */}
               <p className="hero-subtitle animate-on-scroll">
-                Chaque projet raconte une histoire de passion, d&apos;expertise et d&apos;innovation.
-                Découvrez comment nous accompagnons nos clients vers la réussite.
+                ICS GROUPE c'est <strong>150+ projets</strong> réalisés en cybersécurité, 
+                énergies renouvelables et développement digital au Tchad et en Afrique. 
+                Découvrez comment nous accompagnons nos clients vers l'excellence.
               </p>
 
               <div className="hero-stats animate-on-scroll" ref={statsRef}>
                 <div className="stat-item">
                   <span className="stat-number" data-count="150" data-suffix="+">0+</span>
-                  <span className="stat-label">Projets réalisés</span>
+                  <span className="stat-label">
+                    <Link href="#portfolio-grid" style={{ color: 'inherit', textDecoration: 'none' }}>
+                      Projets réalisés →
+                    </Link>
+                  </span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
@@ -167,27 +370,63 @@ const PortfolioPage = () => {
             <div className="hero-visual animate-on-scroll">
               <div className="visual-grid">
                 <div className="visual-card vc1">
-                  <span className="vc-icon">🔒</span>
+                  <Image 
+                    src="/images/icons/cybersecurity.svg" 
+                    alt="Cybersécurité - expertise ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Cybersécurité</span>
                 </div>
                 <div className="visual-card vc2">
-                  <span className="vc-icon">☀️</span>
+                  <Image 
+                    src="/images/icons/solar.svg" 
+                    alt="Énergie solaire - solutions ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Énergie</span>
                 </div>
                 <div className="visual-card vc3">
-                  <span className="vc-icon">🌐</span>
+                  <Image 
+                    src="/images/icons/web.svg" 
+                    alt="Développement web - agence digitale ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Web</span>
                 </div>
                 <div className="visual-card vc4">
-                  <span className="vc-icon">📱</span>
+                  <Image 
+                    src="/images/icons/mobile.svg" 
+                    alt="Applications mobiles - développement ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Mobile</span>
                 </div>
                 <div className="visual-card vc5">
-                  <span className="vc-icon">☁️</span>
+                  <Image 
+                    src="/images/icons/cloud.svg" 
+                    alt="Solutions cloud - infrastructure ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Cloud</span>
                 </div>
                 <div className="visual-card vc6">
-                  <span className="vc-icon">📊</span>
+                  <Image 
+                    src="/images/icons/data.svg" 
+                    alt="Data science - analyse de données ICS GROUPE" 
+                    width={40} 
+                    height={40}
+                    className="vc-icon"
+                  />
                   <span className="vc-label">Data</span>
                 </div>
               </div>
@@ -203,17 +442,25 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* ===== PORTFOLIO CONTENT ===== */}
+      {/* ============================================
+          PORTFOLIO CONTENT
+          ============================================ */}
       <div id="portfolio-grid">
         <PortfolioContent />
       </div>
 
-      {/* ===== TESTIMONIALS PREVIEW ===== */}
+      {/* ============================================
+          TESTIMONIALS PREVIEW
+          ============================================ */}
       <section className="testimonials-preview">
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Ils nous font confiance</span>
-            <h2 className="section-title">Ce que disent nos clients</h2>
+            {/* H2 optimisé */}
+            <h2 className="section-title">Témoignages de nos clients</h2>
+            <p className="section-subtitle">
+              Découvrez les retours de nos clients sur nos réalisations en Afrique
+            </p>
           </div>
           <div className="testimonial-grid">
             <div className="testimonial-card">
@@ -225,7 +472,7 @@ const PortfolioPage = () => {
                 <div className="tc-avatar">JD</div>
                 <div>
                   <span className="tc-name">Jean Dupont</span>
-                  <span className="tc-role">CTO, Safricom</span>
+                  <span className="tc-role">CTO, Safricom Tchad</span>
                 </div>
               </div>
             </div>
@@ -251,7 +498,7 @@ const PortfolioPage = () => {
                 <div className="tc-avatar">AK</div>
                 <div>
                   <span className="tc-name">Abdoulaye Kone</span>
-                  <span className="tc-role">CEO, TechLab</span>
+                  <span className="tc-role">CEO, TechLab Afrique</span>
                 </div>
               </div>
             </div>
@@ -259,7 +506,9 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* ===== CTA SECTION ===== */}
+      {/* ============================================
+          CTA SECTION
+          ============================================ */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
@@ -287,13 +536,61 @@ const PortfolioPage = () => {
 
       <Footer />
 
+      {/* ============================================
+          STYLES - CSS COMPLETS
+          ============================================ */}
       <style jsx>{`
+        /* ============================================
+           BREADCRUMB
+        ============================================ */
+        .breadcrumb {
+          background: rgba(10, 10, 46, 0.95);
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          position: relative;
+          z-index: 3;
+        }
+        
+        .breadcrumb ol {
+          display: flex;
+          gap: 8px;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          flex-wrap: wrap;
+        }
+        
+        .breadcrumb li {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+          content: '/';
+          margin-left: 8px;
+          color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .breadcrumb a {
+          color: rgba(255, 255, 255, 0.6);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        
+        .breadcrumb a:hover {
+          color: #4CAF50;
+        }
+        
+        .breadcrumb li:last-child {
+          color: rgba(255, 255, 255, 0.8);
+        }
+
         /* ============================================
            HERO CINÉMATIQUE
         ============================================ */
         .hero-cinematic {
           position: relative;
-          padding: 120px 0 60px;
+          padding: 40px 0 60px;
           background: linear-gradient(145deg, #0A0A2E 0%, #0D2B1A 40%, #1B5E20 100%);
           overflow: hidden;
           min-height: 600px;
@@ -467,6 +764,11 @@ const PortfolioPage = () => {
           margin-bottom: 36px;
         }
 
+        .hero-subtitle strong {
+          color: rgba(255, 255, 255, 0.85);
+          font-weight: 600;
+        }
+
         .hero-stats {
           display: flex;
           align-items: center;
@@ -498,6 +800,16 @@ const PortfolioPage = () => {
           color: rgba(255, 255, 255, 0.5);
           font-weight: 400;
           letter-spacing: 0.3px;
+        }
+
+        .stat-label a {
+          color: rgba(255, 255, 255, 0.5);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .stat-label a:hover {
+          color: #4CAF50;
         }
 
         .stat-divider {
@@ -598,8 +910,10 @@ const PortfolioPage = () => {
 
         .vc-icon {
           display: block;
-          font-size: 28px;
-          margin-bottom: 6px;
+          margin: 0 auto 6px;
+          width: 40px;
+          height: 40px;
+          filter: brightness(0) invert(1) opacity(0.8);
         }
 
         .vc-label {
@@ -666,7 +980,14 @@ const PortfolioPage = () => {
           font-size: 32px;
           font-weight: 700;
           color: #0A0A2E;
-          margin-bottom: 0;
+          margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+          font-size: 16px;
+          color: #6b7280;
+          max-width: 600px;
+          margin: 0 auto;
         }
 
         .testimonial-grid {
@@ -845,7 +1166,7 @@ const PortfolioPage = () => {
 
         @media (max-width: 768px) {
           .hero-cinematic {
-            padding: 80px 0 40px;
+            padding: 60px 0 40px;
             min-height: auto;
           }
 
@@ -891,7 +1212,8 @@ const PortfolioPage = () => {
           }
 
           .vc-icon {
-            font-size: 22px;
+            width: 30px;
+            height: 30px;
           }
           .vc-label {
             font-size: 10px;
@@ -928,6 +1250,14 @@ const PortfolioPage = () => {
           .section-title {
             font-size: 24px;
           }
+
+          .breadcrumb {
+            padding: 8px 0;
+          }
+          
+          .breadcrumb li {
+            font-size: 12px;
+          }
         }
 
         @media (max-width: 420px) {
@@ -946,7 +1276,8 @@ const PortfolioPage = () => {
           }
 
           .vc-icon {
-            font-size: 18px;
+            width: 24px;
+            height: 24px;
           }
           .vc-label {
             font-size: 8px;
