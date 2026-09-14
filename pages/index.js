@@ -11,7 +11,7 @@ import OurFeaturesContent from '../components/Common/OurFeaturesContent';
 import EasyPaymentBorrow from '../components/Common/EasyPaymentBorrow';
 import FunFacts from '../components/HomeOne/FunFacts';
 import CustomersFeedback from '../components/Common/CustomersFeedback';
-import PartnerContent from '../components/Common/PartnerContent';
+// import PartnerContent from '../components/Common/PartnerContent'; // Désactivé : logos partenaires à valider avant réactivation
 import AppDownloadContent from '../components/HomeOne/AppDownloadContent';
 import AccountCreateArea from '../components/Common/AccountCreateArea';
 import BlogCard from '../components/Common/BlogCard';
@@ -245,8 +245,8 @@ class Index extends Component {
                 {/* Témoignages clients */}
                 <CustomersFeedback />
 
-                {/* Partenaires */}
-                <PartnerContent />
+                {/* Partenaires - désactivé temporairement (voir import ci-dessus) */}
+                {/* <PartnerContent /> */}
 
                 {/* Téléchargement application */}
                 <AppDownloadContent />

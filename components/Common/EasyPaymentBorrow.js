@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 
+const highlights = [
+    { title: 'Cybersécurité', icon: 'fas fa-shield-alt' },
+    { title: 'Énergies Renouvelables', icon: 'fas fa-solar-panel' },
+    { title: 'Réseaux & Télécoms', icon: 'fas fa-network-wired' },
+    { title: 'Développement Web', icon: 'fas fa-laptop-code' },
+];
+
 class EasyPaymentBorrow extends Component {
     render() {
         return (
@@ -14,56 +21,85 @@ class EasyPaymentBorrow extends Component {
                                 <p>ICS GROUPE vous accompagne avec des solutions innovantes en cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting sur mesure.</p>
                                 <p>De l’étude de vos besoins à la mise en œuvre et la maintenance, notre équipe d’experts certifiés assure une transition fluide, sécurisée et rentable, tout en respectant votre budget et vos objectifs écologiques.</p>
 
-                     ß           <Link href="/contact">
+                                <Link href="/contact">
                                     <a className="btn btn-primary">Nous Contacter</a>
                                 </Link>
                             </div>
                         </div>
 
                         <div className="col-lg-6 col-md-12">
-                            <div className="invoicing-image">
-                                <div className="main-image">
-                                    <img 
-                                        src="/images/invoicing/invoicing-shape1.png" 
-                                        className="animate__animated animate__zoomIn animate__delay-0.7s" 
-                                        alt="image" 
-                                    />
-                                     
-                                    <img 
-                                        src="/images/invoicing/invoicing-shape2.png" 
-                                        className="animate__animated animate__fadeInLeft animate__delay-0.1s" 
-                                        alt="image" 
-                                    />
-                                   
-                                    <img 
-                                        src="/images/invoicing/invoicing-shape3.png" 
-                                        className="animate__animated animate__fadeInLeft animate__delay-0.2s" 
-                                        alt="image" 
-                                    />
-                                
-                                    <img 
-                                        src="/images/invoicing/invoicing-shape4.png" 
-                                        className="animate__animated animate__fadeInRight animate__delay-1s" 
-                                        alt="image" 
-                                    />
-                                </div>
-
-                                <div className="main-mobile-image">
-                                    <img 
-                                        src="/images/invoicing/invoicing-main-pic.png" 
-                                        className="animate__animated animate__zoomIn animate__delay-0.7s" 
-                                        alt="image" 
-                                    />
-                                </div>
-
-                                <div className="circle-image">
-                                    <img src="/images/invoicing/invoicing-circle1.png" alt="image" />
-                                    <img src="/images/invoicing/invoicing-circle2.png" alt="image" />
+                            <div className="highlights-panel">
+                                <div className="highlights-grid">
+                                    {highlights.map((item, index) => (
+                                        <div key={index} className="highlight-card">
+                                            <div className="highlight-icon">
+                                                <i className={item.icon}></i>
+                                            </div>
+                                            <h4>{item.title}</h4>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <style jsx>{`
+                    .highlights-panel {
+                        padding: 20px;
+                    }
+
+                    .highlights-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 24px;
+                    }
+
+                    .highlight-card {
+                        background: #ffffff;
+                        border-radius: 16px;
+                        padding: 36px 24px;
+                        text-align: center;
+                        box-shadow: 0 15px 40px rgba(10, 14, 39, 0.08);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+
+                    .highlight-card:hover {
+                        transform: translateY(-6px);
+                        box-shadow: 0 20px 50px rgba(73, 185, 109, 0.18);
+                    }
+
+                    .highlight-icon {
+                        width: 64px;
+                        height: 64px;
+                        margin: 0 auto 18px;
+                        border-radius: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(135deg, rgba(73, 185, 109, 0.12), rgba(128, 195, 83, 0.12));
+                        color: #49B96D;
+                        font-size: 26px;
+                    }
+
+                    .highlight-card h4 {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #0A0A2E;
+                        margin: 0;
+                    }
+
+                    @media (max-width: 767px) {
+                        .highlights-grid {
+                            grid-template-columns: 1fr 1fr;
+                            gap: 16px;
+                        }
+
+                        .highlight-card {
+                            padding: 24px 16px;
+                        }
+                    }
+                `}</style>
             </section>
         );
     }
