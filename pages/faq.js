@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -9,6 +10,7 @@ class Faq extends Component {
     render() {
         return (
             <>
+                <SEO title="Questions fréquentes" description="Réponses aux questions fréquentes sur les services d'ICS GROUPE : cybersécurité, énergie solaire, développement web, délais et accompagnement." path="/faq" />
                 <Navbar />
 
                 <PageBannerContent 
@@ -26,4 +28,4 @@ class Faq extends Component {
     }
 }
 
-export default Faq;
+export default Faq;

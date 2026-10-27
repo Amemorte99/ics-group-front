@@ -1,92 +1,70 @@
 // pages/sitemap.xml.js
-import { blogApi, serviceApi, portfolioApi } from '../utils/api';
+import { blogApi } from '../utils/api';
+import { SITE_URL, MARKETS } from '../lib/site';
 
-const siteUrl = 'https://www.icsolution.fr';
-
-// Pages statiques avec leur priorité et fréquence
+// Uniquement des pages qui existent réellement.
 const staticPages = [
-  { loc: '/', priority: '1.0', changefreq: 'daily' },
-  { loc: '/blog', priority: '0.9', changefreq: 'daily' },
+  { loc: '/', priority: '1.0', changefreq: 'weekly' },
+  { loc: '/services', priority: '0.9', changefreq: 'monthly' },
+  { loc: '/services/cybersecurite', priority: '0.9', changefreq: 'monthly' },
+  { loc: '/services/energie', priority: '0.9', changefreq: 'monthly' },
+  { loc: '/services/web', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/services/reseaux', priority: '0.8', changefreq: 'monthly' },
+  { loc: '/services/data', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/services/marketing', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/services/design', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/services/consulting', priority: '0.7', changefreq: 'monthly' },
   { loc: '/portfolio', priority: '0.8', changefreq: 'weekly' },
-  { loc: '/services', priority: '0.8', changefreq: 'weekly' },
-  { loc: '/about', priority: '0.7', changefreq: 'monthly' },
-  { loc: '/contact', priority: '0.6', changefreq: 'monthly' },
-  { loc: '/testimonials', priority: '0.5', changefreq: 'monthly' },
-  { loc: '/partners', priority: '0.4', changefreq: 'monthly' },
+  { loc: '/blog', priority: '0.8', changefreq: 'daily' },
+  { loc: '/about-us', priority: '0.6', changefreq: 'monthly' },
+  { loc: '/team', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/contact', priority: '0.7', changefreq: 'monthly' },
+  { loc: '/faq', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/pricing', priority: '0.5', changefreq: 'monthly' },
 ];
 
-function generateUrl(loc, lastmod, priority = '0.5', changefreq = 'weekly') {
-  return `
-  <url>
-    <loc>${siteUrl}${loc}</loc>
-    ${lastmod ? `<lastmod>${new Date(lastmod).toISOString().split('T')[0]}</lastmod>` : ''}
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-  </url>`;
+const escapeXml = (value) =>
+  String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+function urlEntry({ loc, lastmod, priority, changefreq }) {
+  const href = `${SITE_URL}${loc === '/' ? '/' : loc}`;
+  const alternates = [...MARKETS.map((m) => m.hreflang), 'x-default']
+    .map((lang) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${escapeXml(href)}"/>`)
+    .join('');
+  const date = lastmod ? new Date(lastmod) : null;
+  return `<url><loc>${escapeXml(href)}</loc>${date && !isNaN(date) ? `<lastmod>${date.toISOString().split('T')[0]}</lastmod>` : ''}<changefreq>${changefreq}</changefreq><priority>${priority}</priority>${alternates}</url>`;
 }
 
 export async function getServerSideProps({ res }) {
+  let blogs = [];
   try {
-    // Récupérer tous les contenus dynamiques en parallèle
-    const [blogsRes, servicesRes, portfoliosRes] = await Promise.all([
-      blogApi.getAll().catch(() => ({ data: [] })),
-      serviceApi.getAll().catch(() => ({ data: [] })),
-      portfolioApi.getAll().catch(() => ({ data: [] })),
-    ]);
-
-    const blogs = blogsRes.data || [];
-    const services = servicesRes.data || [];
-    const portfolios = portfoliosRes.data || [];
-
-    // Générer les URLs pour chaque type de contenu
-    const blogUrls = blogs
-      .filter(b => b.isPublished !== false)
-      .map(b => generateUrl(
-        `/blog/${b.slug}`,
-        b.updatedAt || b.createdAt,
-        '0.7',
-        'weekly'
-      ));
-
-    const serviceUrls = services
-      .filter(s => s.isActive !== false)
-      .map(s => generateUrl(
-        `/services/${s.slug}`,
-        s.updatedAt || s.createdAt,
-        '0.6',
-        'monthly'
-      ));
-
-    const portfolioUrls = portfolios
-      .filter(p => p.isActive !== false)
-      .map(p => generateUrl(
-        `/portfolio/${p.slug}`,
-        p.updatedAt || p.createdAt,
-        '0.6',
-        'monthly'
-      ));
-
-    // Générer le sitemap complet
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-  ${staticPages.map(p => generateUrl(p.loc, new Date().toISOString(), p.priority, p.changefreq)).join('')}
-  ${blogUrls.join('')}
-  ${serviceUrls.join('')}
-  ${portfolioUrls.join('')}
-</urlset>`;
-
-    res.setHeader('Content-Type', 'text/xml');
-    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
-    res.write(sitemap);
-    res.end();
+    const response = await blogApi.getAll();
+    blogs = Array.isArray(response.data) ? response.data : response.data?.data || [];
   } catch (error) {
-    console.error('❌ Erreur génération sitemap:', error);
-    res.statusCode = 500;
-    res.end();
+    console.error('Sitemap: articles indisponibles');
   }
 
+  const entries = [
+    ...staticPages,
+    ...blogs
+      .filter((b) => b.slug && b.isPublished !== false)
+      .map((b) => ({
+        loc: `/blog/${b.slug}`,
+        lastmod: b.updatedAt || b.createdAt,
+        priority: '0.7',
+        changefreq: 'monthly',
+      })),
+  ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${entries.map(urlEntry).join('\n')}
+</urlset>`;
+
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  res.write(xml);
+  res.end();
   return { props: {} };
 }
 

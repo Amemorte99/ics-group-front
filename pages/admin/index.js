@@ -2,27 +2,87 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { authApi } from '../../utils/adminApi';
-import {
-  adminPortfolioApi,
-  adminServiceApi,
-  adminBlogApi,
-  adminTestimonialApi,
-  adminPartnerApi,
-} from '../../utils/adminApi';
+import { authApi, adminDashboardApi } from '../../utils/adminApi';
 import AdminLayout from '../../components/AdminLayout';
 import AdminIcon from '../../components/admin/AdminIcon';
 
+const TYPE_LABELS = {
+  portfolio: 'Projet',
+  blog: 'Article',
+  service: 'Service',
+  testimonial: 'Témoignage',
+  partner: 'Partenaire',
+};
+
+const TYPE_ICONS = {
+  portfolio: 'portfolio',
+  blog: 'blog',
+  service: 'services',
+  testimonial: 'testimonials',
+  partner: 'partners',
+};
+
+const QUICK_ACTIONS = [
+  { label: 'Nouveau service', href: '/admin/services/new' },
+  { label: 'Nouveau projet', href: '/admin/portfolios/new' },
+  { label: 'Nouvel article', href: '/admin/blog/new' },
+  { label: 'Nouveau témoignage', href: '/admin/testimonials/new' },
+  { label: 'Nouveau partenaire', href: '/admin/partners/new' },
+];
+
+const monthLabel = (key) =>
+  new Date(`${key}-01T00:00:00`).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '');
+
+const timeAgo = (value) => {
+  const minutes = Math.round((Date.now() - new Date(value).getTime()) / 60000);
+  if (minutes < 1) return "À l'instant";
+  if (minutes < 60) return `Il y a ${minutes} min`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `Il y a ${hours} h`;
+  const days = Math.round(hours / 24);
+  return days < 30 ? `Il y a ${days} j` : new Date(value).toLocaleDateString('fr-FR');
+};
+
+function ActivityChart({ data }) {
+  const width = 560;
+  const height = 220;
+  const pad = { top: 16, right: 8, bottom: 28, left: 28 };
+  const max = Math.max(4, ...data.flatMap((d) => [d.messages, d.content]));
+  const step = (width - pad.left - pad.right) / data.length;
+  const barW = Math.min(22, step / 3);
+  const y = (v) => pad.top + (height - pad.top - pad.bottom) * (1 - v / max);
+  const ticks = [0, Math.round(max / 2), max];
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Messages reçus et contenus créés par mois" className="chart">
+      {ticks.map((t) => (
+        <g key={t}>
+          <line x1={pad.left} x2={width - pad.right} y1={y(t)} y2={y(t)} stroke="#eef0f2" />
+          <text x={pad.left - 8} y={y(t) + 4} textAnchor="end" fontSize="11" fill="#8c8f9c">{t}</text>
+        </g>
+      ))}
+      {data.map((d, i) => {
+        const cx = pad.left + step * i + step / 2;
+        return (
+          <g key={d.month}>
+            <rect x={cx - barW - 2} y={y(d.messages)} width={barW} height={y(0) - y(d.messages)} rx="4" fill="#22a34a">
+              <title>{`${d.messages} message(s)`}</title>
+            </rect>
+            <rect x={cx + 2} y={y(d.content)} width={barW} height={y(0) - y(d.content)} rx="4" fill="#14532d" opacity="0.55">
+              <title>{`${d.content} contenu(s) créé(s)`}</title>
+            </rect>
+            <text x={cx} y={height - 8} textAnchor="middle" fontSize="12" fill="#4a4d5e">{monthLabel(d.month)}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
-  const [stats, setStats] = useState({
-    portfolios: 0,
-    services: 0,
-    blogs: 0,
-    testimonials: 0,
-    partners: 0,
-  });
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -30,584 +90,177 @@ export default function AdminDashboard() {
       router.push('/admin/login');
       return;
     }
-
     setUser(authApi.getCurrentUser());
-    fetchStats();
+    adminDashboardApi
+      .overview()
+      .then((res) => setData(res.data))
+      .catch(() => setError('Impossible de charger les statistiques.'));
   }, []);
 
-  const fetchStats = async () => {
-    try {
-      const [portfolios, services, blogs, testimonials, partners] = await Promise.all([
-        adminPortfolioApi.getAll(),
-        adminServiceApi.getAll(),
-        adminBlogApi.getAll(),
-        adminTestimonialApi.getAll(),
-        adminPartnerApi.getAll(),
-      ]);
-
-      setStats({
-        portfolios: portfolios.data?.length || 0,
-        services: services.data?.length || 0,
-        blogs: blogs.data?.length || 0,
-        testimonials: testimonials.data?.length || 0,
-        partners: partners.data?.length || 0,
-      });
-    } catch (error) {
-      console.error('Erreur chargement stats:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-
-  const menuItems = [
-    { 
-      name: 'Services', 
-      icon: 'services', 
-      path: '/admin/services', 
-      count: stats.services,
-      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
-    },
-    { 
-      name: 'Portfolio', 
-      icon: 'portfolio', 
-      path: '/admin/portfolios', 
-      count: stats.portfolios,
-      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
-    },
-    { 
-      name: 'Blog', 
-      icon: 'blog', 
-      path: '/admin/blog', 
-      count: stats.blogs,
-      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
-    },
-    { 
-      name: 'Témoignages', 
-      icon: 'testimonials', 
-      path: '/admin/testimonials', 
-      count: stats.testimonials,
-      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
-    },
-    { 
-      name: 'Partenaires', 
-      icon: 'partners', 
-      path: '/admin/partners', 
-      count: stats.partners,
-      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
-    },
-  ];
-
-  if (loading) {
-    return (
-      <AdminLayout title="Dashboard" module="">
-        <div className="dashboard-loader">
-          <div className="loader-spinner"></div>
-          <p>Chargement du tableau de bord...</p>
-        </div>
-      </AdminLayout>
-    );
-  }
+  const t = data?.totals;
+  const kpis = t
+    ? [
+        { label: 'Messages non lus', value: t.unreadMessages, sub: `${t.messages} reçus au total`, href: '/admin/messages', icon: 'mail', alert: t.unreadMessages > 0 },
+        { label: 'Articles publiés', value: t.publishedBlogs, sub: `${t.blogs} au total`, href: '/admin/blog', icon: 'blog' },
+        { label: 'Vues du blog', value: t.blogViews.toLocaleString('fr-FR'), sub: 'Cumul tous articles', href: '/admin/blog', icon: 'eye' },
+        { label: 'Projets', value: t.portfolios, sub: `${t.services} services · ${t.partners} partenaires`, href: '/admin/portfolios', icon: 'portfolio' },
+      ]
+    : [];
 
   return (
     <AdminLayout title="Tableau de bord" module="">
-      {/* En-tête */}
-      <div className="dashboard-header">
-        <div className="welcome-section">
-          <div className="welcome-text">
-                        <div>
-              <h1>Bonjour, {user?.name || 'Admin'} !</h1>
-              <p>Voici un aperçu de votre activité sur ICS GROUPE</p>
-            </div>
-          </div>
-          <div className="welcome-stats">
-            <span className="stat-badge">
-              <span className="stat-dot"></span>
-              En ligne
-            </span>
-          </div>
-        </div>
-        <div className="dashboard-date">
-          <span className="date-icon"><AdminIcon name="calendar" size={16} /></span>
-          {new Date().toLocaleDateString('fr-FR', { 
-            weekday: 'long', 
-            day: 'numeric', 
-            month: 'long', 
-            year: 'numeric' 
-          })}
+      <div className="head">
+        <div>
+          <h1>Bonjour, {user?.name || 'Admin'}</h1>
+          <p>
+            {new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
         </div>
       </div>
 
-      {/* Statistiques */}
-      <div className="stats-grid">
-        {menuItems.map((item) => (
-          <Link key={item.path} href={item.path}>
-            {/* ✅ UN SEUL ENFANT : un span qui contient tout */}
-            <span className="stat-card-link">
-              <div className="stat-card">
-                <div className="stat-card-icon" style={{ background: item.gradient }}>
-                  <AdminIcon name={item.icon} size={24} />
+      {error && <div className="error">{error}</div>}
+      {!data && !error && <div className="loading">Chargement du tableau de bord…</div>}
+
+      {data && (
+        <>
+          <div className="kpis">
+            {kpis.map((k) => (
+              <Link key={k.label} href={k.href}>
+                <a className={`kpi ${k.alert ? 'alert' : ''}`}>
+                  <span className="kpi-icon"><AdminIcon name={k.icon} size={22} /></span>
+                  <span className="kpi-value">{k.value}</span>
+                  <span className="kpi-label">{k.label}</span>
+                  <span className="kpi-sub">{k.sub}</span>
+                </a>
+              </Link>
+            ))}
+          </div>
+
+          <div className="grid">
+            <section className="card wide">
+              <div className="card-head">
+                <h3>Activité des 6 derniers mois</h3>
+                <div className="legend">
+                  <span><i style={{ background: '#22a34a' }} />Messages</span>
+                  <span><i style={{ background: '#14532d', opacity: 0.55 }} />Contenus créés</span>
                 </div>
-                <div className="stat-card-content">
-                  <span className="stat-card-value">{item.count}</span>
-                  <span className="stat-card-label">{item.name}</span>
-                </div>
-                <div className="stat-card-progress">
-                  <div 
-                    className="stat-card-progress-bar" 
-                    style={{ 
-                      width: `${Math.min((item.count / 100) * 100, 100)}%`,
-                      background: item.gradient 
-                    }}
-                  ></div>
-                </div>
-                <span className="stat-card-action">Gérer →</span>
               </div>
-            </span>
-          </Link>
-        ))}
-      </div>
+              <ActivityChart data={data.monthly} />
+            </section>
 
-      {/* Activités + Actions rapides */}
-      <div className="dashboard-bottom">
-        <div className="recent-activities">
-          <div className="section-header">
-            <h3>Répartition du contenu</h3>
-          </div>
-          <div className="activities-list">
-            {(() => {
-              const max = Math.max(1, ...menuItems.map((m) => m.count));
-              return menuItems.map((item) => (
-                <Link key={item.path} href={item.path}>
-                  <span className="bar-row">
-                    <span className="bar-label">{item.name}</span>
-                    <span className="bar-track">
-                      <span className="bar-fill" style={{ width: `${(item.count / max) * 100}%` }}></span>
-                    </span>
-                    <span className="bar-value">{item.count}</span>
-                  </span>
-                </Link>
-              ));
-            })()}
-          </div>
-        </div>
+            <section className="card">
+              <div className="card-head"><h3>Messages à traiter</h3><Link href="/admin/messages"><a className="more">Tout voir</a></Link></div>
+              {data.latestMessages.length === 0 ? (
+                <p className="empty">Aucun message non lu.</p>
+              ) : (
+                <ul className="list">
+                  {data.latestMessages.map((m) => (
+                    <li key={m.id}>
+                      <Link href="/admin/messages">
+                        <a>
+                          <strong>{m.name}</strong>
+                          <span>{m.subject}</span>
+                          <time>{timeAgo(m.createdAt)}</time>
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
 
-        <div className="quick-actions">
-          <div className="section-header">
-            <h3>Actions rapides</h3>
+            <section className="card wide">
+              <div className="card-head"><h3>Activité récente</h3></div>
+              {data.recent.length === 0 ? (
+                <p className="empty">Aucune activité pour le moment.</p>
+              ) : (
+                <ul className="timeline">
+                  {data.recent.map((r, i) => (
+                    <li key={`${r.type}-${i}`}>
+                      <span className="tl-icon"><AdminIcon name={TYPE_ICONS[r.type]} size={16} /></span>
+                      <span className="tl-text">
+                        <strong>{r.isNew ? 'Créé' : 'Modifié'}</strong> · {TYPE_LABELS[r.type]} « {r.title} »
+                      </span>
+                      <time>{timeAgo(r.date)}</time>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+
+            <section className="card">
+              <div className="card-head"><h3>Articles les plus lus</h3></div>
+              {data.topArticles.length === 0 ? (
+                <p className="empty">Aucun article.</p>
+              ) : (
+                <ol className="top">
+                  {data.topArticles.map((a) => (
+                    <li key={a.id}>
+                      <span className="top-title">{a.title}</span>
+                      <span className="top-views">{a.views.toLocaleString('fr-FR')} vues</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </section>
           </div>
-          <div className="actions-grid">
-            {/* ✅ CORRECTION : Link avec un seul enfant span */}
-            <Link href="/admin/services/new">
-              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Service</span>
-            </Link>
-            <Link href="/admin/portfolios/new">
-              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Portfolio</span>
-            </Link>
-            <Link href="/admin/blog/new">
-              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouvel Article</span>
-            </Link>
-            <Link href="/admin/testimonials/new">
-              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Témoignage</span>
-            </Link>
-            <Link href="/admin/partners/new">
-              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Partenaire</span>
-            </Link>
+
+          <div className="quick">
+            {QUICK_ACTIONS.map((a) => (
+              <Link key={a.href} href={a.href}>
+                <a><AdminIcon name="plus" size={16} /> {a.label}</a>
+              </Link>
+            ))}
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
       <style jsx>{`
-        .dashboard-loader {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          min-height: 400px;
-          gap: 16px;
-        }
-
-        .loader-spinner {
-          width: 48px;
-          height: 48px;
-          border: 3px solid #eef0f2;
-          border-top-color: #4CAF50;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-
-        .dashboard-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 32px;
-          flex-wrap: wrap;
-          gap: 16px;
-        }
-
-        .welcome-section {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex: 1;
-          flex-wrap: wrap;
-          gap: 16px;
-        }
-
-        .welcome-text {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-
-        .welcome-emoji {
-          font-size: 40px;
-          line-height: 1;
-        }
-
-        .welcome-text h1 {
-          font-size: 24px;
-          font-weight: 700;
-          color: #1a1a2e;
-          margin: 0;
-          letter-spacing: -0.3px;
-        }
-
-        .welcome-text p {
-          font-size: 14px;
-          color: #8c8f9c;
-          margin: 4px 0 0;
-        }
-
-        .welcome-stats {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .stat-badge {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 14px;
-          background: #E8F5E9;
-          border-radius: 50px;
-          font-size: 13px;
-          font-weight: 500;
-          color: #1B5E20;
-        }
-
-        .stat-dot {
-          width: 8px;
-          height: 8px;
-          background: #4CAF50;
-          border-radius: 50%;
-          animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-          0%, 100% { opacity: 0.4; transform: scale(0.8); }
-          50% { opacity: 1; transform: scale(1); }
-        }
-
-        .dashboard-date {
-          padding: 8px 16px;
-          background: #f8f9fb;
-          border-radius: 12px;
-          font-size: 14px;
-          color: #4a4d5e;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          white-space: nowrap;
-        }
-
-        .date-icon {
-          font-size: 16px;
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 20px;
-          margin-bottom: 32px;
-        }
-
-        .stat-card-link {
-          text-decoration: none;
-          display: block;
-          cursor: pointer;
-        }
-
-        .stat-card {
-          background: #fff;
-          border-radius: 16px;
-          padding: 24px;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-          border: 1px solid #eef0f2;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .stat-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-          border-color: #4CAF50;
-        }
-
-        .stat-card-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-          color: #fff;
-          margin-bottom: 16px;
-        }
-
-        .stat-card-content {
-          flex: 1;
-        }
-
-        .stat-card-value {
-          font-size: 32px;
-          font-weight: 700;
-          color: #1a1a2e;
-          display: block;
-          letter-spacing: -0.5px;
-        }
-
-        .stat-card-label {
-          font-size: 14px;
-          color: #8c8f9c;
-          font-weight: 500;
-        }
-
-        .stat-card-progress {
-          width: 100%;
-          height: 4px;
-          background: #eef0f2;
-          border-radius: 4px;
-          margin: 12px 0 8px;
-          overflow: hidden;
-        }
-
-        .stat-card-progress-bar {
-          height: 100%;
-          border-radius: 4px;
-          transition: width 1s ease;
-        }
-
-        .stat-card-action {
-          font-size: 13px;
-          font-weight: 600;
-          color: #4CAF50;
-          align-self: flex-end;
-          transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover .stat-card-action {
-          transform: translateX(4px);
-        }
-
-        .dashboard-bottom {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          gap: 24px;
-        }
-
-        .recent-activities,
-        .quick-actions {
-          background: #fff;
-          border-radius: 16px;
-          padding: 24px;
-          border: 1px solid #eef0f2;
-        }
-
-        .section-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 16px;
-        }
-
-        .section-header h3 {
-          font-size: 16px;
-          font-weight: 600;
-          color: #1a1a2e;
-          margin: 0;
-        }
-
-        .section-more {
-          font-size: 13px;
-          color: #4CAF50;
-          cursor: pointer;
-          font-weight: 500;
-        }
-
-        .activities-list {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .activity-item {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          padding: 12px 14px;
-          border-radius: 12px;
-          background: #f8f9fb;
-          transition: background 0.2s;
-          position: relative;
-        }
-
-        .activity-item:hover {
-          background: #f0f1f3;
-        }
-
-        .activity-icon {
-          font-size: 20px;
-          width: 36px;
-          height: 36px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #fff;
-          border-radius: 10px;
-          flex-shrink: 0;
-        }
-
-        .activity-content {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .activity-text {
-          font-size: 14px;
-          color: #1a1a2e;
-        }
-
-        .activity-text strong {
-          font-weight: 600;
-        }
-
-        .activity-time {
-          font-size: 12px;
-          color: #8c8f9c;
-        }
-
-        .activity-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #4CAF50;
-          flex-shrink: 0;
-        }
-
-        .actions-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-        }
-
-        .action-btn {
-          background: #fff;
-          color: #14532d;
-          border: 1px solid #d7e5da;
-          padding: 12px 16px;
-          border-radius: 12px;
-          text-decoration: none;
-          font-size: 13px;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          transition: all 0.2s ease;
-          cursor: pointer;
-          justify-content: center;
-          text-align: center;
-        }
-
-        .action-btn:hover {
-          background: #14532d;
-          border-color: #14532d;
-          color: #fff;
-        }
-
-        .bar-row {
-          display: grid;
-          grid-template-columns: 110px 1fr 36px;
-          align-items: center;
-          gap: 12px;
-          padding: 10px 4px;
-          cursor: pointer;
-        }
-        .bar-label { font-size: 14px; color: #4a4d5e; }
-        .bar-track { height: 8px; background: #eef2ee; border-radius: 8px; overflow: hidden; }
-        .bar-fill { display: block; height: 100%; background: linear-gradient(90deg, #14532d, #22a34a); border-radius: 8px; min-width: 4px; }
-        .bar-value { font-size: 14px; font-weight: 600; color: #1a1a2e; text-align: right; }
-
-                                        
-        .action-btn span {
-          font-size: 16px;
-        }
-
-        @media (max-width: 1024px) {
-          .dashboard-bottom {
-            grid-template-columns: 1fr;
-          }
-          .stats-grid {
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-          }
-        }
-
-        @media (max-width: 640px) {
-          .dashboard-header {
-            flex-direction: column;
-          }
-          .welcome-text {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          .welcome-text h1 {
-            font-size: 20px;
-          }
-          .stats-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-          }
-          .stat-card {
-            padding: 16px;
-          }
-          .stat-card-value {
-            font-size: 24px;
-          }
-          .actions-grid {
-            grid-template-columns: 1fr;
-          }
-          .dashboard-date {
-            font-size: 12px;
-            padding: 6px 12px;
-          }
-        }
-
-        @media (max-width: 400px) {
-          .stats-grid {
-            grid-template-columns: 1fr;
-          }
-        }
+        .head h1 { font-size: 24px; font-weight: 700; color: #1a1a2e; margin: 0; letter-spacing: -0.3px; }
+        .head p { margin: 4px 0 24px; color: #8c8f9c; font-size: 14px; }
+        .loading, .error { padding: 40px; text-align: center; color: #8c8f9c; }
+        .error { color: #b3261e; background: #fdecea; border-radius: 12px; }
+        .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .kpi { display: flex; flex-direction: column; background: #fff; border: 1px solid #eef0f2; border-radius: 16px; padding: 20px; text-decoration: none; transition: border-color .2s, transform .2s; }
+        .kpi:hover { border-color: #22a34a; transform: translateY(-2px); }
+        .kpi.alert { border-color: #22a34a; box-shadow: 0 0 0 3px rgba(34,163,74,.12); }
+        .kpi-icon { width: 40px; height: 40px; border-radius: 10px; background: #e8f5e9; color: #14532d; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+        .kpi-value { font-size: 30px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; line-height: 1.1; }
+        .kpi-label { font-size: 14px; color: #4a4d5e; margin-top: 4px; }
+        .kpi-sub { font-size: 12px; color: #8c8f9c; margin-top: 2px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+        .card { background: #fff; border: 1px solid #eef0f2; border-radius: 16px; padding: 22px; min-width: 0; }
+        .card.wide { grid-column: span 2; }
+        .card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+        .card-head h3 { font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0; }
+        .more { font-size: 13px; color: #14532d; text-decoration: none; }
+        .legend { display: flex; gap: 14px; font-size: 12px; color: #4a4d5e; }
+        .legend span { display: inline-flex; align-items: center; gap: 6px; }
+        .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+        .chart { width: 100%; height: auto; display: block; }
+        .empty { color: #8c8f9c; font-size: 14px; margin: 8px 0; }
+        .list, .timeline, .top { list-style: none; margin: 0; padding: 0; }
+        .list li a { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 10px 0; border-bottom: 1px solid #f1f3f5; text-decoration: none; }
+        .list li:last-child a { border-bottom: 0; }
+        .list strong { font-size: 14px; color: #1a1a2e; }
+        .list span { grid-column: 1; font-size: 13px; color: #8c8f9c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .list time { grid-row: 1; grid-column: 2; font-size: 12px; color: #8c8f9c; }
+        .timeline li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; color: #4a4d5e; }
+        .timeline li:last-child { border-bottom: 0; }
+        .tl-icon { width: 32px; height: 32px; border-radius: 8px; background: #f3f8f4; color: #14532d; display: flex; align-items: center; justify-content: center; flex: none; }
+        .tl-text { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tl-text strong { color: #1a1a2e; font-weight: 600; }
+        .timeline time { font-size: 12px; color: #8c8f9c; white-space: nowrap; }
+        .top { counter-reset: rank; }
+        .top li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1f3f5; font-size: 14px; counter-increment: rank; }
+        .top li:last-child { border-bottom: 0; }
+        .top-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1a1a2e; }
+        .top-title::before { content: counter(rank) '. '; color: #8c8f9c; }
+        .top-views { color: #14532d; font-weight: 600; white-space: nowrap; }
+        .quick { display: flex; flex-wrap: wrap; gap: 10px; }
+        .quick a { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border: 1px solid #d7e5da; border-radius: 10px; background: #fff; color: #14532d; font-size: 13px; font-weight: 500; text-decoration: none; }
+        .quick a:hover { background: #14532d; border-color: #14532d; color: #fff; }
+        @media (max-width: 1024px) { .grid { grid-template-columns: 1fr; } .card.wide { grid-column: auto; } }
       `}</style>
     </AdminLayout>
   );

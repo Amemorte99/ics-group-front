@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -9,6 +10,7 @@ class Team extends Component {
     render() {
         return (
             <>
+                <SEO title="Notre équipe" description="Rencontrez les experts d'ICS GROUPE en cybersécurité, énergies renouvelables, développement et réseaux." path="/team" />
                 <Navbar />
 
                 <PageBannerContent 
@@ -26,4 +28,4 @@ class Team extends Component {
     }
 }
 
-export default Team;
+export default Team;

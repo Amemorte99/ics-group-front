@@ -129,6 +129,11 @@ export const adminPartnerApi = {
   toggleFeatured: (id) => adminApi.post(`/partners/${id}/toggle-featured`), // ✅ AJOUTÉ
 };
 
+// ============ DASHBOARD ============
+export const adminDashboardApi = {
+  overview: () => adminApi.get('/dashboard'),
+};
+
 // ============ CONTACT ============
 export const adminContactApi = {
   getAll: (unreadOnly = false) => adminApi.get('/contact', { params: unreadOnly ? { unread: true } : {} }),

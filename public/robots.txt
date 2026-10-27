@@ -1,9 +1,9 @@
-# robots.txt
 User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /admin
 Disallow: /api/
-Disallow: /_next/
-Disallow: /static/
+Disallow: /login
+Disallow: /sign-up
+Disallow: /forgot-password
 
 Sitemap: https://www.icsolution.fr/sitemap.xml

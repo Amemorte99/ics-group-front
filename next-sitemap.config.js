@@ -1,7 +1,7 @@
 // next-sitemap.config.js
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://icsolution.fr',
+  siteUrl: process.env.SITE_URL || 'https://www.icsolution.fr',
   generateRobotsTxt: true,
   robotsTxtOptions: {
     policies: [
@@ -10,7 +10,7 @@ module.exports = {
       { userAgent: 'Bingbot', allow: '/' },
     ],
     additionalSitemaps: [
-      'https://icsolution.fr/sitemap.xml',
+      'https://www.icsolution.fr/sitemap.xml',
     ],
   },
   exclude: ['/admin/*', '/api/*', '/login', '/sign-up'],

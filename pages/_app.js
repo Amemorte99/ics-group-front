@@ -110,15 +110,9 @@ export default function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <title>ICS GROUPE - Transformation Digitale, Cybersécurité &amp; Énergies Renouvelables</title>
-                <meta name="description" content="ICS GROUPE accompagne les entreprises dans leurs projets de transformation digitale, cybersécurité, énergies renouvelables et télécommunications." />
                 <meta name="theme-color" content="#2D9CDB" />
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-                <meta property="og:title" content="ICS GROUPE - Transformation Digitale &amp; Cybersécurité" />
-                <meta property="og:description" content="Solutions innovantes en cybersécurité, énergies renouvelables et télécoms." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.icsgroupe.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </Head>

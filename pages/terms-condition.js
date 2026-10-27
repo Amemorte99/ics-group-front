@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -7,6 +8,7 @@ class TermsCondition extends Component {
     render() {
         return (
             <>
+                <SEO title="Conditions générales" description="Conditions générales d'utilisation du site et des services d'ICS GROUPE." path="/terms-condition" />
                 <Navbar />
                 <PageBannerContent pageTitle="Terms & Condition" pageCaption="Welcome to Haiper Terms & Condition" />
 
@@ -49,4 +51,4 @@ class TermsCondition extends Component {
     }
 }
 
-export default TermsCondition;
+export default TermsCondition;

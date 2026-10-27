@@ -1,51 +1,37 @@
 // pages/blog/[slug].js
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import React from 'react';
+import SEO from '../../components/SEO';
+import { generateArticleSchema } from '../../lib/seo';
 import Link from 'next/link';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import { blogApi } from '../../utils/api';
 
-export default function SingleBlogPage() {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (!slug) return;
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        const response = await blogApi.getBySlug(slug);
-        setPost(response.data);
-      } catch {
-        setError('Article non trouvé');
-        setPost(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPost();
-  }, [slug]);
-
-  if (loading) return <LoadingState />;
+export default function SingleBlogPage({ post, error }) {
   if (error || !post) return <NotFoundState />;
+
+  const plain = (post.content || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  const tags = typeof post.tags === 'string' ? post.tags.split(',').map((t) => t.trim()).filter(Boolean) : post.tags || [];
 
   return (
     <>
-      <Head>
-        <title>{post.title} | ICS GROUPE Blog</title>
-        <meta name="description" content={post.content?.replace(/<[^>]*>/g, '').slice(0, 160)} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.content?.replace(/<[^>]*>/g, '').slice(0, 200)} />
-        {post.featuredImage && <meta property="og:image" content={post.featuredImage} />}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://www.icsolution.fr/blog/${post.slug}`} />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
+      <SEO
+        title={post.title}
+        description={plain.slice(0, 160)}
+        image={post.featuredImage || undefined}
+        path={`/blog/${post.slug}`}
+        breadcrumb={[{ name: 'Blog', path: '/blog' }, { name: post.title, path: `/blog/${post.slug}` }]}
+        article={{
+          publishedTime: post.publishedDate || post.createdAt,
+          modifiedTime: post.updatedAt,
+          author: post.authorName || 'ICS GROUPE',
+          tags,
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateArticleSchema(post)) }}
+      />
 
       <Navbar />
       <ArticleHero post={post} />
@@ -575,7 +561,7 @@ const ArticleContent = ({ post }) => (
 
 // ===================== SERVER SIDE =====================
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, res }) {
   try {
     const response = await blogApi.getBySlug(params.slug);
     return {
@@ -585,6 +571,7 @@ export async function getServerSideProps({ params }) {
       },
     };
   } catch (err) {
+    res.statusCode = 404;
     return {
       props: {
         post: null,

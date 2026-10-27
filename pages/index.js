@@ -1,6 +1,6 @@
 // pages/index.js
 import React, { Component } from 'react';
-import Head from 'next/head';
+import SEO from '../components/SEO';
 import Link from 'next/link';
 import Navbar from '../components/Layouts/Navbar';
 import MainBanner from '../components/HomeOne/MainBanner';
@@ -22,175 +22,12 @@ class Index extends Component {
     render() {
         return (
             <>
-                {/* ============================================
-                    HEAD - META TAGS OPTIMISÉS SEO
-                    ============================================ */}
-                <Head>
-                    {/* Titre principal avec mots-clés stratégiques */}
-                    <title>ICS GROUPE | Cybersécurité, Énergie Solaire & Digital au Tchad</title>
-                    
-                    {/* Meta description avec CTA et mots-clés */}
-                    <meta 
-                        name="description" 
-                        content="ICS GROUPE : Expert en cybersécurité, énergies renouvelables et développement web au Tchad et en Afrique. +150 projets réalisés, 98% de satisfaction. Contactez-nous !" 
-                    />
-                    
-                    {/* Mots-clés secondaires */}
-                    <meta 
-                        name="keywords" 
-                        content="ICS GROUPE, cybersécurité Tchad, énergie solaire N'Djamena, développement web Afrique, transformation digitale, sécurité informatique, agence digitale" 
-                    />
-                    
-                    {/* Open Graph / Facebook / LinkedIn */}
-                    <meta property="og:title" content="ICS GROUPE - Expert en Cybersécurité, Énergie & Digital en Afrique" />
-                    <meta property="og:description" content="ICS GROUPE accompagne les entreprises et institutions au Tchad et en Afrique dans leur transformation digitale, cybersécurité et énergies renouvelables." />
-                    <meta property="og:type" content="website" />
-                    <meta property="og:url" content="https://icsolution.fr" />
-                    <meta property="og:image" content="https://icsolution.fr/images/og-home.jpg" />
-                    <meta property="og:image:width" content="1200" />
-                    <meta property="og:image:height" content="630" />
-                    <meta property="og:locale" content="fr_FR" />
-                    <meta property="og:site_name" content="ICS GROUPE" />
-                    <meta property="og:image:alt" content="ICS GROUPE - Solutions cybersécurité, énergie et digital en Afrique" />
-                    
-                    {/* Twitter Cards */}
-                    <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="ICS GROUPE - Expert en Cybersécurité, Énergie & Digital" />
-                    <meta name="twitter:description" content="ICS GROUPE accompagne les entreprises au Tchad et en Afrique dans leur transformation digitale." />
-                    <meta name="twitter:image" content="https://icsolution.fr/images/og-home.jpg" />
-                    <meta name="twitter:site" content="@ics_groupe" />
-                    
-                    {/* Canonical URL */}
-                    <link rel="canonical" href="https://icsolution.fr" />
-                    
-                    {/* ✅ CORRECTION : hrefLang au lieu de hreflang */}
-                    <link rel="alternate" href="https://icsolution.fr" hrefLang="fr" />
-                    
-                    {/* Indexation */}
-                    <meta name="robots" content="index, follow" />
-                    
-                    {/* Author et Publisher */}
-                    <meta name="author" content="ICS GROUPE" />
-                    <meta name="publisher" content="ICS GROUPE" />
-                    
-                    {/* Référencement mobile */}
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    
-                    {/* Thème couleur */}
-                    <meta name="theme-color" content="#1B5E20" />
-                </Head>
-
-                {/* ============================================
-                    SCHEMA.ORG - ORGANISATION
-                    ============================================ */}
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "Organization",
-                            "name": "ICS GROUPE",
-                            "url": "https://icsolution.fr",
-                            "logo": {
-                                "@type": "ImageObject",
-                                "url": "https://icsolution.fr/images/logo.png",
-                                "width": 200,
-                                "height": 60
-                            },
-                            "description": "ICS GROUPE est une entreprise spécialisée en cybersécurité, énergies renouvelables et transformation digitale au Tchad et en Afrique.",
-                            "address": {
-                                "@type": "PostalAddress",
-                                "addressLocality": "N'Djamena",
-                                "addressCountry": "Tchad",
-                                "addressRegion": "N'Djamena"
-                            },
-                            "contactPoint": {
-                                "@type": "ContactPoint",
-                                "telephone": "+235-64-78-88-31",
-                                "contactType": "Commercial",
-                                "availableLanguage": ["French", "Arabic"]
-                            },
-                            "sameAs": [
-                                "https://www.linkedin.com/company/ics-groupe",
-                                "https://twitter.com/ics_groupe",
-                                "https://www.facebook.com/icsgroupe",
-                                "https://www.youtube.com/c/icsgroupe",
-                                "https://www.instagram.com/ics_groupe"
-                            ],
-                            "foundingDate": "2014",
-                            "hasOfferCatalog": {
-                                "@type": "OfferCatalog",
-                                "name": "Services ICS GROUPE",
-                                "itemListElement": [
-                                    {
-                                        "@type": "Offer",
-                                        "itemOffered": {
-                                            "@type": "Service",
-                                            "name": "Cybersécurité",
-                                            "description": "Audit, protection des données et infrastructures critiques",
-                                            "url": "https://icsolution.fr/services/cybersecurite"
-                                        }
-                                    },
-                                    {
-                                        "@type": "Offer",
-                                        "itemOffered": {
-                                            "@type": "Service",
-                                            "name": "Énergies Renouvelables",
-                                            "description": "Solutions solaires et énergies durables",
-                                            "url": "https://icsolution.fr/services/energie"
-                                        }
-                                    },
-                                    {
-                                        "@type": "Offer",
-                                        "itemOffered": {
-                                            "@type": "Service",
-                                            "name": "Développement Web",
-                                            "description": "Sites vitrines, e-commerce et applications web",
-                                            "url": "https://icsolution.fr/services/web"
-                                        }
-                                    }
-                                ]
-                            }
-                        })
-                    }}
-                />
-
-                {/* ============================================
-                    SCHEMA.ORG - WEBSITE
-                    ============================================ */}
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "WebSite",
-                            "url": "https://icsolution.fr",
-                            "name": "ICS GROUPE",
-                            "description": "Solutions en cybersécurité, énergie et digital en Afrique",
-                            "inLanguage": "fr"
-                        })
-                    }}
-                />
-
-                {/* ============================================
-                    SCHEMA.ORG - BREADCRUMB
-                    ============================================ */}
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "BreadcrumbList",
-                            "itemListElement": [
-                                {
-                                    "@type": "ListItem",
-                                    "position": 1,
-                                    "name": "Accueil",
-                                    "item": "https://icsolution.fr"
-                                }
-                            ]
-                        })
-                    }}
+                <SEO
+                    home
+                    title="ICS GROUPE | Cybersécurité, énergie solaire et digital — Tchad, France, international"
+                    description="ICS GROUPE accompagne entreprises et institutions au Tchad, en France et à l'international : cybersécurité, énergies renouvelables, développement web et transformation digitale."
+                    keywords="ICS GROUPE, cybersécurité Tchad, cybersécurité France, énergie solaire N'Djamena, développement web Afrique, transformation digitale, audit sécurité informatique"
+                    path="/"
                 />
 
                 {/* ============================================

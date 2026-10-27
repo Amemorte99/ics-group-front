@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -11,6 +12,7 @@ class AboutUs extends Component {
     render() {
         return (
             <>
+                <SEO title="À propos" description="Découvrez ICS GROUPE : une équipe d'experts en cybersécurité, énergies renouvelables, développement web et réseaux, basée à N'Djamena et active au Tchad, en France et à l'international." path="/about-us" />
                 <Navbar />
 
                 <PageBannerContent 
@@ -52,4 +54,4 @@ class AboutUs extends Component {
     }
 }
 
-export default AboutUs;
+export default AboutUs;
