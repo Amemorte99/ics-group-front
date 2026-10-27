@@ -11,11 +11,13 @@ import App from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { SeoContext } from '../lib/SeoContext';
+import { getSeoOverrides } from '../lib/seoOverrides';
 import Loader from '../components/Layouts/Loader';
 import GoTop from '../components/Layouts/GoTop';
 
 // Version avec gestion des erreurs et performances optimisées
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, seoOverrides = {} }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const timerRef = useRef(null);
@@ -117,7 +119,9 @@ export default function MyApp({ Component, pageProps }) {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </Head>
 
-            <Component {...pageProps} />
+            <SeoContext.Provider value={seoOverrides}>
+                <Component {...pageProps} />
+            </SeoContext.Provider>
             
             <Loader 
                 loading={loading} 
@@ -138,8 +142,9 @@ export default function MyApp({ Component, pageProps }) {
 // Configuration pour optimisations
 MyApp.getInitialProps = async (appContext) => {
     const appProps = await App.getInitialProps(appContext);
+    const seoOverrides = await getSeoOverrides();
     return {
         ...appProps,
-        // Propriétés personnalisées
+        seoOverrides,
     };
 };

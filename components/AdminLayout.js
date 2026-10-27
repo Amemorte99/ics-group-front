@@ -40,6 +40,8 @@ const menuItems = [
   { name: 'Portfolio', icon: 'portfolio', path: '/admin/portfolios', description: 'Gérer les projets' },
   { name: 'Blog', icon: 'blog', path: '/admin/blog', description: 'Gérer les articles' },
   { name: 'Messages', icon: 'mail', path: '/admin/messages', description: 'Demandes de contact', badge: unreadMessages },
+  { name: 'Médiathèque', icon: 'image', path: '/admin/media', description: 'Images et fichiers' },
+  { name: 'SEO', icon: 'search', path: '/admin/seo', description: 'Référencement des pages' },
   { name: 'Témoignages', icon: 'testimonials', path: '/admin/testimonials', description: 'Gérer les avis' },
   { name: 'Partenaires', icon: 'partners', path: '/admin/partners', description: 'Gérer les partenaires' },
   { name: 'Utilisateurs', icon: 'users', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT

@@ -142,6 +142,25 @@ export const adminContactApi = {
   delete: (id) => adminApi.delete(`/contact/${id}`),
 };
 
+// ============ MÉDIATHÈQUE ============
+export const adminMediaApi = {
+  getAll: (search) => adminApi.get('/media', { params: search ? { search } : {} }),
+  upload: (files) => {
+    const formData = new FormData();
+    Array.from(files).forEach((file) => formData.append('files', file));
+    return adminApi.post('/media', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
+  updateAlt: (id, alt) => adminApi.patch(`/media/${id}`, { alt }),
+  delete: (id) => adminApi.delete(`/media/${id}`),
+};
+
+// ============ SEO PAR PAGE ============
+export const adminSeoApi = {
+  getAll: () => adminApi.get('/seo'),
+  save: (data) => adminApi.put('/seo', data),
+  delete: (id) => adminApi.delete(`/seo/${id}`),
+};
+
 // ============ UPLOAD ============
 export const uploadApi = {
   upload: (file) => {

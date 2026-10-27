@@ -106,3 +106,8 @@ export const healthApi = {
 };
 
 export default api;
+
+// ============ SEO PAR PAGE (lecture publique) ============
+export const seoApi = {
+  getAll: () => api.get('/seo'),
+};

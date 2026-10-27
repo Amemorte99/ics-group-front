@@ -1,6 +1,8 @@
 // components/SEO.js
+import { useContext } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { SeoContext } from '../lib/SeoContext';
 import {
   SITE_URL,
   SITE_NAME,
@@ -20,20 +22,29 @@ const jsonLd = (data) => (
 );
 
 export default function SEO({
-  title,
-  description = DEFAULT_DESCRIPTION,
-  keywords,
-  image = DEFAULT_IMAGE,
+  title: defaultTitle,
+  description: defaultDescription = DEFAULT_DESCRIPTION,
+  keywords: defaultKeywords,
+  image: defaultImage = DEFAULT_IMAGE,
   type = 'website',
   path,
-  noIndex = false,
+  noIndex: defaultNoIndex = false,
   home = false,
   breadcrumb,
   article,
 }) {
   const router = useRouter();
   const cleanPath = (path ?? router.asPath).split('?')[0].split('#')[0] || '/';
-  const url = absoluteUrl(cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, ''));
+  const normalized = cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '');
+  const url = absoluteUrl(normalized);
+
+  // Les réglages saisis dans le back office priment sur les valeurs par défaut de la page.
+  const override = useContext(SeoContext)[normalized] || {};
+  const title = override.title || defaultTitle;
+  const description = override.description || defaultDescription;
+  const keywords = override.keywords || defaultKeywords;
+  const image = override.ogImage || defaultImage;
+  const noIndex = override.noIndex || defaultNoIndex;
   const fullTitle = !title || title.includes(SITE_NAME) ? title || SITE_NAME : `${title} | ${SITE_NAME}`;
   const imageUrl = absoluteUrl(image);
   const robots = noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1';
