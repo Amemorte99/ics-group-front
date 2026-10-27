@@ -8,32 +8,46 @@ const adminApi = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
+    // Exigé par l'API pour toute modification authentifiée par cookie (protection CSRF).
+    'X-Requested-With': 'XMLHttpRequest',
   },
   withCredentials: true,
 });
 
-// Intercepteur pour le token
-adminApi.interceptors.request.use(
-  (config) => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('adminToken');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-// Intercepteur pour gérer les erreurs 401
+// La session vit dans des cookies httpOnly : le navigateur n'expose plus aucun jeton au JavaScript.
+// On ne garde en localStorage que le profil affiché (nom, rôle), sans donnée sensible.
+const USER_KEY = 'adminUser';
+if (typeof window !== 'undefined') localStorage.removeItem('adminToken'); // ancien stockage du jeton
+
+const endSession = () => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(USER_KEY);
+  if (!window.location.pathname.startsWith('/admin/login')) window.location.href = '/admin/login';
+};
+
+// Une seule demande de renouvellement à la fois, même si plusieurs requêtes expirent ensemble.
+let refreshing = null;
+const refreshSession = () => {
+  if (!refreshing) {
+    refreshing = adminApi.post('/auth/refresh').finally(() => {
+      refreshing = null;
+    });
+  }
+  return refreshing;
+};
+
 adminApi.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('adminToken');
-      localStorage.removeItem('adminUser');
-      if (typeof window !== 'undefined') {
-        window.location.href = '/admin/login';
+  async (error) => {
+    const { config, response } = error;
+    const isAuthCall = config?.url?.startsWith('/auth/');
+    if (response?.status === 401 && config && !config._retried && !isAuthCall) {
+      config._retried = true;
+      try {
+        await refreshSession();
+        return adminApi(config);
+      } catch (refreshError) {
+        endSession();
       }
     }
     return Promise.reject(error);
@@ -42,27 +56,35 @@ adminApi.interceptors.response.use(
 
 // ============ AUTH ============
 export const authApi = {
-  login: (email, password) => adminApi.post('/auth/login', { email, password }),
-  logout: () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    if (typeof window !== 'undefined') {
-      window.location.href = '/admin/login';
+  login: (email, password, otp) => adminApi.post('/auth/login', { email, password, ...(otp ? { otp } : {}) }),
+  logout: async () => {
+    try {
+      await adminApi.post('/auth/logout');
+    } catch (error) {
+      // la session locale est fermée dans tous les cas
     }
+    endSession();
   },
   getCurrentUser: () => {
-    if (typeof window !== 'undefined') {
-      const user = localStorage.getItem('adminUser');
-      return user ? JSON.parse(user) : null;
+    if (typeof window === 'undefined') return null;
+    try {
+      return JSON.parse(localStorage.getItem(USER_KEY));
+    } catch (error) {
+      return null;
     }
-    return null;
   },
-  isAuthenticated: () => {
-    if (typeof window !== 'undefined') {
-      return !!localStorage.getItem('adminToken');
-    }
-    return false;
-  },
+  saveUser: (user) => localStorage.setItem(USER_KEY, JSON.stringify(user)),
+  isAuthenticated: () => typeof window !== 'undefined' && !!localStorage.getItem(USER_KEY),
+  profile: () => adminApi.get('/auth/profile'),
+  changePassword: (currentPassword, newPassword) => adminApi.post('/auth/change-password', { currentPassword, newPassword }),
+  setupTwoFactor: () => adminApi.post('/auth/2fa/setup'),
+  enableTwoFactor: (code) => adminApi.post('/auth/2fa/enable', { code }),
+  disableTwoFactor: (password, code) => adminApi.post('/auth/2fa/disable', { password, code }),
+};
+
+// ============ AUDIT ============
+export const adminAuditApi = {
+  list: (params) => adminApi.get('/audit', { params }),
 };
 
 // ============ USERS ============
@@ -127,6 +149,38 @@ export const adminPartnerApi = {
   delete: (id) => adminApi.delete(`/partners/${id}`),
   toggleActive: (id) => adminApi.post(`/partners/${id}/toggle-active`), // ✅ AJOUTÉ
   toggleFeatured: (id) => adminApi.post(`/partners/${id}/toggle-featured`), // ✅ AJOUTÉ
+};
+
+// ============ DASHBOARD ============
+export const adminDashboardApi = {
+  overview: () => adminApi.get('/dashboard'),
+};
+
+// ============ CONTACT ============
+export const adminContactApi = {
+  getAll: (unreadOnly = false) => adminApi.get('/contact', { params: unreadOnly ? { unread: true } : {} }),
+  unreadCount: () => adminApi.get('/contact/unread-count'),
+  setRead: (id, isRead) => adminApi.patch(`/contact/${id}/read`, { isRead }),
+  delete: (id) => adminApi.delete(`/contact/${id}`),
+};
+
+// ============ MÉDIATHÈQUE ============
+export const adminMediaApi = {
+  getAll: (search) => adminApi.get('/media', { params: search ? { search } : {} }),
+  upload: (files) => {
+    const formData = new FormData();
+    Array.from(files).forEach((file) => formData.append('files', file));
+    return adminApi.post('/media', formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+  },
+  updateAlt: (id, alt) => adminApi.patch(`/media/${id}`, { alt }),
+  delete: (id) => adminApi.delete(`/media/${id}`),
+};
+
+// ============ SEO PAR PAGE ============
+export const adminSeoApi = {
+  getAll: () => adminApi.get('/seo'),
+  save: (data) => adminApi.put('/seo', data),
+  delete: (id) => adminApi.delete(`/seo/${id}`),
 };
 
 // ============ UPLOAD ============

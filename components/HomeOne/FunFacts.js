@@ -135,31 +135,6 @@ class FunFacts extends Component {
                         ))}
                     </div>
 
-                    {/* CTA Contact */}
-                    <div className="cta-box">
-                        <div className="cta-box-background">
-                            <div className="cta-glow"></div>
-                        </div>
-                        <div className="cta-box-content">
-                            <div className="cta-box-icon">
-                                <i className="fas fa-phone-alt"></i>
-                            </div>
-                            <h3 className="cta-box-title">
-                                Des questions à nous poser ?
-                            </h3>
-                            <p className="cta-box-text">
-                                N'hésitez pas à nous contacter, notre équipe est là pour vous répondre.
-                            </p>
-                            <Link href="/contact">
-                                <a className="cta-box-button">
-                                    <span>Nous Contacter</span>
-                                    <svg className="cta-box-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                        <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
-                                </a>
-                            </Link>
-                        </div>
-                    </div>
                 </div>
 
                 <style jsx>{`

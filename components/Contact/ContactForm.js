@@ -5,11 +5,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
-import baseUrl from '../../utils/baseUrl';
+import { API_URL } from '../../utils/baseUrl';
 
 const alertContent = () => {
     MySwal.fire({
-        title: '✅ Message envoyé !',
+        title: 'Message envoyé !',
         text: 'Nous vous répondrons dans les plus brefs délais.',
         icon: 'success',
         timer: 3000,
@@ -20,35 +20,26 @@ const alertContent = () => {
     });
 };
 
-const INITIAL_STATE = {
-    name: "",
-    email: "",
-    number: "",
-    subject: "",
-    text: ""
-};
-
 const ContactForm = () => {
-    const [contact, setContact] = useState(INITIAL_STATE);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setContact(prev => ({ ...prev, [name]: value }));
-    };
-
-    const onSubmit = async () => {
+    const onSubmit = async (data) => {
         setIsSubmitting(true);
         try {
-            const url = `${baseUrl}/api/contact`;
-            await axios.post(url, contact);
-            setContact(INITIAL_STATE);
+            await axios.post(`${API_URL}/contact`, {
+                name: data.name,
+                email: data.email,
+                phone: data.number,
+                subject: data.subject,
+                message: data.text,
+            });
+            reset();
             alertContent();
         } catch (error) {
             MySwal.fire({
-                title: '❌ Erreur',
-                text: 'Une erreur est survenue. Veuillez réessayer.',
+                title: 'Erreur',
+                text: error.response?.status === 429 ? 'Trop de tentatives, réessayez dans une minute.' : 'Une erreur est survenue. Veuillez réessayer.',
                 icon: 'error',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#4CAF50',
@@ -77,9 +68,7 @@ const ContactForm = () => {
                             name="name"
                             placeholder="Jean Dupont"
                             className={`field-input ${errors.name ? 'error' : ''}`}
-                            value={contact.name}
-                            onChange={handleChange}
-                            {...register("name", { 
+                            ref={register({ 
                                 required: "Le nom est requis",
                                 minLength: { value: 2, message: "Minimum 2 caractères" }
                             })}
@@ -94,9 +83,7 @@ const ContactForm = () => {
                             name="email"
                             placeholder="exemple@email.com"
                             className={`field-input ${errors.email ? 'error' : ''}`}
-                            value={contact.email}
-                            onChange={handleChange}
-                            {...register("email", { 
+                            ref={register({ 
                                 required: "L'email est requis",
                                 pattern: { value: /^\S+@\S+$/i, message: "Email invalide" }
                             })}
@@ -111,9 +98,7 @@ const ContactForm = () => {
                             name="number"
                             placeholder="+235 64 78 88 31"
                             className={`field-input ${errors.number ? 'error' : ''}`}
-                            value={contact.number}
-                            onChange={handleChange}
-                            {...register("number", { 
+                            ref={register({ 
                                 required: "Le téléphone est requis",
                                 minLength: { value: 8, message: "Minimum 8 chiffres" }
                             })}
@@ -128,9 +113,7 @@ const ContactForm = () => {
                             name="subject"
                             placeholder="Objet de votre message"
                             className={`field-input ${errors.subject ? 'error' : ''}`}
-                            value={contact.subject}
-                            onChange={handleChange}
-                            {...register("subject", { 
+                            ref={register({ 
                                 required: "Le sujet est requis",
                                 minLength: { value: 3, message: "Minimum 3 caractères" }
                             })}
@@ -145,9 +128,7 @@ const ContactForm = () => {
                             rows="5"
                             placeholder="Décrivez votre projet en détail..."
                             className={`field-input textarea ${errors.text ? 'error' : ''}`}
-                            value={contact.text}
-                            onChange={handleChange}
-                            {...register("text", { 
+                            ref={register({ 
                                 required: "Le message est requis",
                                 minLength: { value: 10, message: "Minimum 10 caractères" }
                             })}

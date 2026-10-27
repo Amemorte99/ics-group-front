@@ -1,3 +1,4 @@
+import SEO from '../../components/SEO';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -39,6 +40,7 @@ const ServicesPage = () => {
 
   return (
     <>
+      <SEO title="Nos services" description="Cybersécurité, énergies renouvelables, développement web et mobile, réseaux et télécoms, data, marketing digital et consulting : les services d'ICS GROUPE." path="/services" />
       <Navbar />
 
       <PageBannerContent 

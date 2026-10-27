@@ -1,6 +1,6 @@
 // pages/portfolio/index.js
 import React, { useEffect, useRef } from 'react';
-import Head from 'next/head';
+import SEO from '../../components/SEO';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../../components/Layouts/Navbar';
@@ -80,58 +80,11 @@ const PortfolioPage = () => {
       {/* ============================================
           HEAD - META TAGS OPTIMISÉS SEO
           ============================================ */}
-      <Head>
-        {/* Titre principal avec mots-clés forts */}
-        <title>Portfolio ICS GROUPE | 150+ Projets en Cybersécurité, Énergie & Web au Tchad</title>
-        
-        {/* Meta description avec CTA et statistiques */}
-        <meta 
-          name="description" 
-          content="Découvrez le portfolio d'ICS GROUPE : +150 projets réalisés en cybersécurité, énergies renouvelables et développement web au Tchad et en Afrique. Taux de satisfaction 98%." 
-        />
-        
-        {/* Mots-clés secondaires */}
-        <meta 
-          name="keywords" 
-          content="portfolio ICS GROUPE, réalisations cybersécurité Tchad, projets énergie Afrique, développement web N'Djamena, transformation digitale, études de cas, agence digitale Afrique" 
-        />
-        
-        {/* Open Graph / Facebook / LinkedIn */}
-        <meta property="og:title" content="Portfolio ICS GROUPE - Nos Réalisations en Afrique" />
-        <meta property="og:description" content="Découvrez nos 150+ projets innovants en cybersécurité, énergie et digital au Tchad et en Afrique." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://icsolution.fr/portfolio" />
-        <meta property="og:image" content="https://icsolution.fr/images/og-portfolio.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="fr_FR" />
-        <meta property="og:site_name" content="ICS GROUPE" />
-        <meta property="og:image:alt" content="Portfolio ICS GROUPE - Réalisations en Afrique" />
-        
-        {/* Twitter Cards */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Portfolio ICS GROUPE - Nos Réalisations en Afrique" />
-        <meta name="twitter:description" content="Découvrez nos 150+ projets innovants en cybersécurité, énergie et digital." />
-        <meta name="twitter:image" content="https://icsolution.fr/images/og-portfolio.jpg" />
-        <meta name="twitter:site" content="@ics_groupe" />
-        
-        {/* Canonical URL - Évite le contenu dupliqué */}
-        <link rel="canonical" href="https://icsolution.fr/portfolio" />
-        
-        {/* Alternates pour les langues (si multilingue) */}
-        <link rel="alternate" href="https://icsolution.fr/portfolio" hreflang="fr" />
-        <link rel="alternate" href="https://icsolution.fr/en/portfolio" hreflang="en" />
-        
-        {/* Indexation */}
-        <meta name="robots" content="index, follow" />
-        
-        {/* Author et Publisher */}
-        <meta name="author" content="ICS GROUPE" />
-        <meta name="publisher" content="ICS GROUPE" />
-        
-        {/* Vérification Google Search Console (à remplacer par votre code) */}
-        <meta name="google-site-verification" content="VOTRE_CODE_VERIFICATION" />
-      </Head>
+      <SEO
+        title="Réalisations en cybersécurité, énergie et web"
+        description="Découvrez les projets réalisés par ICS GROUPE : cybersécurité, énergie solaire, développement web et réseaux pour des clients au Tchad, en France et à l'international."
+        path="/portfolio"
+      />
 
       {/* ============================================
           SCHEMA.ORG - DONNÉES STRUCTURÉES

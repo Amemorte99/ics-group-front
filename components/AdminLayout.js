@@ -1,18 +1,16 @@
 // components/AdminLayout.js
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { authApi } from '../utils/adminApi';
+import { authApi, adminContactApi } from '../utils/adminApi';
 import { useState, useEffect, useRef } from 'react';
+import AdminIcon from './admin/AdminIcon';
 
 export default function AdminLayout({ children, title, module }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [notifications] = useState([
-    { id: 1, text: 'Nouveau message de contact', time: '2 min' },
-    { id: 2, text: 'Article publié avec succès', time: '1 heure' },
-  ]);
+  const [unreadMessages, setUnreadMessages] = useState(0);
   const profileRef = useRef(null);
 
   useEffect(() => {
@@ -22,6 +20,8 @@ export default function AdminLayout({ children, title, module }) {
         setUser(JSON.parse(userData));
       }
     }
+
+    adminContactApi.unreadCount().then((r) => setUnreadMessages(r.data?.count || 0)).catch(() => {});
 
     // Fermer le menu profile au clic en dehors
     const handleClickOutside = (event) => {
@@ -35,13 +35,18 @@ export default function AdminLayout({ children, title, module }) {
 
 
 const menuItems = [
-  { name: 'Dashboard', icon: '📊', path: '/admin', description: "Vue d'ensemble" },
-  { name: 'Services', icon: '🛠️', path: '/admin/services', description: 'Gérer les services' },
-  { name: 'Portfolio', icon: '🎨', path: '/admin/portfolios', description: 'Gérer les projets' },
-  { name: 'Blog', icon: '✍️', path: '/admin/blog', description: 'Gérer les articles' },
-  { name: 'Témoignages', icon: '💬', path: '/admin/testimonials', description: 'Gérer les avis' },
-  { name: 'Partenaires', icon: '🤝', path: '/admin/partners', description: 'Gérer les partenaires' },
-  { name: 'Utilisateurs', icon: '👥', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT
+  { name: 'Dashboard', icon: 'dashboard', path: '/admin', description: "Vue d'ensemble" },
+  { name: 'Services', icon: 'services', path: '/admin/services', description: 'Gérer les services' },
+  { name: 'Portfolio', icon: 'portfolio', path: '/admin/portfolios', description: 'Gérer les projets' },
+  { name: 'Blog', icon: 'blog', path: '/admin/blog', description: 'Gérer les articles' },
+  { name: 'Messages', icon: 'mail', path: '/admin/messages', description: 'Demandes de contact', badge: unreadMessages },
+  { name: 'Médiathèque', icon: 'image', path: '/admin/media', description: 'Images et fichiers' },
+  { name: 'SEO', icon: 'search', path: '/admin/seo', description: 'Référencement des pages' },
+  { name: 'Témoignages', icon: 'testimonials', path: '/admin/testimonials', description: 'Gérer les avis' },
+  { name: 'Partenaires', icon: 'partners', path: '/admin/partners', description: 'Gérer les partenaires' },
+  { name: 'Sécurité', icon: 'shield', path: '/admin/security', description: 'Mot de passe et 2FA' },
+  { name: 'Journal', icon: 'history', path: '/admin/audit', description: "Journal d'audit" },
+  { name: 'Utilisateurs', icon: 'users', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT
 ];
   const handleLogout = () => {
     if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
@@ -77,11 +82,12 @@ const menuItems = [
             return (
               <Link key={item.path} href={item.path}>
                 <span className={`nav-item ${isActive ? 'active' : ''}`}>
-                  <span className="nav-icon">{item.icon}</span>
+                  <span className="nav-icon"><AdminIcon name={item.icon} /></span>
                   <span className="nav-content">
                     <span className="nav-name">{item.name}</span>
                     <span className="nav-description">{item.description}</span>
                   </span>
+                  {item.badge > 0 && <span className="nav-badge">{item.badge}</span>}
                   {isActive && <span className="nav-indicator"></span>}
                 </span>
               </Link>
@@ -91,7 +97,7 @@ const menuItems = [
 
         <div className="sidebar-footer">
           <button onClick={handleLogout} className="logout-btn">
-            <span className="logout-icon">🚪</span>
+            <span className="logout-icon"><AdminIcon name="logout" size={18} /></span>
             <span className="logout-text">Déconnexion</span>
           </button>
           <div className="sidebar-version">v2.0.0</div>
@@ -122,10 +128,10 @@ const menuItems = [
           <div className="header-right">
             {/* Notifications */}
             <div className="notifications-wrapper">
-              <button className="notif-btn">
-                <span className="notif-icon">🔔</span>
-                <span className="notif-badge">{notifications.length}</span>
-              </button>
+              <Link href="/admin/messages"><button className="notif-btn" aria-label="Messages">
+                <span className="notif-icon"><AdminIcon name="bell" size={20} /></span>
+                {unreadMessages > 0 && <span className="notif-badge">{unreadMessages}</span>}
+              </button></Link>
             </div>
 
             {/* Profile */}
@@ -160,15 +166,15 @@ const menuItems = [
                     </div>
                   </div>
                   <div className="dropdown-divider"></div>
-                  <button className="dropdown-item">
-                    <span>👤</span> Mon profil
+                  <button className="dropdown-item" onClick={() => router.push('/admin/security')}>
+                    <AdminIcon name="user" size={16} /> Mon profil
                   </button>
-                  <button className="dropdown-item">
-                    <span>⚙️</span> Paramètres
+                  <button className="dropdown-item" onClick={() => router.push('/admin/security')}>
+                    <AdminIcon name="settings" size={16} /> Sécurité
                   </button>
                   <div className="dropdown-divider"></div>
                   <button className="dropdown-item logout" onClick={handleLogout}>
-                    <span>🚪</span> Déconnexion
+                    <AdminIcon name="logout" size={16} /> Déconnexion
                   </button>
                 </div>
               )}
@@ -312,6 +318,7 @@ const menuItems = [
 
         .nav-icon {
           font-size: 20px;
+          color: rgba(255,255,255,0.85);
           width: 36px;
           height: 36px;
           display: flex;
@@ -325,6 +332,20 @@ const menuItems = [
 
         .nav-item.active .nav-icon {
           background: rgba(76, 175, 80, 0.2);
+        }
+
+        .nav-badge {
+          background: #4CAF50;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          min-width: 20px;
+          height: 20px;
+          padding: 0 6px;
+          border-radius: 10px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .nav-content {

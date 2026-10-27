@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -9,6 +10,7 @@ class Pricing extends Component {
     render() {
         return (
             <>
+                <SEO title="Tarifs et devis" description="Découvrez les formules d'accompagnement d'ICS GROUPE et demandez un devis personnalisé pour votre projet." path="/pricing" />
                 <Navbar />
 
                 <PageBannerContent 
@@ -26,4 +28,4 @@ class Pricing extends Component {
     }
 }
 
-export default Pricing;
+export default Pricing;

@@ -11,11 +11,13 @@ import App from 'next/app';
 import Head from 'next/head';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { SeoContext } from '../lib/SeoContext';
+import { getSeoOverrides } from '../lib/seoOverrides';
 import Loader from '../components/Layouts/Loader';
 import GoTop from '../components/Layouts/GoTop';
 
 // Version avec gestion des erreurs et performances optimisées
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, seoOverrides = {} }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const timerRef = useRef(null);
@@ -110,20 +112,16 @@ export default function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <title>ICS GROUPE - Transformation Digitale, Cybersécurité &amp; Énergies Renouvelables</title>
-                <meta name="description" content="ICS GROUPE accompagne les entreprises dans leurs projets de transformation digitale, cybersécurité, énergies renouvelables et télécommunications." />
                 <meta name="theme-color" content="#2D9CDB" />
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-                <meta property="og:title" content="ICS GROUPE - Transformation Digitale &amp; Cybersécurité" />
-                <meta property="og:description" content="Solutions innovantes en cybersécurité, énergies renouvelables et télécoms." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.icsgroupe.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </Head>
 
-            <Component {...pageProps} />
+            <SeoContext.Provider value={seoOverrides}>
+                <Component {...pageProps} />
+            </SeoContext.Provider>
             
             <Loader 
                 loading={loading} 
@@ -144,8 +142,9 @@ export default function MyApp({ Component, pageProps }) {
 // Configuration pour optimisations
 MyApp.getInitialProps = async (appContext) => {
     const appProps = await App.getInitialProps(appContext);
+    const seoOverrides = await getSeoOverrides();
     return {
         ...appProps,
-        // Propriétés personnalisées
+        seoOverrides,
     };
 };

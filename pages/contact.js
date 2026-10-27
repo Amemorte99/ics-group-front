@@ -1,6 +1,6 @@
 // pages/contact.js
 import React, { Component } from 'react';
-import Head from 'next/head';
+import SEO from '../components/SEO';
 import Link from 'next/link';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -11,33 +11,11 @@ class Contact extends Component {
     render() {
         return (
             <>
-                <Head>
-                    <title>Contactez ICS GROUPE | Cybersécurité, Énergie & Digital au Tchad</title>
-                    <meta 
-                        name="description" 
-                        content="Contactez ICS GROUPE pour vos projets en cybersécurité, énergies renouvelables, développement web et digital au Tchad et en Afrique. Devis gratuit et réponse rapide." 
-                    />
-                    <meta 
-                        name="keywords" 
-                        content="contact ICS GROUPE, devis cybersécurité Tchad, énergie solaire N'Djamena, développement web Afrique, transformation digitale, contactez-nous" 
-                    />
-                    <meta property="og:title" content="Contactez ICS GROUPE | Expert en Cybersécurité, Énergie & Digital" />
-                    <meta property="og:description" content="Contactez notre équipe pour vos projets en cybersécurité, énergies renouvelables et développement web au Tchad et en Afrique." />
-                    <meta property="og:type" content="website" />
-                    <meta property="og:url" content="https://icsolution.fr/contact" />
-                    <meta property="og:image" content="https://icsolution.fr/images/og-contact.jpg" />
-                    <meta property="og:image:width" content="1200" />
-                    <meta property="og:image:height" content="630" />
-                    <meta property="og:locale" content="fr_FR" />
-                    <meta property="og:site_name" content="ICS GROUPE" />
-                    <meta name="twitter:card" content="summary_large_image" />
-                    <meta name="twitter:title" content="Contactez ICS GROUPE" />
-                    <meta name="twitter:description" content="Contactez notre équipe pour vos projets en cybersécurité, énergie et digital." />
-                    <meta name="twitter:image" content="https://icsolution.fr/images/og-contact.jpg" />
-                    <link rel="canonical" href="https://icsolution.fr/contact" />
-                    <meta name="robots" content="index, follow" />
-                    <meta name="author" content="ICS GROUPE" />
-                </Head>
+                <SEO
+                    title="Contact et demande de devis"
+                    description="Contactez ICS GROUPE pour un devis en cybersécurité, énergie solaire, développement web ou réseaux. Basés à N'Djamena, nous intervenons au Tchad, en France et à distance partout dans le monde."
+                    path="/contact"
+                />
 
                 <script
                     type="application/ld+json"
@@ -223,4 +201,4 @@ class Contact extends Component {
     }
 }
 
-export default Contact;
+export default Contact;

@@ -1,6 +1,6 @@
 // pages/blog/index.js
 import React, { useRef, useEffect, useState } from 'react';
-import Head from 'next/head';
+import SEO from '../../components/SEO';
 import Link from 'next/link';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
@@ -54,16 +54,11 @@ export default function BlogPage({ posts = [], error = '' }) {
 
   return (
     <>
-      <Head>
-        <title>Blog | ICS GROUPE — Cybersécurité & Innovation</title>
-        <meta name="description" content="Explorez nos analyses approfondies sur la cybersécurité, les tendances tech et les stratégies digitales qui transforment les entreprises." />
-        <meta property="og:title" content="Blog | ICS GROUPE — Cybersécurité & Innovation" />
-        <meta property="og:description" content="Explorez nos analyses approfondies sur la cybersécurité, les tendances tech et les stratégies digitales qui transforment les entreprises." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.icsolution.fr/blog" />
-        <meta property="og:image" content="https://www.icsolution.fr/images/og-blog.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
+      <SEO
+        title="Blog cybersécurité, énergie et digital"
+        description="Analyses et conseils d'ICS GROUPE sur la cybersécurité, les énergies renouvelables et la transformation digitale, pour les entreprises au Tchad, en France et en Afrique."
+        path="/blog"
+      />
 
       <Navbar />
 

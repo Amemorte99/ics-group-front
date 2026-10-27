@@ -1,3 +1,4 @@
+import SEO from '../components/SEO';
 import React, { Component } from 'react';
 import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
@@ -7,6 +8,7 @@ class PrivacyPolicy extends Component {
     render() {
         return (
             <>
+                <SEO title="Politique de confidentialité" description="Politique de confidentialité d'ICS GROUPE : données collectées, usage et droits des utilisateurs." path="/privacy-policy" />
                 <Navbar />
 
                 <PageBannerContent 
@@ -53,4 +55,4 @@ class PrivacyPolicy extends Component {
     }
 }
 
-export default PrivacyPolicy;
+export default PrivacyPolicy;
