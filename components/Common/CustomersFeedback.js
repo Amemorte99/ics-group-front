@@ -1,5 +1,6 @@
 // components/Common/CustomersFeedback.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { testimonialApi } from '../../utils/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
@@ -8,36 +9,39 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const CustomersFeedback = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Jean Dupont',
-      position: 'CEO, TechCorp',
-      content: 'ICS GROUPE a transformé notre infrastructure digitale. Leur expertise en cybersécurité nous a permis de protéger efficacement nos données.',
-      image: '/images/author1.jpg',
-    },
-    {
-      id: 2,
-      name: 'Marie Kamga',
-      position: 'Directrice, EnergyPlus',
-      content: 'Grâce à ICS GROUPE, nous avons pu optimiser notre consommation énergétique avec des solutions solaires innovantes. Un partenaire de confiance.',
-      image: '/images/author2.jpg',
-    },
-    {
-      id: 3,
-      name: 'Pierre Mbala',
-      position: 'CTO, WebSolutions',
-      content: 'La qualité des développements web réalisés par ICS GROUPE est exceptionnelle. Leur équipe est réactive et professionnelle.',
-      image: '/images/author3.jpg',
-    },
-  ];
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    testimonialApi
+      .getAll()
+      .then((res) => {
+        if (cancelled) return;
+        const list = Array.isArray(res.data) ? res.data : res.data?.data || [];
+        setTestimonials(
+          list.map((t) => ({
+            id: t.id,
+            name: t.clientName,
+            position: [t.clientPosition, t.clientCompany].filter(Boolean).join(', '),
+            content: t.content,
+            image: t.photo || t.photoAlt,
+          }))
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (testimonials.length === 0) return null;
 
   return (
     <section className="customers-feedback">
       <div className="container">
         <div className="section-header">
           <h2>Ce que nos clients disent</h2>
-          <p>Des retours authentiques de nos partenaires</p>
+          <p>Les retours de ceux qui nous font confiance</p>
         </div>
 
         <Swiper
@@ -47,7 +51,7 @@ const CustomersFeedback = () => {
           navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
-          loop
+          loop={testimonials.length > 1}
           className="feedback-carousel"
         >
           {testimonials.map((item) => (

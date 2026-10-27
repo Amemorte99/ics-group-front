@@ -241,14 +241,6 @@ class Navbar extends Component {
                                     <div className="others-options">
 
 
-                                        <Link href="/admin">
-                                            <a className="login-btn">
-                                                <i className="flaticon-user"></i>
-                                                Se connecter
-                                            </a>
-                                        </Link>
-
-
                                         <Link href="/contact">
                                             <a className="btn btn-primary">
                                                 Nous contacter

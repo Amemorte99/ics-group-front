@@ -12,7 +12,6 @@ import EasyPaymentBorrow from '../components/Common/EasyPaymentBorrow';
 import FunFacts from '../components/HomeOne/FunFacts';
 import CustomersFeedback from '../components/Common/CustomersFeedback';
 import PartnerContent from '../components/Common/PartnerContent';
-import AppDownloadContent from '../components/HomeOne/AppDownloadContent';
 import AccountCreateArea from '../components/Common/AccountCreateArea';
 import BlogCard from '../components/Common/BlogCard';
 import Footer from '../components/Layouts/Footer';
@@ -66,7 +65,6 @@ class Index extends Component {
                     
                     {/* ✅ CORRECTION : hrefLang au lieu de hreflang */}
                     <link rel="alternate" href="https://icsolution.fr" hrefLang="fr" />
-                    <link rel="alternate" href="https://icsolution.fr/en" hrefLang="en" />
                     
                     {/* Indexation */}
                     <meta name="robots" content="index, follow" />
@@ -74,9 +72,6 @@ class Index extends Component {
                     {/* Author et Publisher */}
                     <meta name="author" content="ICS GROUPE" />
                     <meta name="publisher" content="ICS GROUPE" />
-                    
-                    {/* Vérification Google Search Console (à remplacer par votre code) */}
-                    <meta name="google-site-verification" content="VOTRE_CODE_VERIFICATION" />
                     
                     {/* Référencement mobile */}
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -111,7 +106,7 @@ class Index extends Component {
                             },
                             "contactPoint": {
                                 "@type": "ContactPoint",
-                                "telephone": "+235-XX-XX-XX-XX",
+                                "telephone": "+235-64-78-88-31",
                                 "contactType": "Commercial",
                                 "availableLanguage": ["French", "Arabic"]
                             },
@@ -123,10 +118,6 @@ class Index extends Component {
                                 "https://www.instagram.com/ics_groupe"
                             ],
                             "foundingDate": "2014",
-                            "numberOfEmployees": {
-                                "@type": "QuantitativeValue",
-                                "value": "25"
-                            },
                             "hasOfferCatalog": {
                                 "@type": "OfferCatalog",
                                 "name": "Services ICS GROUPE",
@@ -176,14 +167,6 @@ class Index extends Component {
                             "url": "https://icsolution.fr",
                             "name": "ICS GROUPE",
                             "description": "Solutions en cybersécurité, énergie et digital en Afrique",
-                            "potentialAction": {
-                                "@type": "SearchAction",
-                                "target": {
-                                    "@type": "EntryPoint",
-                                    "urlTemplate": "https://icsolution.fr/search?q={search_term_string}"
-                                },
-                                "query-input": "required name=search_term_string"
-                            },
                             "inLanguage": "fr"
                         })
                     }}
@@ -230,58 +213,37 @@ class Index extends Component {
                     <ServicesCard />
                 </section>
 
-                {/* Tableau comparatif (commenté par défaut) */}
-                {/* <ComparisonsTable /> */}
-
-                {/* Fonctionnalités */}
+                {/* À propos / atouts */}
                 <OurFeaturesContent />
-
-                {/* Paiement facile */}
                 <EasyPaymentBorrow />
 
                 {/* Chiffres clés */}
                 <FunFacts />
 
-                {/* Témoignages clients */}
+                {/* Réalisations */}
+                <section aria-labelledby="portfolio-title">
+                    <h2 id="portfolio-title" className="sr-only">Nos réalisations</h2>
+                    <PortfolioContent limit={6} />
+                    <div className="portfolio-cta">
+                        <Link href="/portfolio">
+                            <a className="btn-outline">
+                                Voir tout notre portfolio
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </a>
+                        </Link>
+                    </div>
+                </section>
+
+                {/* Témoignages (masqués s'il n'y en a pas) */}
                 <CustomersFeedback />
 
                 {/* Partenaires */}
                 <PartnerContent />
 
-                {/* Téléchargement application */}
-                <AppDownloadContent />
-
-                {/* Création de compte */}
+                {/* Appel à l'action unique */}
                 <AccountCreateArea />
-
-                {/* ============================================
-                    SECTION PORTFOLIO AVEC BOUTON CORRIGÉ
-                    ============================================ */}
-                <section aria-labelledby="portfolio-title">
-                    <div className="container">
-                        <div className="section-header">
-                            <span className="section-tag">Nos réalisations</span>
-                            <h2 id="portfolio-title" className="section-title">Découvrez nos projets</h2>
-                            <p className="section-subtitle">
-                                +150 projets réalisés en cybersécurité, énergie solaire et développement digital
-                            </p>
-                            <div className="portfolio-cta">
-                                {/* ✅ CORRECTION : Un seul enfant dans <Link> */}
-                                <Link href="/portfolio">
-                                    <span className="btn-outline">
-                                        <span className="btn-content">
-                                            Voir tout notre portfolio
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <PortfolioContent limit={6} />
-                </section>
 
                 <Footer />
 
@@ -334,7 +296,8 @@ class Index extends Component {
                        PORTFOLIO CTA
                     ============================================ */
                     .portfolio-cta {
-                        margin-top: 16px;
+                        text-align: center;
+                        padding: 8px 0 64px;
                     }
 
                     .btn-outline {
@@ -351,6 +314,7 @@ class Index extends Component {
                         cursor: pointer;
                         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         text-decoration: none;
+                        gap: 10px;
                     }
 
                     .btn-outline:hover {
