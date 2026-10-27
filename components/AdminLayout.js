@@ -1,7 +1,7 @@
 // components/AdminLayout.js
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { authApi } from '../utils/adminApi';
+import { authApi, adminContactApi } from '../utils/adminApi';
 import { useState, useEffect, useRef } from 'react';
 import AdminIcon from './admin/AdminIcon';
 
@@ -10,7 +10,7 @@ export default function AdminLayout({ children, title, module }) {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [notifications] = useState([]);
+  const [unreadMessages, setUnreadMessages] = useState(0);
   const profileRef = useRef(null);
 
   useEffect(() => {
@@ -20,6 +20,8 @@ export default function AdminLayout({ children, title, module }) {
         setUser(JSON.parse(userData));
       }
     }
+
+    adminContactApi.unreadCount().then((r) => setUnreadMessages(r.data?.count || 0)).catch(() => {});
 
     // Fermer le menu profile au clic en dehors
     const handleClickOutside = (event) => {
@@ -37,6 +39,7 @@ const menuItems = [
   { name: 'Services', icon: 'services', path: '/admin/services', description: 'Gérer les services' },
   { name: 'Portfolio', icon: 'portfolio', path: '/admin/portfolios', description: 'Gérer les projets' },
   { name: 'Blog', icon: 'blog', path: '/admin/blog', description: 'Gérer les articles' },
+  { name: 'Messages', icon: 'mail', path: '/admin/messages', description: 'Demandes de contact', badge: unreadMessages },
   { name: 'Témoignages', icon: 'testimonials', path: '/admin/testimonials', description: 'Gérer les avis' },
   { name: 'Partenaires', icon: 'partners', path: '/admin/partners', description: 'Gérer les partenaires' },
   { name: 'Utilisateurs', icon: 'users', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT
@@ -80,6 +83,7 @@ const menuItems = [
                     <span className="nav-name">{item.name}</span>
                     <span className="nav-description">{item.description}</span>
                   </span>
+                  {item.badge > 0 && <span className="nav-badge">{item.badge}</span>}
                   {isActive && <span className="nav-indicator"></span>}
                 </span>
               </Link>
@@ -120,10 +124,10 @@ const menuItems = [
           <div className="header-right">
             {/* Notifications */}
             <div className="notifications-wrapper">
-              <button className="notif-btn">
+              <Link href="/admin/messages"><button className="notif-btn" aria-label="Messages">
                 <span className="notif-icon"><AdminIcon name="bell" size={20} /></span>
-                {notifications.length > 0 && <span className="notif-badge">{notifications.length}</span>}
-              </button>
+                {unreadMessages > 0 && <span className="notif-badge">{unreadMessages}</span>}
+              </button></Link>
             </div>
 
             {/* Profile */}
@@ -324,6 +328,20 @@ const menuItems = [
 
         .nav-item.active .nav-icon {
           background: rgba(76, 175, 80, 0.2);
+        }
+
+        .nav-badge {
+          background: #4CAF50;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          min-width: 20px;
+          height: 20px;
+          padding: 0 6px;
+          border-radius: 10px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .nav-content {

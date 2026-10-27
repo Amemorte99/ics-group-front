@@ -129,6 +129,14 @@ export const adminPartnerApi = {
   toggleFeatured: (id) => adminApi.post(`/partners/${id}/toggle-featured`), // ✅ AJOUTÉ
 };
 
+// ============ CONTACT ============
+export const adminContactApi = {
+  getAll: (unreadOnly = false) => adminApi.get('/contact', { params: unreadOnly ? { unread: true } : {} }),
+  unreadCount: () => adminApi.get('/contact/unread-count'),
+  setRead: (id, isRead) => adminApi.patch(`/contact/${id}/read`, { isRead }),
+  delete: (id) => adminApi.delete(`/contact/${id}`),
+};
+
 // ============ UPLOAD ============
 export const uploadApi = {
   upload: (file) => {
