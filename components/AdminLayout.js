@@ -44,6 +44,8 @@ const menuItems = [
   { name: 'SEO', icon: 'search', path: '/admin/seo', description: 'Référencement des pages' },
   { name: 'Témoignages', icon: 'testimonials', path: '/admin/testimonials', description: 'Gérer les avis' },
   { name: 'Partenaires', icon: 'partners', path: '/admin/partners', description: 'Gérer les partenaires' },
+  { name: 'Sécurité', icon: 'shield', path: '/admin/security', description: 'Mot de passe et 2FA' },
+  { name: 'Journal', icon: 'history', path: '/admin/audit', description: "Journal d'audit" },
   { name: 'Utilisateurs', icon: 'users', path: '/admin/users', description: 'Gérer les utilisateurs' }, // ✅ AJOUT
 ];
   const handleLogout = () => {
@@ -164,11 +166,11 @@ const menuItems = [
                     </div>
                   </div>
                   <div className="dropdown-divider"></div>
-                  <button className="dropdown-item">
+                  <button className="dropdown-item" onClick={() => router.push('/admin/security')}>
                     <AdminIcon name="user" size={16} /> Mon profil
                   </button>
-                  <button className="dropdown-item">
-                    <AdminIcon name="settings" size={16} /> Paramètres
+                  <button className="dropdown-item" onClick={() => router.push('/admin/security')}>
+                    <AdminIcon name="settings" size={16} /> Sécurité
                   </button>
                   <div className="dropdown-divider"></div>
                   <button className="dropdown-item logout" onClick={handleLogout}>

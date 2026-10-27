@@ -11,10 +11,11 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [needsOtp, setNeedsOtp] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    if (token) {
+    if (authApi.isAuthenticated()) {
       router.push('/admin');
     }
   }, []);
@@ -25,17 +26,15 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      const response = await authApi.login(email, password);
-      console.log('✅ Login success:', response.data);
+      const response = await authApi.login(email, password, needsOtp ? otp.trim() : undefined);
+      if (response.data.requiresTwoFactor) {
+        setNeedsOtp(true);
+        return;
+      }
 
-      localStorage.setItem('adminToken', response.data.token);
-      localStorage.setItem('adminUser', JSON.stringify(response.data.user));
-      
+      authApi.saveUser(response.data.user);
       window.location.href = '/admin';
     } catch (err) {
-      console.error('❌ Erreur:', err);
-      console.error('❌ Response:', err.response);
-      
       const errorMessage = err.response?.data?.message || 
                           err.response?.data?.error ||
                           'Email ou mot de passe incorrect. Veuillez réessayer.';
@@ -127,6 +126,26 @@ export default function AdminLogin() {
               </button>
             </div>
           </div>
+
+          {needsOtp && (
+            <div className="form-group">
+              <label>
+                <span className="label-icon">🔐</span>
+                Code de vérification
+              </label>
+              <input
+                type="text"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                placeholder="123456 ou code de secours"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+                autoFocus
+              />
+              <small style={{ color: '#8c8f9c' }}>Saisissez le code de votre application d'authentification.</small>
+            </div>
+          )}
 
           <button type="submit" className="login-btn" disabled={loading}>
             {loading ? (

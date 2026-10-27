@@ -1,7 +1,7 @@
 // components/ImageUploadSimple.js
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
+import { uploadApi } from '../utils/adminApi';
 
 export default function ImageUploadSimple({ onUploadComplete, existingImages = [] }) {
   const [uploading, setUploading] = useState(false);
@@ -31,23 +31,7 @@ export default function ImageUploadSimple({ onUploadComplete, existingImages = [
           return;
         }
 
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-          setError('Vous devez être connecté');
-          setUploading(false);
-          return;
-        }
-
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.icsolution.fr/api';
-        const response = await axios.post(`${API_URL}/upload`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+        const response = await uploadApi.upload(file);
 
         if (response.data && response.data.url) {
           uploadedUrls.push(response.data.url);

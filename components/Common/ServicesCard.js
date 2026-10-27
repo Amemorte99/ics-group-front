@@ -20,7 +20,7 @@ class ServicesCard extends Component {
                 id: 1,
                 title: 'Design Graphique & Communication',
                 description: 'ICS GROUPE vous accompagne dans la conception de supports de communication optimisés, conformes aux normes marketing, avec des contenus visuels et textuels sur mesure pour renforcer votre image de marque et vos argumentaires commerciaux.',
-                image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/design-graphique.webp',
                 icon: 'fa-palette',
                 color: colors.primary,
                 features: [
@@ -36,7 +36,7 @@ class ServicesCard extends Component {
                 id: 2,
                 title: 'Site Web & Applications Mobiles',
                 description: 'Nous développons des solutions digitales performantes : sites web responsive, applications mobiles natives ou hybrides, informatisation des systèmes d\'information et gestion de bases de données.',
-                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/web-mobile.webp',
                 icon: 'fa-laptop-code',
                 color: colors.secondary,
                 features: [
@@ -52,7 +52,7 @@ class ServicesCard extends Component {
                 id: 3,
                 title: 'Cybersécurité',
                 description: 'Renforcez la résilience de vos systèmes face aux cybermenaces grâce à nos experts certifiés (ISO 27001, CISSP, etc.) qui accompagnent, conseillent et déploient des solutions innovantes.',
-                image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/cybersecurite.webp',
                 icon: 'fa-shield-halved',
                 color: colors.primary,
                 features: [
@@ -68,7 +68,7 @@ class ServicesCard extends Component {
                 id: 4,
                 title: 'Énergies Renouvelables',
                 description: 'De l\'étude à la maintenance, nous proposons des solutions solaires complètes adaptées à votre budget pour optimiser votre consommation et réduire votre empreinte écologique.',
-                image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/energie-solaire.webp',
                 icon: 'fa-solar-panel',
                 color: colors.secondary,
                 features: [
@@ -84,7 +84,7 @@ class ServicesCard extends Component {
                 id: 5,
                 title: 'Réseaux & Télécommunications',
                 description: 'Nous concevons, déployons et maintenons des infrastructures réseaux fiables : interconnexion de sites, support FAI et conseil expert pour une connectivité optimale.',
-                image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/reseaux-telecoms.webp',
                 icon: 'fa-network-wired',
                 color: colors.primary,
                 features: [
@@ -100,7 +100,7 @@ class ServicesCard extends Component {
                 id: 6,
                 title: 'Cloud & Infrastructure',
                 description: 'Optimisez votre infrastructure IT avec nos solutions cloud sécurisées, scalables et performantes pour une agilité maximale et une réduction des coûts.',
-                image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80',
+                image: '/images/services/cloud-infrastructure.webp',
                 icon: 'fa-cloud',
                 color: colors.secondary,
                 features: [

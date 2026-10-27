@@ -10,20 +10,6 @@ const api = axios.create({
   },
 });
 
-// Intercepteur pour le token
-api.interceptors.request.use(
-  (config) => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('adminToken');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
 // ============ AUTH ============
 export const authApi = {
   login: (email, password) => api.post('/auth/login', { email, password }),
