@@ -11,6 +11,7 @@ import {
   adminPartnerApi,
 } from '../../utils/adminApi';
 import AdminLayout from '../../components/AdminLayout';
+import AdminIcon from '../../components/admin/AdminIcon';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -23,7 +24,6 @@ export default function AdminDashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [recentActivities, setRecentActivities] = useState([]);
 
   useEffect(() => {
     if (!authApi.isAuthenticated()) {
@@ -33,7 +33,6 @@ export default function AdminDashboard() {
 
     setUser(authApi.getCurrentUser());
     fetchStats();
-    fetchRecentActivities();
   }, []);
 
   const fetchStats = async () => {
@@ -60,51 +59,42 @@ export default function AdminDashboard() {
     }
   };
 
-  const fetchRecentActivities = async () => {
-    const activities = [
-      { id: 1, type: 'service', action: 'Création', name: 'Cybersécurité', time: 'Il y a 2 min', icon: '🛠️' },
-      { id: 2, type: 'portfolio', action: 'Publication', name: 'Site E-commerce', time: 'Il y a 15 min', icon: '🎨' },
-      { id: 3, type: 'blog', action: 'Mise à jour', name: 'Tendances 2026', time: 'Il y a 1 heure', icon: '✍️' },
-      { id: 4, type: 'testimonial', action: 'Ajout', name: 'Jean Dupont', time: 'Il y a 3 heures', icon: '💬' },
-    ];
-    setRecentActivities(activities);
-  };
 
   const menuItems = [
     { 
       name: 'Services', 
-      icon: '🛠️', 
+      icon: 'services', 
       path: '/admin/services', 
       count: stats.services,
-      gradient: 'linear-gradient(135deg, #1B5E20, #4CAF50)'
+      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
     },
     { 
       name: 'Portfolio', 
-      icon: '🎨', 
+      icon: 'portfolio', 
       path: '/admin/portfolios', 
       count: stats.portfolios,
-      gradient: 'linear-gradient(135deg, #E65100, #FF6F00)'
+      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
     },
     { 
       name: 'Blog', 
-      icon: '✍️', 
+      icon: 'blog', 
       path: '/admin/blog', 
       count: stats.blogs,
-      gradient: 'linear-gradient(135deg, #0D47A1, #1565C0)'
+      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
     },
     { 
       name: 'Témoignages', 
-      icon: '💬', 
+      icon: 'testimonials', 
       path: '/admin/testimonials', 
       count: stats.testimonials,
-      gradient: 'linear-gradient(135deg, #4A148C, #6A1B9A)'
+      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
     },
     { 
       name: 'Partenaires', 
-      icon: '🤝', 
+      icon: 'partners', 
       path: '/admin/partners', 
       count: stats.partners,
-      gradient: 'linear-gradient(135deg, #006064, #00838F)'
+      gradient: 'linear-gradient(135deg, #14532d, #22a34a)'
     },
   ];
 
@@ -125,8 +115,7 @@ export default function AdminDashboard() {
       <div className="dashboard-header">
         <div className="welcome-section">
           <div className="welcome-text">
-            <span className="welcome-emoji">👋</span>
-            <div>
+                        <div>
               <h1>Bonjour, {user?.name || 'Admin'} !</h1>
               <p>Voici un aperçu de votre activité sur ICS GROUPE</p>
             </div>
@@ -139,7 +128,7 @@ export default function AdminDashboard() {
           </div>
         </div>
         <div className="dashboard-date">
-          <span className="date-icon">📅</span>
+          <span className="date-icon"><AdminIcon name="calendar" size={16} /></span>
           {new Date().toLocaleDateString('fr-FR', { 
             weekday: 'long', 
             day: 'numeric', 
@@ -157,7 +146,7 @@ export default function AdminDashboard() {
             <span className="stat-card-link">
               <div className="stat-card">
                 <div className="stat-card-icon" style={{ background: item.gradient }}>
-                  {item.icon}
+                  <AdminIcon name={item.icon} size={24} />
                 </div>
                 <div className="stat-card-content">
                   <span className="stat-card-value">{item.count}</span>
@@ -183,45 +172,46 @@ export default function AdminDashboard() {
       <div className="dashboard-bottom">
         <div className="recent-activities">
           <div className="section-header">
-            <h3>📋 Activités récentes</h3>
-            <span className="section-more">Voir tout →</span>
+            <h3>Répartition du contenu</h3>
           </div>
           <div className="activities-list">
-            {recentActivities.map((activity) => (
-              <div key={activity.id} className="activity-item">
-                <span className="activity-icon">{activity.icon}</span>
-                <div className="activity-content">
-                  <span className="activity-text">
-                    <strong>{activity.action}</strong> {activity.type} : {activity.name}
+            {(() => {
+              const max = Math.max(1, ...menuItems.map((m) => m.count));
+              return menuItems.map((item) => (
+                <Link key={item.path} href={item.path}>
+                  <span className="bar-row">
+                    <span className="bar-label">{item.name}</span>
+                    <span className="bar-track">
+                      <span className="bar-fill" style={{ width: `${(item.count / max) * 100}%` }}></span>
+                    </span>
+                    <span className="bar-value">{item.count}</span>
                   </span>
-                  <span className="activity-time">{activity.time}</span>
-                </div>
-                <span className="activity-dot"></span>
-              </div>
-            ))}
+                </Link>
+              ));
+            })()}
           </div>
         </div>
 
         <div className="quick-actions">
           <div className="section-header">
-            <h3>⚡ Actions rapides</h3>
+            <h3>Actions rapides</h3>
           </div>
           <div className="actions-grid">
             {/* ✅ CORRECTION : Link avec un seul enfant span */}
             <Link href="/admin/services/new">
-              <span className="action-btn green">➕ Nouveau Service</span>
+              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Service</span>
             </Link>
             <Link href="/admin/portfolios/new">
-              <span className="action-btn orange">➕ Nouveau Portfolio</span>
+              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Portfolio</span>
             </Link>
             <Link href="/admin/blog/new">
-              <span className="action-btn blue">➕ Nouvel Article</span>
+              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouvel Article</span>
             </Link>
             <Link href="/admin/testimonials/new">
-              <span className="action-btn purple">➕ Nouveau Témoignage</span>
+              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Témoignage</span>
             </Link>
             <Link href="/admin/partners/new">
-              <span className="action-btn teal">➕ Nouveau Partenaire</span>
+              <span className="action-btn"><AdminIcon name="plus" size={16} /> Nouveau Partenaire</span>
             </Link>
           </div>
         </div>
@@ -533,6 +523,9 @@ export default function AdminDashboard() {
         }
 
         .action-btn {
+          background: #fff;
+          color: #14532d;
+          border: 1px solid #d7e5da;
           padding: 12px 16px;
           border-radius: 12px;
           text-decoration: none;
@@ -541,36 +534,32 @@ export default function AdminDashboard() {
           display: flex;
           align-items: center;
           gap: 8px;
-          transition: all 0.3s ease;
-          border: none;
+          transition: all 0.2s ease;
           cursor: pointer;
-          color: #fff;
           justify-content: center;
           text-align: center;
         }
 
         .action-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+          background: #14532d;
+          border-color: #14532d;
           color: #fff;
         }
 
-        .action-btn.green {
-          background: linear-gradient(135deg, #1B5E20, #4CAF50);
+        .bar-row {
+          display: grid;
+          grid-template-columns: 110px 1fr 36px;
+          align-items: center;
+          gap: 12px;
+          padding: 10px 4px;
+          cursor: pointer;
         }
-        .action-btn.orange {
-          background: linear-gradient(135deg, #E65100, #FF6F00);
-        }
-        .action-btn.blue {
-          background: linear-gradient(135deg, #0D47A1, #1565C0);
-        }
-        .action-btn.purple {
-          background: linear-gradient(135deg, #4A148C, #6A1B9A);
-        }
-        .action-btn.teal {
-          background: linear-gradient(135deg, #006064, #00838F);
-        }
+        .bar-label { font-size: 14px; color: #4a4d5e; }
+        .bar-track { height: 8px; background: #eef2ee; border-radius: 8px; overflow: hidden; }
+        .bar-fill { display: block; height: 100%; background: linear-gradient(90deg, #14532d, #22a34a); border-radius: 8px; min-width: 4px; }
+        .bar-value { font-size: 14px; font-weight: 600; color: #1a1a2e; text-align: right; }
 
+                                        
         .action-btn span {
           font-size: 16px;
         }
