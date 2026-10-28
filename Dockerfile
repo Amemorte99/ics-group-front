@@ -1,5 +1,5 @@
-# Version Node.js 18 Alpine - Légère et rapide
-FROM node:18-alpine AS builder
+# Node.js 20 Alpine : plusieurs dépendances (cross-env, react-dropzone, sass…) exigent Node >= 20
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -7,7 +7,11 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer les dépendances avec legacy-peer-deps pour éviter les conflits
-RUN npm install --legacy-peer-deps
+# Réessaie en cas de coupure réseau (ECONNRESET) au lieu d'échouer
+RUN npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 120000 \
+ && npm install --legacy-peer-deps --no-audit --no-fund
 
 # Copier tout le code source
 COPY . .
@@ -22,7 +26,7 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm run build
 
 # Étape de production
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
