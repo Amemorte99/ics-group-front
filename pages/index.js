@@ -4,16 +4,13 @@ import SEO from '../components/SEO';
 import { I18nContext } from '../lib/i18n';
 import Link from 'next/link';
 import Navbar from '../components/Layouts/Navbar';
-import MainBanner from '../components/HomeOne/MainBanner';
-import FeaturedCard from '../components/HomeOne/FeaturedCard';
-import ServicesCard from '../components/Common/ServicesCard';
-import ComparisonsTable from '../components/Common/ComparisonsTable';
-import OurFeaturesContent from '../components/Common/OurFeaturesContent';
-import EasyPaymentBorrow from '../components/Common/EasyPaymentBorrow';
-import FunFacts from '../components/HomeOne/FunFacts';
+import HomeHero from '../components/Home/HomeHero';
+import HomeStats from '../components/Home/HomeStats';
+import HomeServices from '../components/Home/HomeServices';
+import HomeWhy from '../components/Home/HomeWhy';
+import HomeCTA from '../components/Home/HomeCTA';
 import CustomersFeedback from '../components/Common/CustomersFeedback';
 import PartnerContent from '../components/Common/PartnerContent';
-import AccountCreateArea from '../components/Common/AccountCreateArea';
 import BlogCard from '../components/Common/BlogCard';
 import Footer from '../components/Layouts/Footer';
 import Rates from '../components/Rates/Rates';
@@ -39,27 +36,10 @@ class Index extends Component {
                     ============================================ */}
                 <Navbar />
 
-                {/* La section MainBanner contient déjà son propre H1 */}
-                <MainBanner />
-
-                {/* Section des services en vedette */}
-                <section aria-labelledby="featured-services-title">
-                    <h2 id="featured-services-title" className="sr-only">{tx({ fr: 'Nos services en vedette', en: 'Our featured services', ar: 'خدماتنا المميزة' })}</h2>
-                    <FeaturedCard limit={4} />
-                </section>
-
-                {/* Section des services */}
-                <section aria-labelledby="services-title">
-                    <h2 id="services-title" className="sr-only">{tx({ fr: 'Nos services ICS GROUPE', en: 'ICS GROUPE services', ar: 'خدمات ICS GROUPE' })}</h2>
-                    <ServicesCard />
-                </section>
-
-                {/* À propos / atouts */}
-                <OurFeaturesContent />
-                <EasyPaymentBorrow />
-
-                {/* Chiffres clés */}
-                <FunFacts />
+                <HomeHero />
+                <HomeStats />
+                <HomeServices />
+                <HomeWhy />
 
                 {/* Réalisations */}
                 <section aria-labelledby="portfolio-title">
@@ -83,8 +63,7 @@ class Index extends Component {
                 {/* Partenaires */}
                 <PartnerContent />
 
-                {/* Appel à l'action unique */}
-                <AccountCreateArea />
+                <HomeCTA />
 
                 <Footer />
 
