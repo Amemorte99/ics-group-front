@@ -5,6 +5,7 @@ import { adminSeoApi, authApi } from '../../../utils/adminApi';
 import AdminLayout from '../../../components/AdminLayout';
 import MediaPicker from '../../../components/admin/MediaPicker';
 import { SEO_PAGES, SITE_URL } from '../../../lib/site';
+import { LOCALES, LOCALE_META } from '../../../lib/i18n';
 
 const EMPTY = { title: '', description: '', keywords: '', ogImage: '', noIndex: false };
 const TITLE_MAX = 60;
@@ -16,7 +17,11 @@ export default function AdminSeo() {
   const router = useRouter();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [path, setPath] = useState('/');
+  const [lang, setLang] = useState('fr');
+  const [basePath, setBasePath] = useState('/');
+  // Le français est à la racine ; /en et /ar pour les autres langues.
+  const withLang = (p, code = lang) => (code === 'fr' ? p : `/${code}${p === '/' ? '' : p}`);
+  const path = withLang(basePath);
   const [form, setForm] = useState(EMPTY);
   const [customPath, setCustomPath] = useState('');
   const [picker, setPicker] = useState(false);
@@ -85,15 +90,18 @@ export default function AdminSeo() {
       setMessage({ type: 'error', text: 'Le chemin doit commencer par / (ex : /blog/mon-article).' });
       return;
     }
-    setPath(value.length > 1 ? value.replace(/\/+$/, '') : value);
+    setBasePath(value.length > 1 ? value.replace(/\/+$/, '') : value);
     setCustomPath('');
     setMessage({ type: '', text: '' });
   };
 
   const known = new Set(SEO_PAGES.map((p) => p.path));
-  const customEntries = entries.filter((e) => !known.has(e.path));
-  const pages = [...SEO_PAGES, ...customEntries.map((e) => ({ path: e.path, label: e.path })), ...(!known.has(path) && !customEntries.some((e) => e.path === path) ? [{ path, label: path }] : [])];
+  const stripLang = (p) => p.replace(/^\/(en|ar)(?=\/|$)/, '') || '/';
+  const customEntries = entries.filter((e) => !known.has(stripLang(e.path)));
+  const customBases = [...new Set(customEntries.map((e) => stripLang(e.path)))];
+  const pages = [...SEO_PAGES, ...customBases.map((p) => ({ path: p, label: p })), ...(!known.has(basePath) && !customBases.includes(basePath) ? [{ path: basePath, label: basePath }] : [])];
   const configured = byPath(entries);
+  const isConfigured = (p) => LOCALES.some((code) => configured[withLang(p, code)]);
   const previewTitle = form.title || 'Titre par défaut de la page';
   const previewDesc = form.description || 'La description par défaut de la page sera utilisée.';
 
@@ -108,11 +116,18 @@ export default function AdminSeo() {
 
       <div className="layout">
         <nav className="pages" aria-label="Pages">
+          <div className="langs" role="tablist" aria-label="Langue">
+            {LOCALES.map((code) => (
+              <button key={code} role="tab" aria-selected={lang === code} className={lang === code ? 'on' : ''} onClick={() => setLang(code)}>
+                {LOCALE_META[code].label}
+              </button>
+            ))}
+          </div>
           {loading && <p className="note">Chargement…</p>}
           {pages.map((p) => (
-            <button key={p.path} className={`page ${p.path === path ? 'active' : ''}`} onClick={() => setPath(p.path)}>
+            <button key={p.path} className={`page ${p.path === basePath ? 'active' : ''}`} onClick={() => setBasePath(p.path)}>
               <span>{p.label}</span>
-              {configured[p.path] && <i title="Personnalisé" />}
+              {isConfigured(p.path) && <i title="Personnalisé" />}
             </button>
           ))}
           <div className="custom">
@@ -181,6 +196,9 @@ export default function AdminSeo() {
         .page.active { background: #14532d; color: #fff; }
         .page i { width: 8px; height: 8px; border-radius: 50%; background: #22a34a; }
         .page.active i { background: #fff; }
+        .langs { display: flex; gap: 4px; padding: 4px; margin-bottom: 6px; background: #f3f5f7; border-radius: 10px; }
+        .langs button { flex: 1; border: 0; background: transparent; padding: 6px 4px; border-radius: 8px; font-size: 12px; color: #4a4d5e; cursor: pointer; }
+        .langs button.on { background: #14532d; color: #fff; }
         .custom { display: flex; gap: 6px; padding: 10px 6px 4px; border-top: 1px solid #f1f3f5; margin-top: 6px; }
         .custom input { flex: 1; min-width: 0; }
         .note { color: #8c8f9c; font-size: 14px; padding: 12px; }

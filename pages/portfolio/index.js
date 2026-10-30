@@ -6,8 +6,10 @@ import Image from 'next/image';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import PortfolioContent from '../../components/portfolio/PortfolioContent';
+import { useI18n } from '../../lib/i18n';
 
 const PortfolioPage = () => {
+  const { tx } = useI18n();
   const statsRef = useRef(null);
 
   useEffect(() => {
@@ -80,149 +82,7 @@ const PortfolioPage = () => {
       {/* ============================================
           HEAD - META TAGS OPTIMISÉS SEO
           ============================================ */}
-      <SEO
-        title="Réalisations en cybersécurité, énergie et web"
-        description="Découvrez les projets réalisés par ICS GROUPE : cybersécurité, énergie solaire, développement web et réseaux pour des clients au Tchad, en France et à l'international."
-        path="/portfolio"
-      />
-
-      {/* ============================================
-          SCHEMA.ORG - DONNÉES STRUCTURÉES
-          (Ajouter juste après le Head)
-          ============================================ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Portfolio ICS GROUPE",
-            "description": "Découvrez nos réalisations en cybersécurité, énergie et développement web au Tchad et en Afrique.",
-            "url": "https://icsolution.fr/portfolio",
-            "inLanguage": "fr",
-            "about": {
-              "@type": "Organization",
-              "name": "ICS GROUPE",
-              "url": "https://icsolution.fr",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://icsolution.fr/images/logo.png"
-              },
-              "sameAs": [
-                "https://www.linkedin.com/company/ics-groupe",
-                "https://twitter.com/ics_groupe",
-                "https://www.facebook.com/icsgroupe"
-              ],
-              "description": "ICS GROUPE est une entreprise spécialisée en cybersécurité, énergies renouvelables et transformation digitale au Tchad et en Afrique.",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "N'Djamena",
-                "addressCountry": "Tchad"
-              }
-            },
-            "mainEntity": {
-              "@type": "ItemList",
-              "name": "Projets réalisés par ICS GROUPE",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "url": "https://icsolution.fr/portfolio/cybersecurite-banque",
-                  "name": "Cybersécurité - Banque Africaine"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "url": "https://icsolution.fr/portfolio/energie-solaire-ecole",
-                  "name": "Énergie solaire - École Tchadienne"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "url": "https://icsolution.fr/portfolio/web-ecommerce",
-                  "name": "Site web e-commerce - N'Djamena"
-                }
-              ]
-            },
-            "breadcrumb": {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Accueil",
-                  "item": "https://icsolution.fr"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Portfolio",
-                  "item": "https://icsolution.fr/portfolio"
-                }
-              ]
-            }
-          })
-        }}
-      />
-
-      {/* ============================================
-          SCHEMA.ORG - SERVICES OFFERTS
-          ============================================ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Services numériques et énergétiques",
-            "provider": {
-              "@type": "Organization",
-              "name": "ICS GROUPE",
-              "url": "https://icsolution.fr"
-            },
-            "offers": {
-              "@type": "AggregateOffer",
-              "priceCurrency": "XAF",
-              "availability": "https://schema.org/InStock",
-              "description": "Services de cybersécurité, énergies renouvelables, développement web et transformation digitale en Afrique"
-            },
-            "areaServed": {
-              "@type": "Place",
-              "name": "Afrique centrale et de l'Ouest"
-            },
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Catalogue de services ICS GROUPE",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Cybersécurité",
-                    "description": "Protection des systèmes d'information et infrastructures critiques"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Énergies renouvelables",
-                    "description": "Solutions solaires et énergies durables pour entreprises et collectivités"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Développement Web",
-                    "description": "Sites vitrines, e-commerce et applications web sur mesure"
-                  }
-                }
-              ]
-            }
-          })
-        }}
-      />
+      <SEO path="/portfolio" />
 
       <Navbar />
 
@@ -251,21 +111,23 @@ const PortfolioPage = () => {
             <div className="hero-content">
               <div className="hero-badge animate-on-scroll">
                 <span className="badge-dot"></span>
-                <span className="badge-text">Notre excellence en images</span>
+                <span className="badge-text">{tx({ fr: 'Notre excellence en images', en: 'Our excellence in pictures', ar: 'تميزنا بالصور' })}</span>
                 <span className="badge-pulse"></span>
               </div>
               
               {/* H1 optimisé avec mots-clés */}
               <h1 className="hero-title animate-on-scroll">
-                <span className="title-line">Nos</span>
-                <span className="title-highlight">réalisations en Afrique</span>
+                <span className="title-line">{tx({ fr: 'Nos', en: 'Our', ar: 'أعمالنا' })}</span>
+                <span className="title-highlight">{tx({ fr: 'réalisations en Afrique', en: 'projects in Africa', ar: 'في أفريقيا' })}</span>
               </h1>
               
               {/* Description enrichie avec mots-clés et statistiques */}
               <p className="hero-subtitle animate-on-scroll">
-                ICS GROUPE c'est <strong>150+ projets</strong> réalisés en cybersécurité, 
-                énergies renouvelables et développement digital au Tchad et en Afrique. 
-                Découvrez comment nous accompagnons nos clients vers l'excellence.
+                {tx({
+                  fr: "ICS GROUPE, c'est 150+ projets réalisés en cybersécurité, énergies renouvelables et développement digital au Tchad et en Afrique. Découvrez comment nous accompagnons nos clients vers l'excellence.",
+                  en: 'ICS GROUPE means 150+ projects delivered in cybersecurity, renewable energy and digital development in Chad and across Africa. See how we help our clients reach excellence.',
+                  ar: 'ICS GROUPE تعني أكثر من 150 مشروعًا أُنجز في الأمن السيبراني والطاقات المتجددة والتطوير الرقمي في تشاد وأفريقيا. اكتشفوا كيف نرافق عملاءنا نحو التميز.',
+                })}
               </p>
 
               <div className="hero-stats animate-on-scroll" ref={statsRef}>
@@ -273,33 +135,33 @@ const PortfolioPage = () => {
                   <span className="stat-number" data-count="150" data-suffix="+">0+</span>
                   <span className="stat-label">
                     <Link href="#portfolio-grid" style={{ color: 'inherit', textDecoration: 'none' }}>
-                      Projets réalisés →
+                      {tx({ fr: 'Projets réalisés →', en: 'Projects delivered →', ar: 'مشاريع منجزة ←' })}
                     </Link>
                   </span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
                   <span className="stat-number" data-count="98" data-suffix="%">0%</span>
-                  <span className="stat-label">Taux de satisfaction</span>
+                  <span className="stat-label">{tx({ fr: 'Taux de satisfaction', en: 'Satisfaction rate', ar: 'نسبة الرضا' })}</span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
-                  <span className="stat-number" data-count="12" data-suffix=" ans">0 ans</span>
-                  <span className="stat-label">D&apos;expérience</span>
+                  <span className="stat-number" data-count="12" data-suffix={tx({ fr: ' ans', en: ' years', ar: ' سنة' })}>0</span>
+                  <span className="stat-label">{tx({ fr: "D'expérience", en: 'Of experience', ar: 'من الخبرة' })}</span>
                 </div>
               </div>
 
               <div className="hero-actions animate-on-scroll">
                 <Link href="#portfolio-grid">
                   <span className="btn-primary">
-                    Voir nos projets
+                    {tx({ fr: 'Voir nos projets', en: 'See our projects', ar: 'شاهدوا مشاريعنا' })}
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </span>
                 </Link>
                 <Link href="/contact">
-                  <span className="btn-secondary">Discuter de votre projet</span>
+                  <span className="btn-secondary">{tx({ fr: 'Discuter de votre projet', en: 'Discuss your project', ar: 'ناقشوا مشروعكم' })}</span>
                 </Link>
               </div>
             </div>
@@ -308,64 +170,64 @@ const PortfolioPage = () => {
             <div className="hero-visual animate-on-scroll">
               <div className="visual-grid">
                 <div className="visual-card vc1">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/cybersecurity.svg" 
-                    alt="Cybersécurité - expertise ICS GROUPE" 
+                    alt={tx({ fr: 'Cybersécurité - expertise ICS GROUPE', en: 'Cybersecurity - ICS GROUPE expertise', ar: 'الأمن السيبراني - خبرة ICS GROUPE' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Cybersécurité</span>
+                  <span className="vc-label">{tx({ fr: 'Cybersécurité', en: 'Cybersecurity', ar: 'الأمن السيبراني' })}</span>
                 </div>
                 <div className="visual-card vc2">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/solar.svg" 
-                    alt="Énergie solaire - solutions ICS GROUPE" 
+                    alt={tx({ fr: 'Énergie solaire - solutions ICS GROUPE', en: 'Solar energy - ICS GROUPE solutions', ar: 'الطاقة الشمسية - حلول ICS GROUPE' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Énergie</span>
+                  <span className="vc-label">{tx({ fr: 'Énergie', en: 'Energy', ar: 'الطاقة' })}</span>
                 </div>
                 <div className="visual-card vc3">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/web.svg" 
-                    alt="Développement web - agence digitale ICS GROUPE" 
+                    alt={tx({ fr: 'Développement web - agence digitale ICS GROUPE', en: 'Web development - ICS GROUPE digital agency', ar: 'تطوير الويب - وكالة ICS GROUPE الرقمية' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Web</span>
+                  <span className="vc-label">{tx({ fr: 'Web', en: 'Web', ar: 'الويب' })}</span>
                 </div>
                 <div className="visual-card vc4">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/mobile.svg" 
-                    alt="Applications mobiles - développement ICS GROUPE" 
+                    alt={tx({ fr: 'Applications mobiles - développement ICS GROUPE', en: 'Mobile apps - ICS GROUPE development', ar: 'تطبيقات الجوال - تطوير ICS GROUPE' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Mobile</span>
+                  <span className="vc-label">{tx({ fr: 'Mobile', en: 'Mobile', ar: 'الجوال' })}</span>
                 </div>
                 <div className="visual-card vc5">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/cloud.svg" 
-                    alt="Solutions cloud - infrastructure ICS GROUPE" 
+                    alt={tx({ fr: 'Solutions cloud - infrastructure ICS GROUPE', en: 'Cloud solutions - ICS GROUPE infrastructure', ar: 'حلول سحابية - بنية ICS GROUPE التحتية' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Cloud</span>
+                  <span className="vc-label">{tx({ fr: 'Cloud', en: 'Cloud', ar: 'السحابة' })}</span>
                 </div>
                 <div className="visual-card vc6">
-                  <Image 
+                  <Image unoptimized 
                     src="/images/icons/data.svg" 
-                    alt="Data science - analyse de données ICS GROUPE" 
+                    alt={tx({ fr: 'Data science - analyse de données ICS GROUPE', en: 'Data science - ICS GROUPE data analysis', ar: 'علم البيانات - تحليل بيانات ICS GROUPE' })} 
                     width={40} 
                     height={40}
                     className="vc-icon"
                   />
-                  <span className="vc-label">Data</span>
+                  <span className="vc-label">{tx({ fr: 'Data', en: 'Data', ar: 'البيانات' })}</span>
                 </div>
               </div>
             </div>
@@ -388,84 +250,27 @@ const PortfolioPage = () => {
       </div>
 
       {/* ============================================
-          TESTIMONIALS PREVIEW
-          ============================================ */}
-      <section className="testimonials-preview">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">Ils nous font confiance</span>
-            {/* H2 optimisé */}
-            <h2 className="section-title">Témoignages de nos clients</h2>
-            <p className="section-subtitle">
-              Découvrez les retours de nos clients sur nos réalisations en Afrique
-            </p>
-          </div>
-          <div className="testimonial-grid">
-            <div className="testimonial-card">
-              <div className="tc-quote">“</div>
-              <p className="tc-text">
-                ICS GROUPE a réalisé notre plateforme de cybersécurité avec un professionnalisme exceptionnel.
-              </p>
-              <div className="tc-author">
-                <div className="tc-avatar">JD</div>
-                <div>
-                  <span className="tc-name">Jean Dupont</span>
-                  <span className="tc-role">CTO, Safricom Tchad</span>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="tc-quote">“</div>
-              <p className="tc-text">
-                Grâce à ICS, notre site web a été modernisé et notre présence en ligne s&apos;est considérablement améliorée.
-              </p>
-              <div className="tc-author">
-                <div className="tc-avatar">MD</div>
-                <div>
-                  <span className="tc-name">Marie Diallo</span>
-                  <span className="tc-role">Directrice, Energies SA</span>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="tc-quote">“</div>
-              <p className="tc-text">
-                Une équipe réactive et compétente qui a su comprendre nos besoins et y répondre efficacement.
-              </p>
-              <div className="tc-author">
-                <div className="tc-avatar">AK</div>
-                <div>
-                  <span className="tc-name">Abdoulaye Kone</span>
-                  <span className="tc-role">CEO, TechLab Afrique</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================
           CTA SECTION
           ============================================ */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
             <div className="cta-text">
-              <span className="cta-badge">💡 Vous avez un projet ?</span>
-              <h2>Prêt à donner vie à votre idée ?</h2>
-              <p>Contactez-nous dès aujourd'hui pour discuter de votre projet et découvrir comment nous pouvons vous accompagner vers la réussite.</p>
+              <span className="cta-badge">💡 {tx({ fr: 'Vous avez un projet ?', en: 'Have a project?', ar: 'هل لديكم مشروع؟' })}</span>
+              <h2>{tx({ fr: 'Prêt à donner vie à votre idée ?', en: 'Ready to bring your idea to life?', ar: 'هل أنتم مستعدون لتحويل فكرتكم إلى واقع؟' })}</h2>
+              <p>{tx({ fr: "Contactez-nous dès aujourd'hui pour discuter de votre projet et découvrir comment nous pouvons vous accompagner vers la réussite.", en: 'Contact us today to discuss your project and see how we can help you succeed.', ar: 'تواصلوا معنا اليوم لمناقشة مشروعكم ومعرفة كيف نساعدكم على النجاح.' })}</p>
             </div>
             <div className="cta-actions">
               <Link href="/contact">
                 <span className="btn-primary">
-                  Démarrer un projet
+                  {tx({ fr: 'Démarrer un projet', en: 'Start a project', ar: 'ابدأوا مشروعكم' })}
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </span>
               </Link>
               <Link href="/services">
-                <span className="btn-secondary">Nos services</span>
+                <span className="btn-secondary">{tx({ fr: 'Nos services', en: 'Our services', ar: 'خدماتنا' })}</span>
               </Link>
             </div>
           </div>

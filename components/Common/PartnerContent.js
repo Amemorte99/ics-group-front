@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import { I18nContext } from '../../lib/i18n';
 
 class PartnerContent extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
+        const categoryNames = {"Technologie & Réseaux": {"fr": "Technologie & Réseaux", "en": "Technology & Networks", "ar": "التكنولوجيا والشبكات"}, "Réseaux & Sécurité": {"fr": "Réseaux & Sécurité", "en": "Networks & Security", "ar": "الشبكات والأمن"}, "Cybersécurité": {"fr": "Cybersécurité", "en": "Cybersecurity", "ar": "الأمن السيبراني"}, "Énergie & Automatisation": {"fr": "Énergie & Automatisation", "en": "Energy & Automation", "ar": "الطاقة والأتمتة"}, "Énergie Renouvelable": {"fr": "Énergie Renouvelable", "en": "Renewable Energy", "ar": "الطاقة المتجددة"}, "Certification": {"fr": "Certification", "en": "Certification", "ar": "الشهادات"}, "Technologie": {"fr": "Technologie", "en": "Technology", "ar": "التكنولوجيا"}, "Base de données": {"fr": "Base de données", "en": "Database", "ar": "قواعد البيانات"}, "Énergie Solaire": {"fr": "Énergie Solaire", "en": "Solar Energy", "ar": "الطاقة الشمسية"}, "Énergie & Pétrole": {"fr": "Énergie & Pétrole", "en": "Energy & Oil", "ar": "الطاقة والنفط"}, "Équipement & Services": {"fr": "Équipement & Services", "en": "Equipment & Services", "ar": "المعدات والخدمات"}, "Services & Consulting": {"fr": "Services & Consulting", "en": "Services & Consulting", "ar": "الخدمات والاستشارات"}};
         const partners = [
             {
                 id: 1,
@@ -117,11 +122,11 @@ class PartnerContent extends Component {
                     <div className="section-header">
                         <div className="header-badge">
                             <span className="badge-dot"></span>
-                            Nos partenaires
+                            {tx({ fr: 'Nos partenaires', en: 'Our partners', ar: 'شركاؤنا' })}
                         </div>
                         <h2 className="section-title">
-                            Des partenaires de confiance<br />
-                            pour votre <span className="highlight">réussite</span>
+                            {tx({ fr: 'Des partenaires de confiance', en: 'Trusted partners', ar: 'شركاء موثوقون' })}<br />
+                            {tx({ fr: 'pour votre', en: 'for your', ar: 'من أجل' })} <span className="highlight">{tx({ fr: 'réussite', en: 'success', ar: 'نجاحكم' })}</span>
                         </h2>
                         <div className="section-divider">
                             <span className="divider-line"></span>
@@ -129,9 +134,11 @@ class PartnerContent extends Component {
                             <span className="divider-line"></span>
                         </div>
                         <p className="section-description">
-                            <strong>ICS GROUPE</strong> collabore avec des leaders mondiaux en cybersécurité, 
-                            réseaux, énergies renouvelables et technologies pour vous offrir les meilleures 
-                            solutions innovantes et certifiées.
+                            {tx({
+                                fr: 'ICS GROUPE collabore avec des leaders mondiaux en cybersécurité, réseaux, énergies renouvelables et technologies pour vous offrir les meilleures solutions innovantes et certifiées.',
+                                en: 'ICS GROUPE works with world leaders in cybersecurity, networks, renewable energy and technology to offer you the best innovative, certified solutions.',
+                                ar: 'تتعاون ICS GROUPE مع رواد عالميين في الأمن السيبراني والشبكات والطاقات المتجددة والتكنولوجيا لتقدم لكم أفضل الحلول المبتكرة والمعتمدة.',
+                            })}
                         </p>
                     </div>
 
@@ -153,9 +160,9 @@ class PartnerContent extends Component {
                                             loading="lazy"
                                         />
                                         <div className="partner-overlay">
-                                            <span className="overlay-category">{partner.category}</span>
+                                            <span className="overlay-category">{tx(categoryNames[partner.category] || partner.category)}</span>
                                             <span className="overlay-name">{partner.name}</span>
-                                            <span className="overlay-link">Voir le site →</span>
+                                            <span className="overlay-link">{tx({ fr: 'Voir le site →', en: 'Visit website →', ar: 'زيارة الموقع ←' })}</span>
                                         </div>
                                     </div>
                                     <span className="partner-name">{partner.name}</span>
@@ -178,7 +185,7 @@ class PartnerContent extends Component {
                                 </div>
                                 <div>
                                     <span className="stat-number">12+</span>
-                                    <span className="stat-label">Partenaires actifs</span>
+                                    <span className="stat-label">{tx({ fr: 'Partenaires actifs', en: 'Active partners', ar: 'شركاء نشطون' })}</span>
                                 </div>
                             </div>
 
@@ -194,7 +201,7 @@ class PartnerContent extends Component {
                                 </div>
                                 <div>
                                     <span className="stat-number">8</span>
-                                    <span className="stat-label">Pays représentés</span>
+                                    <span className="stat-label">{tx({ fr: 'Pays représentés', en: 'Countries represented', ar: 'دول ممثَّلة' })}</span>
                                 </div>
                             </div>
 
@@ -209,7 +216,7 @@ class PartnerContent extends Component {
                                 </div>
                                 <div>
                                     <span className="stat-number">10+</span>
-                                    <span className="stat-label">Années de collaboration</span>
+                                    <span className="stat-label">{tx({ fr: 'Années de collaboration', en: 'Years of collaboration', ar: 'سنوات من التعاون' })}</span>
                                 </div>
                             </div>
                         </div>
@@ -227,12 +234,12 @@ class PartnerContent extends Component {
                                 </svg>
                             </div>
                             <div className="cta-partner-text">
-                                <h4>Devenez partenaire d'ICS GROUPE</h4>
-                                <p>Rejoignez notre réseau de partenaires et bénéficiez d'une collaboration gagnant-gagnant</p>
+                                <h4>{tx({ fr: "Devenez partenaire d'ICS GROUPE", en: 'Become an ICS GROUPE partner', ar: 'كونوا شركاء ICS GROUPE' })}</h4>
+                                <p>{tx({ fr: "Rejoignez notre réseau de partenaires et bénéficiez d'une collaboration gagnant-gagnant", en: 'Join our partner network and enjoy a win-win collaboration', ar: 'انضموا إلى شبكة شركائنا واستفيدوا من تعاون رابح للجميع' })}</p>
                             </div>
                             <Link href="/contact">
                                 <a className="cta-partner-btn">
-                                    <span>Nous rejoindre</span>
+                                    <span>{tx({ fr: 'Nous rejoindre', en: 'Join us', ar: 'انضموا إلينا' })}</span>
                                     <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                         <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>

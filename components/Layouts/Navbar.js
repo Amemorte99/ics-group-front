@@ -1,37 +1,24 @@
 // components/Layouts/Navbar.js
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useI18n } from '../../lib/i18n';
 
-class Navbar extends Component {
-    state = {
-        collapsed: true
-    };
+const Navbar = () => {
+    const { t } = useI18n();
+    const [collapsed, setCollapsed] = useState(true);
+    const toggleNavbar = () => setCollapsed(!collapsed);
 
-    toggleNavbar = () => {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    }
-
-    componentDidMount() {
-        let elementId = document.getElementById("navbar");
-
-        document.addEventListener("scroll", () => {
-            if (window.scrollY > 170) {
-                elementId.classList.add("is-sticky");
-            } else {
-                elementId.classList.remove("is-sticky");
-            }
-        });
-
-        window.scrollTo(0, 0);
-    }
-
-    componentWillUnmount() {
-    }
-
-    render() {
-        const { collapsed } = this.state;
+    useEffect(() => {
+        const navbar = document.getElementById('navbar');
+        const onScroll = () => {
+            if (!navbar) return;
+            if (window.scrollY > 170) navbar.classList.add('is-sticky');
+            else navbar.classList.remove('is-sticky');
+        };
+        document.addEventListener('scroll', onScroll);
+        return () => document.removeEventListener('scroll', onScroll);
+    }, []);
 
         const classOne = collapsed
             ? 'collapse navbar-collapse'
@@ -69,7 +56,7 @@ class Navbar extends Component {
 
                                 {/* Mobile button */}
                                 <button
-                                    onClick={this.toggleNavbar}
+                                    onClick={toggleNavbar}
                                     className={classTwo}
                                     type="button"
                                     data-toggle="collapse"
@@ -96,7 +83,7 @@ class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link href="/">
                                                 <a className="nav-link">
-                                                    Accueil
+                                                    {t('nav.home')}
                                                 </a>
                                             </Link>
                                         </li>
@@ -106,7 +93,7 @@ class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link href="/about-us">
                                                 <a className="nav-link">
-                                                    À propos
+                                                    {t('nav.about')}
                                                 </a>
                                             </Link>
                                         </li>
@@ -118,7 +105,7 @@ class Navbar extends Component {
 
                                             <Link href="/services">
                                                 <a className="nav-link dropdown-toggle">
-                                                    Services 
+                                                    {t('nav.services')} 
                                                     <i className="fas fa-chevron-down"></i>
                                                 </a>
                                             </Link>
@@ -129,7 +116,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/marketing">
                                                         <a className="dropdown-item">
-                                                            Marketing Digital
+                                                            {t('svc.marketing')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -138,7 +125,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/design">
                                                         <a className="dropdown-item">
-                                                            Design Graphique & Communication
+                                                            {t('svc.design')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -147,7 +134,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/web">
                                                         <a className="dropdown-item">
-                                                            Sites Web & Applications Mobiles
+                                                            {t('svc.web')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -156,7 +143,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/cybersecurite">
                                                         <a className="dropdown-item">
-                                                            Cybersécurité
+                                                            {t('svc.cyber')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -165,7 +152,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/energie">
                                                         <a className="dropdown-item">
-                                                            Énergies Renouvelables
+                                                            {t('svc.energy')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -174,7 +161,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/reseaux">
                                                         <a className="dropdown-item">
-                                                            Réseaux & Télécommunications
+                                                            {t('svc.network')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -183,7 +170,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/data">
                                                         <a className="dropdown-item">
-                                                            Data Analysis
+                                                            {t('svc.data')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -192,7 +179,7 @@ class Navbar extends Component {
                                                 <li>
                                                     <Link href="/services/consulting">
                                                         <a className="dropdown-item">
-                                                            Consulting & Formations
+                                                            {t('svc.consulting')}
                                                         </a>
                                                     </Link>
                                                 </li>
@@ -207,7 +194,7 @@ class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link href="/portfolio">
                                                 <a className="nav-link">
-                                                    Portfolio
+                                                    {t('nav.portfolio')}
                                                 </a>
                                             </Link>
                                         </li>
@@ -217,7 +204,7 @@ class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link href="/blog">
                                                 <a className="nav-link">
-                                                    Blog
+                                                    {t('nav.blog')}
                                                 </a>
                                             </Link>
                                         </li>
@@ -227,7 +214,7 @@ class Navbar extends Component {
                                         <li className="nav-item">
                                             <Link href="/contact">
                                                 <a className="nav-link">
-                                                    Contact
+                                                    {t('nav.contact')}
                                                 </a>
                                             </Link>
                                         </li>
@@ -239,11 +226,11 @@ class Navbar extends Component {
 
                                     {/* Buttons */}
                                     <div className="others-options">
-
+                                        <LanguageSwitcher />
 
                                         <Link href="/contact">
                                             <a className="btn btn-primary">
-                                                Nous contacter
+                                                {t('nav.contactUs')}
                                             </a>
                                         </Link>
 
@@ -267,7 +254,7 @@ class Navbar extends Component {
                         display:flex;
                         align-items:center;
                         gap:12px;
-                        margin-left:16px;
+                        margin-inline-start:16px;
                     }
 
 
@@ -327,7 +314,7 @@ class Navbar extends Component {
                     @media(max-width:992px){
 
                         .others-options {
-                            margin-left:0;
+                            margin-inline-start:0;
                             margin-top:12px;
                         }
 
@@ -339,8 +326,6 @@ class Navbar extends Component {
 
             </>
         );
-    }
-}
-
+};
 
 export default Navbar;

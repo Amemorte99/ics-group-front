@@ -12,6 +12,9 @@ import Head from 'next/head';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { SeoContext } from '../lib/SeoContext';
+import { I18nContext, makeI18n } from '../lib/i18n';
+import messages from '../lib/messages';
+import '../public/css/rtl.css';
 import { getSeoOverrides } from '../lib/seoOverrides';
 import Loader from '../components/Layouts/Loader';
 import GoTop from '../components/Layouts/GoTop';
@@ -22,6 +25,13 @@ export default function MyApp({ Component, pageProps, seoOverrides = {} }) {
     const [error, setError] = useState(null);
     const timerRef = useRef(null);
     const router = useRouter();
+    const i18n = makeI18n(router.locale, messages);
+
+    // Lors d'un changement de langue sans rechargement de page, on met à jour la langue et le sens de lecture.
+    useEffect(() => {
+        document.documentElement.lang = i18n.locale;
+        document.documentElement.dir = i18n.dir;
+    }, [i18n.locale, i18n.dir]);
 
     // Gestion du chargement
     useEffect(() => {
@@ -119,9 +129,11 @@ export default function MyApp({ Component, pageProps, seoOverrides = {} }) {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </Head>
 
-            <SeoContext.Provider value={seoOverrides}>
-                <Component {...pageProps} />
-            </SeoContext.Provider>
+            <I18nContext.Provider value={i18n}>
+                <SeoContext.Provider value={seoOverrides}>
+                    <Component {...pageProps} />
+                </SeoContext.Provider>
+            </I18nContext.Provider>
             
             <Loader 
                 loading={loading} 

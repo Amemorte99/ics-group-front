@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { I18nContext } from '../../lib/i18n';
 import Link from 'next/link';
 import Image from 'next/image';
 
 class MainBanner extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <div className="main-banner-wrapper">
                 {/* Arrière-plan avec effet de lumière */}
@@ -29,24 +33,27 @@ class MainBanner extends Component {
                             <div className="banner-label">
                                 <span className="label-dot"></span>
                                 <span className="label-text">ICS GROUPE</span>
-                                <span className="label-badge">Expert depuis 2012</span>
+                                <span className="label-badge">{tx({ fr: 'Expert depuis 2012', en: 'Experts since 2012', ar: 'خبرة منذ 2012' })}</span>
                             </div>
                             
                             <h1 className="banner-heading">
-                                Des solutions <br />
-                                <span className="highlight">innovantes</span> pour<br />
-                                votre <span className="highlight">réussite</span>
+                                {tx({ fr: 'Des solutions', en: 'Innovative', ar: 'حلول' })} <br />
+                                <span className="highlight">{tx({ fr: 'innovantes', en: 'solutions', ar: 'مبتكرة' })}</span> {tx({ fr: 'pour', en: 'for', ar: 'لنجاح' })}<br />
+                                {tx({ fr: 'votre', en: 'your', ar: 'أعمالكم' })} <span className="highlight">{tx({ fr: 'réussite', en: 'success', ar: 'ومشاريعكم' })}</span>
                             </h1>
                             
                             <p className="banner-description">
-                                Nous accompagnons les entreprises dans leur transformation digitale,
-                                cybersécurité et énergies renouvelables avec des solutions sur mesure.
+                                {tx({
+                                    fr: 'Nous accompagnons les entreprises dans leur transformation digitale, cybersécurité et énergies renouvelables avec des solutions sur mesure.',
+                                    en: 'We support businesses in their digital transformation, cybersecurity and renewable energy with tailor-made solutions.',
+                                    ar: 'نرافق الشركات في تحولها الرقمي وأمنها السيبراني والطاقات المتجددة بحلول مصممة وفق احتياجاتها.',
+                                })}
                             </p>
 
                             <div className="banner-actions">
                                 <Link href="/contact">
                                     <a className="btn-primary-custom">
-                                        <span>Démarrer un projet</span>
+                                        <span>{tx({ fr: 'Démarrer un projet', en: 'Start a project', ar: 'ابدأ مشروعك' })}</span>
                                         <svg className="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <path d="M5 12h14M12 5l7 7-7 7"/>
                                         </svg>
@@ -57,7 +64,7 @@ class MainBanner extends Component {
                                         <svg className="play-icon" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M8 5v14l11-7z"/>
                                         </svg>
-                                        Nos services
+                                        {tx({ fr: 'Nos services', en: 'Our services', ar: 'خدماتنا' })}
                                     </a>
                                 </Link>
                             </div>
@@ -66,17 +73,17 @@ class MainBanner extends Component {
                             <div className="banner-stats mb-4">
                                 <div className="stat-item">
                                     <span className="stat-number">150+</span>
-                                    <span className="stat-label">Clients satisfaits</span>
+                                    <span className="stat-label">{tx({ fr: 'Clients satisfaits', en: 'Satisfied clients', ar: 'عملاء راضون' })}</span>
                                 </div>
                                 <div className="stat-divider"></div>
                                 <div className="stat-item">
                                     <span className="stat-number">98%</span>
-                                    <span className="stat-label">Taux de satisfaction</span>
+                                    <span className="stat-label">{tx({ fr: 'Taux de satisfaction', en: 'Satisfaction rate', ar: 'نسبة الرضا' })}</span>
                                 </div>
                                 <div className="stat-divider"></div>
                                 <div className="stat-item">
-                                    <span className="stat-number">12 ans</span>
-                                    <span className="stat-label">D'expérience</span>
+                                    <span className="stat-number">{tx({ fr: '12 ans', en: '12 years', ar: '12 سنة' })}</span>
+                                    <span className="stat-label">{tx({ fr: "D'expérience", en: 'Of experience', ar: 'من الخبرة' })}</span>
                                 </div>
                             </div>
                         </div>
@@ -85,9 +92,9 @@ class MainBanner extends Component {
                         <div className="banner-image-wrapper">
                             <div className="image-container">
                                 <div className="image-frame">
-                                    <Image
+                                    <Image unoptimized
                                         src="/images/vert2.webp"
-                                        alt="ICS GROUPE Solutions innovantes"
+                                        alt={tx({ fr: 'ICS GROUPE, solutions innovantes', en: 'ICS GROUPE, innovative solutions', ar: 'ICS GROUPE، حلول مبتكرة' })}
                                         width={600}
                                         height={500}
                                         className="banner-img"
@@ -103,8 +110,8 @@ class MainBanner extends Component {
                                         <i className="fas fa-shield-alt"></i>
                                     </div>
                                     <div className="badge-content">
-                                        <span className="badge-title">Cybersécurité</span>
-                                        <span className="badge-sub">Protection avancée</span>
+                                        <span className="badge-title">{tx({ fr: 'Cybersécurité', en: 'Cybersecurity', ar: 'الأمن السيبراني' })}</span>
+                                        <span className="badge-sub">{tx({ fr: 'Protection avancée', en: 'Advanced protection', ar: 'حماية متقدمة' })}</span>
                                     </div>
                                 </div>
                                 
@@ -113,8 +120,8 @@ class MainBanner extends Component {
                                         <i className="fas fa-solar-panel"></i>
                                     </div>
                                     <div className="badge-content">
-                                        <span className="badge-title">Énergie verte</span>
-                                        <span className="badge-sub">Durable & innovante</span>
+                                        <span className="badge-title">{tx({ fr: 'Énergie verte', en: 'Green energy', ar: 'الطاقة الخضراء' })}</span>
+                                        <span className="badge-sub">{tx({ fr: 'Durable & innovante', en: 'Sustainable & innovative', ar: 'مستدامة ومبتكرة' })}</span>
                                     </div>
                                 </div>
                                 
@@ -123,8 +130,8 @@ class MainBanner extends Component {
                                         <i className="fas fa-code"></i>
                                     </div>
                                     <div className="badge-content">
-                                        <span className="badge-title">Dev Web</span>
-                                        <span className="badge-sub">Applications modernes</span>
+                                        <span className="badge-title">{tx({ fr: 'Dev Web', en: 'Web Dev', ar: 'تطوير الويب' })}</span>
+                                        <span className="badge-sub">{tx({ fr: 'Applications modernes', en: 'Modern applications', ar: 'تطبيقات حديثة' })}</span>
                                     </div>
                                 </div>
 
@@ -140,7 +147,7 @@ class MainBanner extends Component {
                     <div className="scroll-mouse">
                         <div className="scroll-wheel"></div>
                     </div>
-                    <span className="scroll-text">Défiler</span>
+                    <span className="scroll-text">{tx({ fr: 'Défiler', en: 'Scroll', ar: 'مرّر للأسفل' })}</span>
                 </div>
 
                 <style jsx>{`

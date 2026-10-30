@@ -1,6 +1,7 @@
 // pages/sitemap.xml.js
 import { blogApi } from '../utils/api';
 import { SITE_URL, MARKETS } from '../lib/site';
+import { LOCALES, localizedUrl } from '../lib/i18n';
 
 // Uniquement des pages qui existent réellement.
 const staticPages = [
@@ -17,22 +18,34 @@ const staticPages = [
   { loc: '/portfolio', priority: '0.8', changefreq: 'weekly' },
   { loc: '/blog', priority: '0.8', changefreq: 'daily' },
   { loc: '/about-us', priority: '0.6', changefreq: 'monthly' },
-  { loc: '/team', priority: '0.5', changefreq: 'monthly' },
   { loc: '/contact', priority: '0.7', changefreq: 'monthly' },
   { loc: '/faq', priority: '0.5', changefreq: 'monthly' },
-  { loc: '/pricing', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/privacy-policy', priority: '0.3', changefreq: 'yearly' },
+  { loc: '/terms-condition', priority: '0.3', changefreq: 'yearly' },
 ];
 
 const escapeXml = (value) =>
   String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function urlEntry({ loc, lastmod, priority, changefreq }) {
-  const href = `${SITE_URL}${loc === '/' ? '/' : loc}`;
-  const alternates = [...MARKETS.map((m) => m.hreflang), 'x-default']
-    .map((lang) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${escapeXml(href)}"/>`)
-    .join('');
+// Une entrée par langue, chacune avec les liens hreflang vers toutes les autres.
+function urlEntries({ loc, lastmod, priority, changefreq, frenchOnly }) {
   const date = lastmod ? new Date(lastmod) : null;
-  return `<url><loc>${escapeXml(href)}</loc>${date && !isNaN(date) ? `<lastmod>${date.toISOString().split('T')[0]}</lastmod>` : ''}<changefreq>${changefreq}</changefreq><priority>${priority}</priority>${alternates}</url>`;
+  const lastmodTag = date && !isNaN(date) ? `<lastmod>${date.toISOString().split('T')[0]}</lastmod>` : '';
+  // Articles de blog : contenu rédigé en français uniquement, pas de variantes de langue.
+  if (frenchOnly) {
+    return [`<url><loc>${escapeXml(localizedUrl(loc, 'fr'))}</loc>${lastmodTag}<changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>`];
+  }
+  const alternates = [
+    ...LOCALES.map((code) => [code, localizedUrl(loc, code)]),
+    ...MARKETS.filter((m) => m.hreflang !== 'fr').map((m) => [m.hreflang, localizedUrl(loc, 'fr')]),
+    ['x-default', localizedUrl(loc, 'fr')],
+  ]
+    .map(([lang, href]) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${escapeXml(href)}"/>`)
+    .join('');
+  return LOCALES.map(
+    (code) =>
+      `<url><loc>${escapeXml(localizedUrl(loc, code))}</loc>${lastmodTag}<changefreq>${changefreq}</changefreq><priority>${priority}</priority>${alternates}</url>`
+  );
 }
 
 export async function getServerSideProps({ res }) {
@@ -53,12 +66,13 @@ export async function getServerSideProps({ res }) {
         lastmod: b.updatedAt || b.createdAt,
         priority: '0.7',
         changefreq: 'monthly',
+        frenchOnly: true,
       })),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${entries.map(urlEntry).join('\n')}
+${entries.flatMap(urlEntries).join('\n')}
 </urlset>`;
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');

@@ -1,0 +1,32 @@
+/* Arabe : sens de lecture droite → gauche. Actif uniquement quand <html dir="rtl"> (pages /ar). */
+html[dir='rtl'] body {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Cairo', 'Noto Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+
+html[dir='rtl'] h1,
+html[dir='rtl'] h2,
+html[dir='rtl'] h3,
+html[dir='rtl'] h4,
+html[dir='rtl'] h5,
+html[dir='rtl'] h6,
+html[dir='rtl'] p,
+html[dir='rtl'] a,
+html[dir='rtl'] li,
+html[dir='rtl'] span,
+html[dir='rtl'] label,
+html[dir='rtl'] button,
+html[dir='rtl'] input,
+html[dir='rtl'] textarea {
+    font-family: inherit;
+    letter-spacing: 0;
+}
+
+/* Les numéros de téléphone, e-mails et URL restent de gauche à droite */
+html[dir='rtl'] bdi[dir='ltr'],
+html[dir='rtl'] a[href^='mailto:'],
+html[dir='rtl'] a[href^='tel:'] {
+    direction: ltr;
+    unicode-bidi: isolate;
+}

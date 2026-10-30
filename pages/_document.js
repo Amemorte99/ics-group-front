@@ -9,13 +9,17 @@ const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 
 export default class MyDocument extends Document {
   render() {
+    const locale = this.props.locale || 'fr';
     return (
-      <Html lang="fr">
+      <Html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
         <Head>
           <link rel="preconnect" href="https://api.icsolution.fr" />
           <link rel="preconnect" href="https://res.cloudinary.com" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          {locale === 'ar' && (
+            <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+          )}
           <link rel="dns-prefetch" href="//api.icsolution.fr" />
           <link rel="dns-prefetch" href="//res.cloudinary.com" />
 

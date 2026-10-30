@@ -2,6 +2,7 @@
 import React from 'react';
 import SEO from '../../components/SEO';
 import { generateArticleSchema } from '../../lib/seo';
+import { useI18n } from '../../lib/i18n';
 import Link from 'next/link';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
@@ -43,13 +44,15 @@ export default function SingleBlogPage({ post, error }) {
 
 // ===================== COMPOSANTS =====================
 
-const LoadingState = () => (
+const LoadingState = () => {
+  const { tx } = useI18n();
+  return (
   <>
     <Navbar />
     <div className="loading-container">
       <div className="loading-content">
         <div className="loading-spinner"></div>
-        <p className="loading-text">Chargement de l'article...</p>
+        <p className="loading-text">{tx({ fr: "Chargement de l'article...", en: 'Loading article...', ar: 'جارٍ تحميل المقال...' })}</p>
       </div>
     </div>
     <Footer />
@@ -81,20 +84,27 @@ const LoadingState = () => (
       }
     `}</style>
   </>
-);
+  );
+};
 
-const NotFoundState = () => (
+const NotFoundState = () => {
+  const { tx } = useI18n();
+  return (
   <>
     <Navbar />
     <div className="notfound-container">
       <div className="notfound-content">
         <div className="notfound-icon">📄</div>
-        <h1 className="notfound-title">Article non trouvé</h1>
+        <h1 className="notfound-title">{tx({ fr: 'Article non trouvé', en: 'Article not found', ar: 'المقال غير موجود' })}</h1>
         <p className="notfound-desc">
-          Désolé, l'article que vous recherchez n'existe pas ou a été supprimé.
+          {tx({
+            fr: "Désolé, l'article que vous recherchez n'existe pas ou a été supprimé.",
+            en: 'Sorry, the article you are looking for does not exist or has been removed.',
+            ar: 'عذرًا، المقال الذي تبحثون عنه غير موجود أو تم حذفه.',
+          })}
         </p>
         <Link href="/blog">
-          <span className="notfound-btn">← Retour au blog</span>
+          <span className="notfound-btn">{tx({ fr: '← Retour au blog', en: '← Back to the blog', ar: '→ العودة إلى المدونة' })}</span>
         </Link>
       </div>
     </div>
@@ -145,11 +155,14 @@ const NotFoundState = () => (
       }
     `}</style>
   </>
-);
+  );
+};
 
 // ===================== ARTICLE HERO =====================
 
-const ArticleHero = ({ post }) => (
+const ArticleHero = ({ post }) => {
+  const { tx, locale } = useI18n();
+  return (
   <div className="hero-section">
     <div className="hero-background">
       {post.featuredImage && (
@@ -168,7 +181,7 @@ const ArticleHero = ({ post }) => (
           </span>
           <span className="hero-divider">•</span>
           <span className="hero-date">
-            {new Date(post.publishedDate || post.createdAt).toLocaleDateString('fr-FR', {
+            {new Date(post.publishedDate || post.createdAt).toLocaleDateString(locale === 'ar' ? 'ar' : locale === 'en' ? 'en-GB' : 'fr-FR', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -176,7 +189,7 @@ const ArticleHero = ({ post }) => (
           </span>
           <span className="hero-divider">•</span>
           <span className="hero-readtime">
-            <i className="far fa-clock"></i> {post.readTime || 5} min
+            <i className="far fa-clock"></i> {post.readTime || 5} {tx({ fr: 'min', en: 'min', ar: 'دقيقة' })}
           </span>
         </div>
 
@@ -188,7 +201,7 @@ const ArticleHero = ({ post }) => (
           </div>
           <div className="author-info">
             <span className="author-name">{post.authorName || 'Admin'}</span>
-            <span className="author-role">Auteur</span>
+            <span className="author-role">{tx({ fr: 'Auteur', en: 'Author', ar: 'الكاتب' })}</span>
           </div>
         </div>
       </div>
@@ -328,11 +341,14 @@ const ArticleHero = ({ post }) => (
       }
     `}</style>
   </div>
-);
+  );
+};
 
 // ===================== ARTICLE CONTENT =====================
 
-const ArticleContent = ({ post }) => (
+const ArticleContent = ({ post }) => {
+  const { tx } = useI18n();
+  return (
   <section className="content-section">
     <div className="container">
       <div className="content-grid">
@@ -357,12 +373,12 @@ const ArticleContent = ({ post }) => (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Tous les articles
+              {tx({ fr: 'Tous les articles', en: 'All articles', ar: 'جميع المقالات' })}
             </span>
           </Link>
 
           <div className="share-section">
-            <span className="share-label">Partager</span>
+            <span className="share-label">{tx({ fr: 'Partager', en: 'Share', ar: 'مشاركة' })}</span>
             <div className="share-buttons">
               <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.icsolution.fr/blog/${post.slug}`} target="_blank" rel="noopener" className="share-btn fb" aria-label="Partager sur Facebook">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -557,7 +573,8 @@ const ArticleContent = ({ post }) => (
       }
     `}</style>
   </section>
-);
+  );
+};
 
 // ===================== SERVER SIDE =====================
 

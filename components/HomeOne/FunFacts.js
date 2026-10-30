@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { I18nContext } from '../../lib/i18n';
 import Link from 'next/link';
 
 class FunFacts extends Component {
+    static contextType = I18nContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,38 +58,39 @@ class FunFacts extends Component {
     };
 
     render() {
+        const { tx } = this.context;
         const stats = [
             {
                 id: 1,
                 value: 180,
                 suffix: 'K',
-                label: 'Projets réalisés',
+                label: tx({ fr: 'Projets réalisés', en: 'Projects completed', ar: 'مشاريع منجزة' }),
                 icon: 'fa-project-diagram',
-                description: 'Projets livrés avec succès'
+                description: tx({ fr: 'Projets livrés avec succès', en: 'Projects delivered successfully', ar: 'مشاريع سُلّمت بنجاح' })
             },
             {
                 id: 2,
                 value: 20,
                 suffix: 'K',
-                label: 'Clients satisfaits',
+                label: tx({ fr: 'Clients satisfaits', en: 'Satisfied clients', ar: 'عملاء راضون' }),
                 icon: 'fa-smile',
-                description: 'Retours positifs'
+                description: tx({ fr: 'Retours positifs', en: 'Positive feedback', ar: 'آراء إيجابية' })
             },
             {
                 id: 3,
                 value: 500,
                 suffix: '+',
-                label: 'Partenaires',
+                label: tx({ fr: 'Partenaires', en: 'Partners', ar: 'شركاء' }),
                 icon: 'fa-handshake',
-                description: 'Entreprises partenaires'
+                description: tx({ fr: 'Entreprises partenaires', en: 'Partner companies', ar: 'شركات شريكة' })
             },
             {
                 id: 4,
                 value: 70,
                 suffix: '+',
-                label: 'Experts',
+                label: tx({ fr: 'Experts', en: 'Experts', ar: 'خبراء' }),
                 icon: 'fa-users',
-                description: 'Professionnels dédiés'
+                description: tx({ fr: 'Professionnels dédiés', en: 'Dedicated professionals', ar: 'متخصصون ملتزمون' })
             }
         ];
 
@@ -102,17 +106,18 @@ class FunFacts extends Component {
                 <div className="container">
                     {/* En-tête de section */}
                     <div className="section-header">
-                        <span className="section-tag">NOS CHIFFRES</span>
+                        <span className="section-tag">{tx({ fr: 'NOS CHIFFRES', en: 'OUR NUMBERS', ar: 'أرقامنا' })}</span>
                         <h2 className="section-title">
-                            Nous nous efforçons toujours de comprendre<br />
-                            les attentes de nos <span className="highlight">clients</span>
+                            {tx({ fr: 'Nous nous efforçons toujours de comprendre', en: 'We always strive to understand', ar: 'نسعى دائمًا إلى فهم' })}<br />
+                            {tx({ fr: 'les attentes de nos', en: 'the expectations of our', ar: 'توقعات' })} <span className="highlight">{tx({ fr: 'clients', en: 'clients', ar: 'عملائنا' })}</span>
                         </h2>
                         <div className="section-bar"></div>
                         <p className="section-description">
-                            Chez <strong>ICS GROUPE</strong>, la satisfaction client est notre priorité. 
-                            Nous mettons tout en œuvre pour proposer des solutions innovantes, 
-                            sécurisées et parfaitement adaptées à vos besoins en transformation digitale, 
-                            cybersécurité et énergies renouvelables.
+                            {tx({
+                                fr: 'Chez ICS GROUPE, la satisfaction client est notre priorité. Nous mettons tout en œuvre pour proposer des solutions innovantes, sécurisées et parfaitement adaptées à vos besoins en transformation digitale, cybersécurité et énergies renouvelables.',
+                                en: 'At ICS GROUPE, customer satisfaction is our priority. We do everything to offer innovative, secure solutions perfectly suited to your digital transformation, cybersecurity and renewable energy needs.',
+                                ar: 'في ICS GROUPE، رضا العملاء أولويتنا. نبذل كل جهد لتقديم حلول مبتكرة وآمنة تناسب تمامًا احتياجاتكم في التحول الرقمي والأمن السيبراني والطاقات المتجددة.',
+                            })}
                         </p>
                     </div>
 

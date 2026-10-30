@@ -1,52 +1,85 @@
 // data/services.js
+// Liste des services (page /services). Textes en { fr, en, ar } à lire avec tx().
 const services = [
   {
     slug: "marketing",
-    title: "Marketing Digital",
-    caption: "Stratégie digitale personnalisée pour booster votre visibilité et vos ventes",
-    image: "https://img.freepik.com/free-vector/digital-marketing-team-with-laptops-light-bulb_1262-17389.jpg"
+    icon: "fa-bullhorn",
+    title: { fr: "Marketing Digital", en: "Digital Marketing", ar: "التسويق الرقمي" },
+    caption: {
+      fr: "Stratégie digitale personnalisée pour booster votre visibilité et vos ventes",
+      en: "Personalized digital strategy to boost your visibility and sales",
+      ar: "استراتيجية رقمية مخصصة لزيادة ظهوركم ومبيعاتكم",
+    },
   },
   {
     slug: "design",
-    title: "Design Graphique & Communication",
-    caption: "Supports visuels impactants pour renforcer votre image de marque",
-    image: "https://img.freepik.com/free-vector/graphic-designer-workplace_23-2148479690.jpg"
+    icon: "fa-palette",
+    title: { fr: "Design Graphique & Communication", en: "Graphic Design & Communication", ar: "التصميم الجرافيكي والاتصال" },
+    caption: {
+      fr: "Supports visuels impactants pour renforcer votre image de marque",
+      en: "High-impact visuals to strengthen your brand image",
+      ar: "مواد بصرية مؤثرة لتعزيز صورة علامتكم التجارية",
+    },
   },
   {
     slug: "web",
-    title: "Sites Web & Applications Mobiles",
-    caption: "Solutions digitales performantes et sur mesure",
-    image: "https://img.freepik.com/free-vector/web-development-illustration-concept_114360-173.jpg"
+    icon: "fa-laptop-code",
+    title: { fr: "Sites Web & Applications Mobiles", en: "Websites & Mobile Apps", ar: "المواقع وتطبيقات الجوال" },
+    caption: {
+      fr: "Solutions digitales performantes et sur mesure",
+      en: "High-performance, tailor-made digital solutions",
+      ar: "حلول رقمية عالية الأداء ومصممة حسب الطلب",
+    },
   },
   {
     slug: "cybersecurite",
-    title: "Cybersécurité",
-    caption: "Protégez votre entreprise contre les menaces numériques",
-    image: "https://img.freepik.com/free-vector/cyber-security-concept_23-2148524799.jpg"
+    icon: "fa-shield-halved",
+    title: { fr: "Cybersécurité", en: "Cybersecurity", ar: "الأمن السيبراني" },
+    caption: {
+      fr: "Protégez votre entreprise contre les menaces numériques",
+      en: "Protect your business against digital threats",
+      ar: "احموا شركتكم من التهديدات الرقمية",
+    },
   },
   {
     slug: "energie",
-    title: "Énergies Renouvelables",
-    caption: "Solutions solaires complètes pour réduire votre facture énergétique",
-    image: "https://img.freepik.com/free-vector/solar-energy-concept-illustration_114360-1109.jpg"
+    icon: "fa-solar-panel",
+    title: { fr: "Énergies Renouvelables", en: "Renewable Energy", ar: "الطاقات المتجددة" },
+    caption: {
+      fr: "Solutions solaires complètes pour réduire votre facture énergétique",
+      en: "Complete solar solutions to cut your energy bill",
+      ar: "حلول شمسية متكاملة لتقليل فاتورة الطاقة",
+    },
   },
   {
     slug: "reseaux",
-    title: "Réseaux & Télécommunications",
-    caption: "Connectivité fiable et performante pour votre infrastructure",
-    image: "https://img.freepik.com/free-vector/network-concept-illustration_114360-147.jpg"
+    icon: "fa-network-wired",
+    title: { fr: "Réseaux & Télécommunications", en: "Networks & Telecommunications", ar: "الشبكات والاتصالات" },
+    caption: {
+      fr: "Connectivité fiable et performante pour votre infrastructure",
+      en: "Reliable, high-performance connectivity for your infrastructure",
+      ar: "اتصال موثوق وعالي الأداء لبنيتكم التحتية",
+    },
   },
   {
     slug: "data",
-    title: "Data Analysis",
-    caption: "Transformez vos données en décisions stratégiques",
-    image: "https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-916.jpg"
+    icon: "fa-chart-bar",
+    title: { fr: "Data Analysis", en: "Data Analysis", ar: "تحليل البيانات" },
+    caption: {
+      fr: "Transformez vos données en décisions stratégiques",
+      en: "Turn your data into strategic decisions",
+      ar: "حوّلوا بياناتكم إلى قرارات استراتيجية",
+    },
   },
   {
     slug: "consulting",
-    title: "Consulting & Formations",
-    caption: "Expertise et transfert de compétences pour vos équipes",
-    image: "https://img.freepik.com/free-vector/business-consulting-concept-illustration_114360-1039.jpg"
+    icon: "fa-chalkboard-teacher",
+    title: { fr: "Consulting & Formations", en: "Consulting & Training", ar: "الاستشارات والتدريب" },
+    caption: {
+      fr: "Expertise et transfert de compétences pour vos équipes",
+      en: "Expertise and skills transfer for your teams",
+      ar: "خبرة ونقل مهارات لفرقكم",
+    },
   },
 ];
 

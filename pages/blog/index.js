@@ -5,8 +5,11 @@ import Link from 'next/link';
 import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import { blogApi } from '../../utils/api';
+import { useI18n } from '../../lib/i18n';
 
 export default function BlogPage({ posts = [], error = '' }) {
+  const { tx, locale } = useI18n();
+  const dateLocale = locale === 'ar' ? 'ar' : locale === 'en' ? 'en-GB' : 'fr-FR';
   const gridRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('Tous');
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -54,11 +57,7 @@ export default function BlogPage({ posts = [], error = '' }) {
 
   return (
     <>
-      <SEO
-        title="Blog cybersécurité, énergie et digital"
-        description="Analyses et conseils d'ICS GROUPE sur la cybersécurité, les énergies renouvelables et la transformation digitale, pour les entreprises au Tchad, en France et en Afrique."
-        path="/blog"
-      />
+      <SEO path="/blog" />
 
       <Navbar />
 
@@ -71,27 +70,30 @@ export default function BlogPage({ posts = [], error = '' }) {
             <div className="hero-text pt-5">
               <div className="hero-badge pt-4">
                 <span className="badge-dot"></span>
-                Notre blog
+                {tx({ fr: 'Notre blog', en: 'Our blog', ar: 'مدونتنا' })}
               </div>
               <h1 className="hero-title">
-                <span className="title-line">Là où la</span>
-                <span className="title-gradient">cybersécurité</span>
-                <span className="title-line">rencontre l'innovation</span>
+                <span className="title-line">{tx({ fr: 'Là où la', en: 'Where', ar: 'حيث' })}</span>
+                <span className="title-gradient">{tx({ fr: 'cybersécurité', en: 'cybersecurity', ar: 'الأمن السيبراني' })}</span>
+                <span className="title-line">{tx({ fr: "rencontre l'innovation", en: 'meets innovation', ar: 'يلتقي بالابتكار' })}</span>
               </h1>
               <p className="hero-desc">
-                Des analyses profondes, des stratégies concrètes et une vision
-                prospective pour naviguer dans l'ère numérique.
+                {tx({
+                  fr: "Des analyses profondes, des stratégies concrètes et une vision prospective pour naviguer dans l'ère numérique.",
+                  en: 'In-depth analysis, concrete strategies and a forward-looking vision to navigate the digital age.',
+                  ar: 'تحليلات معمّقة واستراتيجيات عملية ورؤية استشرافية للإبحار في العصر الرقمي.',
+                })}
               </p>
               <div className="hero-cta">
                 <a href="#articles" className="cta-primary">
-                  Explorer les articles
+                  {tx({ fr: 'Explorer les articles', en: 'Explore articles', ar: 'استكشفوا المقالات' })}
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </a>
                 <span className="cta-secondary">
                   <span className="cta-stats" id="articleCount">{posts.length}</span>
-                  articles disponibles
+                  {tx({ fr: 'articles disponibles', en: 'articles available', ar: 'مقالات متاحة' })}
                 </span>
               </div>
             </div>
@@ -99,7 +101,7 @@ export default function BlogPage({ posts = [], error = '' }) {
               <div className="floating-cards">
                 <div className="float-card c1">
                   <span className="card-icon">🔒</span>
-                  <span>Sécurité</span>
+                  <span>{tx({ fr: 'Sécurité', en: 'Security', ar: 'الأمن' })}</span>
                 </div>
                 <div className="float-card c2">
                   <span className="card-icon">☁️</span>
@@ -107,7 +109,7 @@ export default function BlogPage({ posts = [], error = '' }) {
                 </div>
                 <div className="float-card c3">
                   <span className="card-icon">🤖</span>
-                  <span>IA</span>
+                  <span>{tx({ fr: 'IA', en: 'AI', ar: 'الذكاء الاصطناعي' })}</span>
                 </div>
                 <div className="float-card c4">
                   <span className="card-icon">📊</span>
@@ -128,7 +130,7 @@ export default function BlogPage({ posts = [], error = '' }) {
       <div className="filter-bar" id="articles">
         <div className="container">
           <div className="filter-wrapper">
-            <span className="filter-label">Filtrer par :</span>
+            <span className="filter-label">{tx({ fr: 'Filtrer par :', en: 'Filter by:', ar: 'تصفية حسب:' })}</span>
             <div className="filter-tags">
               {allTags.slice(0, 8).map((tag) => (
                 <button
@@ -136,7 +138,7 @@ export default function BlogPage({ posts = [], error = '' }) {
                   className={`filter-tag ${activeFilter === tag ? 'active' : ''}`}
                   onClick={() => setActiveFilter(tag)}
                 >
-                  {tag}
+                  {tag === 'Tous' ? tx({ fr: 'Tous', en: 'All', ar: 'الكل' }) : tag}
                   <span className="tag-count">{getTagCount(tag)}</span>
                 </button>
               ))}
@@ -155,15 +157,15 @@ export default function BlogPage({ posts = [], error = '' }) {
                   src={filteredPosts[0].featuredImage || '/images/blog/default.jpg'}
                   alt={filteredPosts[0].title}
                 />
-                <div className="featured-badge">À la une</div>
+                <div className="featured-badge">{tx({ fr: 'À la une', en: 'Featured', ar: 'المميز' })}</div>
               </div>
               <div className="featured-content">
                 <div className="featured-meta">
                   <span className="featured-category">
-                    {filteredPosts[0].tags?.[0] || 'Article'}
+                    {filteredPosts[0].tags?.[0] || tx({ fr: 'Article', en: 'Article', ar: 'مقال' })}
                   </span>
                   <span className="featured-date">
-                    {new Date(filteredPosts[0].publishedDate || filteredPosts[0].createdAt).toLocaleDateString('fr-FR', {
+                    {new Date(filteredPosts[0].publishedDate || filteredPosts[0].createdAt).toLocaleDateString(dateLocale, {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',
@@ -180,7 +182,7 @@ export default function BlogPage({ posts = [], error = '' }) {
                 </p>
                 <Link href={`/blog/${filteredPosts[0].slug}`}>
                   <span className="featured-cta">
-                    Lire l'article
+                    {tx({ fr: "Lire l'article", en: 'Read article', ar: 'اقرأوا المقال' })}
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -197,18 +199,18 @@ export default function BlogPage({ posts = [], error = '' }) {
         <div className="container">
           <div className="grid-header">
             <div>
-              <span className="grid-tag">Tous les articles</span>
+              <span className="grid-tag">{tx({ fr: 'Tous les articles', en: 'All articles', ar: 'جميع المقالات' })}</span>
               <h2 className="grid-title">
-                Nos dernières publications
+                {tx({ fr: 'Nos dernières publications', en: 'Our latest posts', ar: 'أحدث منشوراتنا' })}
                 {activeFilter !== 'Tous' && (
                   <span className="filter-label-active"> • {activeFilter}</span>
                 )}
               </h2>
             </div>
             <div className="grid-count">
-              <span>{filteredPosts.length}</span> articles
+              <span>{filteredPosts.length}</span> {tx({ fr: 'articles', en: 'articles', ar: 'مقالات' })}
               {filteredPosts.length !== posts.length && (
-                <span className="filtered-badge">filtrés</span>
+                <span className="filtered-badge">{tx({ fr: 'filtrés', en: 'filtered', ar: 'مصفّاة' })}</span>
               )}
             </div>
           </div>
@@ -216,19 +218,19 @@ export default function BlogPage({ posts = [], error = '' }) {
           {error ? (
             <div className="state-container error">
               <span className="state-icon">⚠️</span>
-              <h3>Une erreur est survenue</h3>
+              <h3>{tx({ fr: 'Une erreur est survenue', en: 'Something went wrong', ar: 'حدث خطأ' })}</h3>
               <p>{error}</p>
             </div>
           ) : filteredPosts.length === 0 ? (
             <div className="state-container empty">
               <span className="state-icon">🔍</span>
-              <h3>Aucun résultat</h3>
-              <p>Aucun article ne correspond au tag <strong>"{activeFilter}"</strong></p>
+              <h3>{tx({ fr: 'Aucun résultat', en: 'No results', ar: 'لا توجد نتائج' })}</h3>
+              <p>{tx({ fr: 'Aucun article ne correspond au tag', en: 'No article matches the tag', ar: 'لا يوجد مقال يطابق الوسم' })} <strong>"{activeFilter}"</strong></p>
               <button 
                 className="reset-filter-btn"
                 onClick={() => setActiveFilter('Tous')}
               >
-                Voir tous les articles
+                {tx({ fr: 'Voir tous les articles', en: 'See all articles', ar: 'عرض جميع المقالات' })}
               </button>
             </div>
           ) : (
@@ -241,21 +243,6 @@ export default function BlogPage({ posts = [], error = '' }) {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ===== CTA NEWSLETTER ===== */}
-      <section className="newsletter-section">
-        <div className="container">
-          <div className="newsletter-card">
-            <div className="newsletter-icon">📬</div>
-            <h3>Ne manquez aucun article</h3>
-            <p>Recevez nos meilleurs contenus directement dans votre boîte mail.</p>
-            <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="votre@email.com" required />
-              <button type="submit">S'abonner</button>
-            </form>
-          </div>
         </div>
       </section>
 
@@ -818,7 +805,8 @@ export default function BlogPage({ posts = [], error = '' }) {
 // ===================== ARTICLE CARD COMPONENT =====================
 
 const ArticleCard = ({ post, index, featured = false }) => {
-  const formattedDate = new Date(post.publishedDate || post.createdAt).toLocaleDateString('fr-FR', {
+  const { tx, locale } = useI18n();
+  const formattedDate = new Date(post.publishedDate || post.createdAt).toLocaleDateString(locale === 'ar' ? 'ar' : locale === 'en' ? 'en-GB' : 'fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -836,14 +824,14 @@ const ArticleCard = ({ post, index, featured = false }) => {
             />
             <div className="card-overlay">
               <span className="card-read">
-                Lire
+                {tx({ fr: 'Lire', en: 'Read', ar: 'اقرأ' })}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </span>
             </div>
             <div className="card-tag">
-              {post.tags?.[0] || 'Article'}
+              {post.tags?.[0] || tx({ fr: 'Article', en: 'Article', ar: 'مقال' })}
             </div>
           </div>
         </Link>
@@ -852,11 +840,11 @@ const ArticleCard = ({ post, index, featured = false }) => {
           <div className="card-meta">
             <span className="meta-date">{formattedDate}</span>
             <span className="meta-dot">•</span>
-            <span className="meta-read">{post.readTime || 5} min</span>
+            <span className="meta-read">{post.readTime || 5} {tx({ fr: 'min', en: 'min', ar: 'دقيقة' })}</span>
             {featured && (
               <>
                 <span className="meta-dot">•</span>
-                <span className="meta-featured">⭐ En vedette</span>
+                <span className="meta-featured">⭐ {tx({ fr: 'En vedette', en: 'Featured', ar: 'مميّز' })}</span>
               </>
             )}
           </div>

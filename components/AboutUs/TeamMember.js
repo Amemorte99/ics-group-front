@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+import { I18nContext } from '../../lib/i18n';
 
 class TeamMember extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <section className="team-area pt-70 pb-50 bg-f7fafd">
                 <div className="container">
                     <div className="section-title">
-                        <h2>Rencontrez notre équipe</h2>
+                        <h2>{tx({ fr: 'Rencontrez notre équipe', en: 'Meet our team', ar: 'تعرّفوا على فريقنا' })}</h2>
                         <div className="bar"></div>
-                        <p>Une équipe d’experts passionnés et certifiés, basée à N'Djamena, prête à accompagner vos projets en transformation digitale, cybersécurité, énergies renouvelables et réseaux.</p>
+                        <p>{tx({ fr: "Une équipe d’experts passionnés et certifiés, basée à N'Djamena, prête à accompagner vos projets en transformation digitale, cybersécurité, énergies renouvelables et réseaux.", en: "A team of passionate, certified experts based in N'Djamena, ready to support your projects in digital transformation, cybersecurity, renewable energy and networks.", ar: 'فريق من الخبراء المتحمسين والمعتمدين مقره إنجامينا، جاهز لمرافقة مشاريعكم في التحول الرقمي والأمن السيبراني والطاقات المتجددة والشبكات.' })}</p>
                     </div>
 
                     <div className="row">
@@ -27,7 +31,7 @@ class TeamMember extends Component {
 
                                 <div className="member-content">
                                     <h3>Koi-Sonn Manes Mana</h3>
-                                    <span>Architecte Logiciel & Ingénieur Développement</span>
+                                    <span>{tx({ fr: 'Architecte Logiciel & Ingénieur Développement', en: 'Software Architect & Development Engineer', ar: 'مهندس برمجيات ومطوّر' })}</span>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +51,7 @@ class TeamMember extends Component {
 
                                 <div className="member-content">
                                     <h3>Abdelfara</h3>
-                                    <span>Comptable & Co-Fondateur</span>
+                                    <span>{tx({ fr: 'Comptable & Co-Fondateur', en: 'Accountant & Co-Founder', ar: 'محاسب وشريك مؤسس' })}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +71,7 @@ class TeamMember extends Component {
 
                                 <div className="member-content">
                                     <h3>Adam Hagar</h3>
-                                    <span>Ingénieur Informatique & Co-Fondateur</span>
+                                    <span>{tx({ fr: 'Ingénieur Informatique & Co-Fondateur', en: 'Computer Engineer & Co-Founder', ar: 'مهندس معلوماتية وشريك مؤسس' })}</span>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +91,7 @@ class TeamMember extends Component {
 
                                 <div className="member-content">
                                     <h3>Frank</h3>
-                                    <span>Ingénieur Réseau</span>
+                                    <span>{tx({ fr: 'Ingénieur Réseau', en: 'Network Engineer', ar: 'مهندس شبكات' })}</span>
                                 </div>
                             </div>
                         </div>

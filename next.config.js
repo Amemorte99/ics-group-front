@@ -2,6 +2,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // Français à la racine, /en et /ar pour les autres langues. Pas de redirection automatique selon le navigateur
+  // (URL stables, meilleurs résultats pour le référencement).
+  i18n: {
+    locales: ['fr', 'en', 'ar'],
+    defaultLocale: 'fr',
+    localeDetection: false,
+  },
   swcMinify: true,
 
   images: {
@@ -61,11 +69,25 @@ const nextConfig = {
   // ✅ Redirections SEO
   async redirects() {
     return [
+      // L'administration reste en français : pas de version /en ou /ar
+      { source: '/:locale(en|ar)/admin/:path*', destination: '/admin/:path*', permanent: false, locale: false },
+      { source: '/:locale(en|ar)/admin', destination: '/admin', permanent: false, locale: false },
       { source: '/index', destination: '/', permanent: true },
       { source: '/index2', destination: '/', permanent: true },
       { source: '/index3', destination: '/', permanent: true },
       { source: '/index4', destination: '/', permanent: true },
       { source: '/home', destination: '/', permanent: true },
+      // Pages restées du modèle d'origine (faux contenu) : redirigées vers les vraies pages
+      { source: '/team', destination: '/about-us', permanent: true },
+      { source: '/pricing', destination: '/contact', permanent: true },
+      { source: '/blog-one', destination: '/blog', permanent: true },
+      { source: '/blog-two', destination: '/blog', permanent: true },
+      { source: '/single-blog', destination: '/blog', permanent: true },
+      { source: '/features-one', destination: '/services', permanent: true },
+      { source: '/features-two', destination: '/services', permanent: true },
+      { source: '/sign-up', destination: '/', permanent: true },
+      { source: '/forgot-password', destination: '/', permanent: true },
+      { source: '/login', destination: '/admin/login', permanent: false },
     ];
   },
 

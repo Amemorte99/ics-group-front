@@ -1,6 +1,7 @@
 // components/Common/CustomersFeedback.js
 import React, { useState, useEffect } from 'react';
 import { testimonialApi } from '../../utils/api';
+import { useI18n } from '../../lib/i18n';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
@@ -9,6 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const CustomersFeedback = () => {
+  const { tx } = useI18n();
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
@@ -40,8 +42,8 @@ const CustomersFeedback = () => {
     <section className="customers-feedback">
       <div className="container">
         <div className="section-header">
-          <h2>Ce que nos clients disent</h2>
-          <p>Les retours de ceux qui nous font confiance</p>
+          <h2>{tx({ fr: 'Ce que nos clients disent', en: 'What our clients say', ar: 'ماذا يقول عملاؤنا' })}</h2>
+          <p>{tx({ fr: 'Les retours de ceux qui nous font confiance', en: 'Feedback from those who trust us', ar: 'آراء من وثقوا بنا' })}</p>
         </div>
 
         <Swiper
