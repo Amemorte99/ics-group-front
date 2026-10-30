@@ -106,7 +106,7 @@ const servicePages = {
   },
 
   data: {
-    image: '/images/vert2.webp',
+    image: '/images/services/data-analysis.webp',
     alt: t('Data Analysis ICS GROUPE - Transformation des données en insights stratégiques', 'ICS GROUPE data analysis - Turning data into strategic insights', 'تحليل البيانات من ICS GROUPE - تحويل البيانات إلى رؤى استراتيجية'),
     heading: t('Analysez vos données pour prendre les meilleures décisions', 'Analyze your data to make the best decisions', 'حلّلوا بياناتكم لاتخاذ أفضل القرارات'),
     lead: t('« Analyser les données pour aider à la prise de décisions... »', '“Analyzing data to support decision-making...”', '«تحليل البيانات للمساعدة في اتخاذ القرارات...»'),
@@ -128,7 +128,7 @@ const servicePages = {
   },
 
   marketing: {
-    image: '/images/blog/blog1.jpg',
+    image: '/images/services/marketing-digital.webp',
     alt: t('Marketing Digital ICS GROUPE - Stratégie digitale personnalisée', 'ICS GROUPE digital marketing - Personalized digital strategy', 'التسويق الرقمي من ICS GROUPE - استراتيجية رقمية مخصصة'),
     heading: t('Marketing Digital sur mesure', 'Tailor-made digital marketing', 'تسويق رقمي مصمم حسب الطلب'),
     paragraphs: [
@@ -174,7 +174,7 @@ const servicePages = {
   },
 
   consulting: {
-    image: '/images/blog/blog4.jpg',
+    image: '/images/services/consulting-formation.webp',
     alt: t('Consulting & Formations ICS GROUPE - Expertise et transfert de compétences', 'ICS GROUPE consulting & training - Expertise and skills transfer', 'الاستشارات والتدريب من ICS GROUPE - خبرة ونقل مهارات'),
     heading: t('Accompagnement global et formation sur mesure', 'End-to-end support and tailor-made training', 'مرافقة شاملة وتدريب مصمم حسب الحاجة'),
     paragraphs: [
