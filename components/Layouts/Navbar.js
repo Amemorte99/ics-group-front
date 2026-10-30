@@ -270,6 +270,34 @@ const Navbar = () => {
                     /* Menu mobile : fond blanc (le modèle l'annulait avec !important), boutons empilés, sous-menu repliable */
                     .navbar-area .sub-toggle { display: none; }
 
+                    /* Bouton Connexion : contour blanc sur la bannière, vert quand la barre est blanche */
+                    .navbar-area .luvion-nav .navbar .others-options .login-btn {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 9px 22px;
+                        border: 2px solid rgba(255, 255, 255, 0.85);
+                        border-radius: 50px;
+                        background: transparent;
+                        color: #fff;
+                        font-weight: 600;
+                        transition: all 0.25s ease;
+                    }
+                    .navbar-area .luvion-nav .navbar .others-options .login-btn i { color: inherit; }
+                    .navbar-area .luvion-nav .navbar .others-options .login-btn:hover {
+                        background: #fff;
+                        border-color: #fff;
+                        color: #1b5e20;
+                    }
+                    .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn {
+                        border-color: #1b5e20;
+                        color: #1b5e20;
+                    }
+                    .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn:hover {
+                        background: #1b5e20;
+                        color: #fff;
+                    }
+
                     @media (max-width: 991px) {
                         .navbar-area {
                             background-color: #fff !important;
@@ -323,7 +351,8 @@ const Navbar = () => {
                             gap: 10px;
                             margin: 14px 0 6px;
                         }
-                        .navbar-area .luvion-nav .navbar .others-options .login-btn { color: #1b5e20; }
+                        .navbar-area .luvion-nav .navbar .others-options .login-btn { color: #1b5e20; border-color: #1b5e20; }
+                        .navbar-area .luvion-nav .navbar .others-options .login-btn:hover { background: #1b5e20; color: #fff; }
                     }
                 `}</style>
 
