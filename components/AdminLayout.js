@@ -196,7 +196,7 @@ const menuItems = [
           display: flex;
           min-height: 100vh;
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-          background: #f0f2f5;
+          background: #f4f8f5;
         }
 
         /* ===== SIDEBAR ===== */
@@ -206,7 +206,9 @@ const menuItems = [
           left: 0;
           width: 280px;
           height: 100vh;
-          background: linear-gradient(180deg, #0A0A1A 0%, #0D2B1A 50%, #0A1A0D 100%);
+          background: #fff;
+          border-right: 1px solid #e8efe9;
+          box-shadow: 4px 0 30px rgba(11,36,21,0.04);
           padding: 28px 20px;
           display: flex;
           flex-direction: column;
@@ -222,7 +224,7 @@ const menuItems = [
           background: transparent;
         }
         .admin-sidebar::-webkit-scrollbar-thumb {
-          background: rgba(76, 175, 80, 0.3);
+          background: rgba(76, 175, 80, 0.35);
           border-radius: 10px;
         }
 
@@ -232,7 +234,7 @@ const menuItems = [
           align-items: center;
           gap: 14px;
           padding-bottom: 28px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid #eef3ef;
           margin-bottom: 24px;
         }
 
@@ -266,7 +268,7 @@ const menuItems = [
         .brand-name {
           font-size: 22px;
           font-weight: 800;
-          color: #fff;
+          color: #0b2415;
           letter-spacing: -0.5px;
           line-height: 1;
         }
@@ -274,7 +276,7 @@ const menuItems = [
         .brand-sub {
           font-size: 10px;
           font-weight: 400;
-          color: rgba(255,255,255,0.4);
+          color: #8c8f9c;
           letter-spacing: 3px;
           text-transform: uppercase;
           margin-top: 2px;
@@ -297,19 +299,19 @@ const menuItems = [
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          color: rgba(255,255,255,0.5);
+          color: #5b6770;
           text-decoration: none;
         }
 
         .nav-item:hover {
-          color: rgba(255,255,255,0.8);
-          background: rgba(255,255,255,0.05);
+          color: #0b2415;
+          background: #f3faf4;
         }
 
         .nav-item.active {
-          color: #fff;
-          background: linear-gradient(135deg, rgba(27, 94, 32, 0.4), rgba(76, 175, 80, 0.2));
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+          color: #14532d;
+          background: #e8f5e9;
+          box-shadow: none;
         }
 
         .nav-item.active .nav-icon {
@@ -318,20 +320,21 @@ const menuItems = [
 
         .nav-icon {
           font-size: 20px;
-          color: rgba(255,255,255,0.85);
+          color: #2e7d32;
           width: 36px;
           height: 36px;
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: 10px;
-          background: rgba(255,255,255,0.05);
+          background: #f3f6f4;
           flex-shrink: 0;
           transition: all 0.3s ease;
         }
 
         .nav-item.active .nav-icon {
-          background: rgba(76, 175, 80, 0.2);
+          background: #4CAF50;
+          color: #fff;
         }
 
         .nav-badge {
@@ -363,13 +366,13 @@ const menuItems = [
 
         .nav-description {
           font-size: 11px;
-          color: rgba(255,255,255,0.3);
+          color: #9aa5a0;
           font-weight: 400;
           margin-top: 1px;
         }
 
         .nav-item.active .nav-description {
-          color: rgba(255,255,255,0.5);
+          color: #4f7a58;
         }
 
         .nav-indicator {
@@ -390,7 +393,7 @@ const menuItems = [
         .sidebar-footer {
           margin-top: 20px;
           padding-top: 20px;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          border-top: 1px solid #eef3ef;
         }
 
         .logout-btn {
@@ -398,8 +401,8 @@ const menuItems = [
           padding: 12px 16px;
           border: none;
           border-radius: 12px;
-          background: rgba(244, 67, 54, 0.1);
-          color: rgba(255,255,255,0.6);
+          background: #fdf0ef;
+          color: #b3261e;
           display: flex;
           align-items: center;
           gap: 12px;
@@ -411,8 +414,8 @@ const menuItems = [
         }
 
         .logout-btn:hover {
-          background: rgba(244, 67, 54, 0.2);
-          color: #EF5350;
+          background: #fbe0de;
+          color: #b3261e;
         }
 
         .logout-icon {
@@ -422,7 +425,7 @@ const menuItems = [
         .sidebar-version {
           text-align: center;
           font-size: 10px;
-          color: rgba(255,255,255,0.15);
+          color: #b5beb9;
           margin-top: 12px;
           letter-spacing: 2px;
         }
