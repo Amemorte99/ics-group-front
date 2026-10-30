@@ -221,13 +221,6 @@ const Navbar = () => {
 
 
 
-                                        <li className="nav-item">
-                                            <Link href="/contact">
-                                                <a className="nav-link">
-                                                    {t('nav.contact')}
-                                                </a>
-                                            </Link>
-                                        </li>
 
 
                                     </ul>
@@ -296,6 +289,18 @@ const Navbar = () => {
                     .navbar-area.is-sticky .luvion-nav .navbar .others-options .login-btn:hover {
                         background: #1b5e20;
                         color: #fff;
+                    }
+
+                    /* Pas de retour à la ligne dans le menu ; plus compact entre 992 et 1199 px */
+                    .navbar-area .luvion-nav .navbar .navbar-nav .nav-item > a,
+                    .navbar-area .luvion-nav .navbar .others-options a { white-space: nowrap; }
+
+                    @media (min-width: 992px) and (max-width: 1199px) {
+                        .navbar-area .luvion-nav .navbar .navbar-brand img { width: 100px !important; }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item > a { font-size: 14px; margin-left: 9px; margin-right: 9px; }
+                        .navbar-area .luvion-nav .navbar .others-options { margin-inline-start: 6px; gap: 8px; }
+                        .navbar-area .luvion-nav .navbar .others-options .login-btn { padding: 7px 14px; font-size: 14px; }
+                        .navbar-area .luvion-nav .navbar .others-options .btn { padding: 10px 14px; font-size: 12px; }
                     }
 
                     @media (max-width: 991px) {
