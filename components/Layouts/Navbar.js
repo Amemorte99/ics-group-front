@@ -7,6 +7,7 @@ import { useI18n } from '../../lib/i18n';
 const Navbar = () => {
     const { t } = useI18n();
     const [collapsed, setCollapsed] = useState(true);
+    const [servicesOpen, setServicesOpen] = useState(false);
     const toggleNavbar = () => setCollapsed(!collapsed);
 
     useEffect(() => {
@@ -101,7 +102,7 @@ const Navbar = () => {
 
 
                                         {/* Services Dropdown */}
-                                        <li className="nav-item dropdown">
+                                        <li className={`nav-item dropdown ${servicesOpen ? 'open' : ''}`}>
 
                                             <Link href="/services">
                                                 <a className="nav-link dropdown-toggle">
@@ -109,6 +110,15 @@ const Navbar = () => {
                                                     <i className="fas fa-chevron-down"></i>
                                                 </a>
                                             </Link>
+                                            <button
+                                                type="button"
+                                                className="sub-toggle"
+                                                aria-label={t('nav.services')}
+                                                aria-expanded={servicesOpen}
+                                                onClick={() => setServicesOpen(!servicesOpen)}
+                                            >
+                                                <i className="fas fa-chevron-down"></i>
+                                            </button>
 
 
                                             <ul className="dropdown-menu">
@@ -228,6 +238,14 @@ const Navbar = () => {
                                     <div className="others-options">
                                         <LanguageSwitcher />
 
+                                        {/* L'administration n'existe qu'en français : pas de préfixe de langue */}
+                                        <Link href="/admin/login" locale={false}>
+                                            <a className="login-btn">
+                                                <i className="fas fa-user"></i>
+                                                {t('nav.login')}
+                                            </a>
+                                        </Link>
+
                                         <Link href="/contact">
                                             <a className="btn btn-primary">
                                                 {t('nav.contactUs')}
@@ -247,6 +265,67 @@ const Navbar = () => {
                 </div>
 
 
+
+                <style jsx global>{`
+                    /* Menu mobile : fond blanc (le modèle l'annulait avec !important), boutons empilés, sous-menu repliable */
+                    .navbar-area .sub-toggle { display: none; }
+
+                    @media (max-width: 991px) {
+                        .navbar-area {
+                            background-color: #fff !important;
+                            padding-top: 10px !important;
+                            padding-bottom: 10px !important;
+                            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+                        }
+                        .navbar-area .navbar-brand img:nth-child(1) { display: none; }
+                        .navbar-area .navbar-brand img:nth-child(2) { display: block; }
+                        .navbar-area .navbar-toggler .icon-bar { background-color: #1b5e20; }
+                        .navbar-area .luvion-nav .navbar .navbar-collapse { max-height: calc(100vh - 80px); overflow-y: auto; }
+                        .navbar-area .luvion-nav .navbar .navbar-nav { max-height: none; overflow: visible; }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item a { color: #1a1a2e; }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item {
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            justify-content: space-between;
+                            border-bottom: 1px solid #f0f2f0;
+                        }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item > a:first-child { flex: 1; }
+                        .navbar-area .sub-toggle {
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 40px;
+                            height: 36px;
+                            border: 0;
+                            background: transparent;
+                            color: #1b5e20;
+                            cursor: pointer;
+                        }
+                        .navbar-area .nav-item.open .sub-toggle i { transform: rotate(180deg); }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu {
+                            display: none;
+                            flex-basis: 100%;
+                            width: 100%;
+                            margin: 0 0 8px;
+                            padding: 6px 0;
+                            border: 0;
+                            background: #f7faf8;
+                            box-shadow: none;
+                        }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item.open .dropdown-menu { display: block; }
+                        .navbar-area .luvion-nav .navbar .navbar-nav .nav-item .dropdown-menu li a { color: #4a4d5e; padding: 8px 16px; }
+                        .navbar-area .luvion-nav .navbar .others-options {
+                            position: static;
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            gap: 10px;
+                            margin: 14px 0 6px;
+                        }
+                        .navbar-area .luvion-nav .navbar .others-options .login-btn { color: #1b5e20; }
+                    }
+                `}</style>
 
                 <style jsx>{`
 
