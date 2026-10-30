@@ -6,46 +6,20 @@ import Navbar from '../../components/Layouts/Navbar';
 import Footer from '../../components/Layouts/Footer';
 import PageBannerContent from '../../components/Common/PageBannerContent';
 import services from '../../data/services';
+import { useI18n } from '../../lib/i18n';
 
 const ServicesPage = () => {
-  // Fonction pour obtenir la classe d'icône selon le service
-  const getServiceIcon = (title) => {
-    const iconMap = {
-      'Cybersécurité': 'fa-shield-halved',
-      'Développement Web': 'fa-code',
-      'Énergies Renouvelables': 'fa-solar-panel',
-      'Cloud & Infrastructure': 'fa-cloud',
-      'Data & IA': 'fa-brain',
-      'Consulting IT': 'fa-handshake',
-      'Audit Sécurité': 'fa-shield-check',
-      'Formation': 'fa-graduation-cap',
-    };
-    return iconMap[title] || 'fa-cube';
-  };
-
-  // Fonction pour obtenir la couleur selon le service
-  const getServiceColor = (title) => {
-    const colorMap = {
-      'Cybersécurité': '#49B96D',
-      'Développement Web': '#80C353',
-      'Énergies Renouvelables': '#49B96D',
-      'Cloud & Infrastructure': '#80C353',
-      'Data & IA': '#49B96D',
-      'Consulting IT': '#80C353',
-      'Audit Sécurité': '#49B96D',
-      'Formation': '#80C353',
-    };
-    return colorMap[title] || '#49B96D';
-  };
+  const { tx } = useI18n();
+  const color = '#49B96D';
 
   return (
     <>
-      <SEO title="Nos services" description="Cybersécurité, énergies renouvelables, développement web et mobile, réseaux et télécoms, data, marketing digital et consulting : les services d'ICS GROUPE." path="/services" />
+      <SEO path="/services" />
       <Navbar />
 
       <PageBannerContent 
-        pageTitle="Nos Services" 
-        pageCaption="ICS GROUPE vous accompagne dans tous vos projets numériques, sécuritaires et énergétiques avec des solutions innovantes et sur mesure."
+        pageTitle={{ fr: 'Nos Services', en: 'Our Services', ar: 'خدماتنا' }}
+        pageCaption={{ fr: 'ICS GROUPE vous accompagne dans tous vos projets numériques, sécuritaires et énergétiques avec des solutions innovantes et sur mesure.', en: 'ICS GROUPE supports all your digital, security and energy projects with innovative, tailor-made solutions.', ar: 'ترافقكم ICS GROUPE في جميع مشاريعكم الرقمية والأمنية والطاقية بحلول مبتكرة ومصممة حسب الطلب.' }}
       />
 
       {/* Services Cards Section */}
@@ -59,23 +33,25 @@ const ServicesPage = () => {
         <div className="container">
           {/* En-tête de section */}
           <div className="section-header">
-            <span className="section-tag">NOS EXPERTISES</span>
+            <span className="section-tag">{tx({ fr: 'NOS EXPERTISES', en: 'OUR EXPERTISE', ar: 'خبراتنا' })}</span>
             <h2 className="section-title">
-              Des solutions <span className="highlight">innovantes</span> pour<br />
-              votre <span className="highlight">transformation</span>
+              {tx({ fr: 'Des solutions', en: 'Innovative', ar: 'حلول' })} <span className="highlight">{tx({ fr: 'innovantes', en: 'solutions', ar: 'مبتكرة' })}</span> {tx({ fr: 'pour', en: 'for', ar: 'من أجل' })}<br />
+              {tx({ fr: 'votre', en: 'your', ar: '' })} <span className="highlight">{tx({ fr: 'transformation', en: 'transformation', ar: 'تحوّلكم' })}</span>
             </h2>
             <p className="section-description">
-              Découvrez notre gamme complète de services conçus pour répondre aux défis
-              de votre entreprise et propulser votre croissance.
+              {tx({
+                fr: 'Découvrez notre gamme complète de services conçus pour répondre aux défis de votre entreprise et propulser votre croissance.',
+                en: 'Discover our full range of services designed to meet your business challenges and drive your growth.',
+                ar: 'اكتشفوا مجموعة خدماتنا المتكاملة المصممة لمواجهة تحديات شركتكم ودفع نموكم.',
+              })}
             </p>
           </div>
 
           {/* Grille des services */}
           <div className="services-grid">
             {services.map((service) => {
-              const iconClass = getServiceIcon(service.title);
-              const color = getServiceColor(service.title);
-              
+              const iconClass = service.icon;
+
               return (
                 <div key={service.id || service.slug} className="service-card-wrapper">
                   <div className="service-card">
@@ -85,10 +61,10 @@ const ServicesPage = () => {
                     </div>
                     
                     {/* Titre */}
-                    <h3 className="service-title">{service.title}</h3>
+                    <h3 className="service-title">{tx(service.title)}</h3>
                     
                     {/* Description */}
-                    <p className="service-description">{service.caption}</p>
+                    <p className="service-description">{tx(service.caption)}</p>
                     
                     {/* Tags/technologies */}
                     {service.tags && service.tags.length > 0 && (
@@ -102,7 +78,7 @@ const ServicesPage = () => {
                     {/* Lien */}
                     <Link href={`/services/${service.slug}`}>
                       <a className="service-link">
-                        <span>Explorer</span>
+                        <span>{tx({ fr: 'Explorer', en: 'Explore', ar: 'استكشف' })}</span>
                         <svg className="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                           <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -124,14 +100,14 @@ const ServicesPage = () => {
             <div className="cta-box">
               <div className="cta-content">
                 <h3 className="cta-title">
-                  Vous avez un projet <span className="highlight">spécifique</span> ?
+                  {tx({ fr: 'Vous avez un projet', en: 'Do you have a', ar: 'هل لديكم مشروع' })} <span className="highlight">{tx({ fr: 'spécifique', en: 'specific', ar: 'خاص' })}</span> {tx({ fr: '?', en: 'project?', ar: '؟' })}
                 </h3>
                 <p className="cta-text">
-                  Contactez-nous pour une solution personnalisée adaptée à vos besoins.
+                  {tx({ fr: 'Contactez-nous pour une solution personnalisée adaptée à vos besoins.', en: 'Contact us for a personalized solution tailored to your needs.', ar: 'تواصلوا معنا للحصول على حل مخصص يناسب احتياجاتكم.' })}
                 </p>
                 <Link href="/contact">
                   <a className="btn-cta">
-                    Discuter de mon projet
+                    {tx({ fr: 'Discuter de mon projet', en: 'Discuss my project', ar: 'ناقشوا مشروعي' })}
                     <svg className="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>

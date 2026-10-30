@@ -6,66 +6,30 @@ import Navbar from '../components/Layouts/Navbar';
 import PageBannerContent from '../components/Common/PageBannerContent';
 import ContactContent from '../components/Contact/ContactContent';
 import Footer from '../components/Layouts/Footer';
+import { I18nContext } from '../lib/i18n';
 
 class Contact extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <>
                 <SEO
-                    title="Contact et demande de devis"
-                    description="Contactez ICS GROUPE pour un devis en cybersécurité, énergie solaire, développement web ou réseaux. Basés à N'Djamena, nous intervenons au Tchad, en France et à distance partout dans le monde."
+                    title={{ fr: 'Contact et demande de devis', en: 'Contact and quote request', ar: 'اتصل بنا وطلب عرض سعر' }}
+                    description={{
+                        fr: "Contactez ICS GROUPE pour un devis en cybersécurité, énergie solaire, développement web ou réseaux. Basés à N'Djamena, nous intervenons au Tchad, en France et à distance partout dans le monde.",
+                        en: "Contact ICS GROUPE for a quote on cybersecurity, solar energy, web development or networks. Based in N'Djamena, we work in Chad, France and remotely worldwide.",
+                        ar: "تواصلوا مع ICS GROUPE للحصول على عرض سعر في الأمن السيبراني أو الطاقة الشمسية أو تطوير المواقع أو الشبكات. مقرنا في إنجامينا ونعمل في تشاد وفرنسا وعن بُعد حول العالم.",
+                    }}
                     path="/contact"
-                />
-
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "ContactPage",
-                            "name": "Contactez ICS GROUPE",
-                            "description": "Contactez notre équipe pour vos projets en cybersécurité, énergies renouvelables et développement web.",
-                            "url": "https://icsolution.fr/contact",
-                            "mainEntity": {
-                                "@type": "Organization",
-                                "name": "ICS GROUPE",
-                                "url": "https://icsolution.fr",
-                                "contactPoint": {
-                                    "@type": "ContactPoint",
-                                    "telephone": "+235-XX-XX-XX-XX",
-                                    "contactType": "Commercial",
-                                    "availableLanguage": ["French", "Arabic"],
-                                    "email": "contact@icsolution.fr"
-                                },
-                                "address": {
-                                    "@type": "PostalAddress",
-                                    "addressLocality": "N'Djamena",
-                                    "addressCountry": "Tchad"
-                                }
-                            }
-                        })
-                    }}
-                />
-
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "BreadcrumbList",
-                            "itemListElement": [
-                                { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://icsolution.fr" },
-                                { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://icsolution.fr/contact" }
-                            ]
-                        })
-                    }}
                 />
 
                 <Navbar />
 
                 <PageBannerContent 
-                    pageTitle="Contactez-nous" 
-                    pageCaption="Besoin d'un devis, d'un conseil ou d'informations ? Nous sommes à votre écoute." 
+                    pageTitle={{ fr: 'Contactez-nous', en: 'Contact us', ar: 'تواصلوا معنا' }}
+                    pageCaption={{ fr: "Besoin d'un devis, d'un conseil ou d'informations ? Nous sommes à votre écoute.", en: 'Need a quote, advice or information? We are here to help.', ar: 'هل تحتاجون إلى عرض سعر أو استشارة أو معلومات؟ نحن في خدمتكم.' }}
                 />
 
                 <ContactContent />
@@ -73,16 +37,19 @@ class Contact extends Component {
                 <section className="cta-section">
                     <div className="container">
                         <div className="cta-content">
-                            <span className="cta-tag">🚀 Prêt à démarrer</span>
-                            <h2 className="cta-title">Vous avez un projet ?</h2>
+                            <span className="cta-tag">🚀 {tx({ fr: 'Prêt à démarrer', en: 'Ready to start', ar: 'جاهزون للبدء' })}</span>
+                            <h2 className="cta-title">{tx({ fr: 'Vous avez un projet ?', en: 'Have a project?', ar: 'هل لديكم مشروع؟' })}</h2>
                             <p className="cta-text">
-                                Installation solaire, audit cybersécurité, site web ou formation — 
-                                notre équipe vous répond dans les plus brefs délais.
+                                {tx({
+                                    fr: 'Installation solaire, audit cybersécurité, site web ou formation — notre équipe vous répond dans les plus brefs délais.',
+                                    en: 'Solar installation, cybersecurity audit, website or training — our team replies as soon as possible.',
+                                    ar: 'تركيب طاقة شمسية أو تدقيق أمن سيبراني أو موقع إلكتروني أو تدريب — يرد فريقنا في أقرب وقت ممكن.',
+                                })}
                             </p>
                             <Link href="/contact">
                                 <span className="cta-btn">
                                     <span className="cta-btn-content">
-                                        Envoyer un message
+                                        {tx({ fr: 'Envoyer un message', en: 'Send a message', ar: 'أرسلوا رسالة' })}
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                             <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>

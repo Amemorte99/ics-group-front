@@ -2,8 +2,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { portfolioApi } from '../../utils/api';
+import { useI18n } from '../../lib/i18n';
 
 const PortfolioContent = ({ limit }) => {
+  const { tx, locale } = useI18n();
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
@@ -39,13 +41,13 @@ const PortfolioContent = ({ limit }) => {
 
         const mapped = items.map((item) => ({
           id: item.id,
-          title: item.title || 'Sans titre',
-          shortDesc: item.description?.substring(0, 120) || 'Description courte non disponible',
-          longDesc: item.description || 'Description longue non disponible',
+          title: item.title || tx({ fr: 'Sans titre', en: 'Untitled', ar: 'بدون عنوان' }),
+          shortDesc: item.description?.substring(0, 120) || tx({ fr: 'Description courte non disponible', en: 'Short description not available', ar: 'الوصف المختصر غير متوفر' }),
+          longDesc: item.description || tx({ fr: 'Description longue non disponible', en: 'Full description not available', ar: 'الوصف الكامل غير متوفر' }),
           category: item.category || 'autre',
-          client: item.client || 'Confidentiel',
+          client: item.client || tx({ fr: 'Confidentiel', en: 'Confidential', ar: 'سري' }),
           completionDate: item.completionDate
-            ? new Date(item.completionDate).toLocaleDateString('fr-FR', {
+            ? new Date(item.completionDate).toLocaleDateString(locale === 'ar' ? 'ar' : locale === 'en' ? 'en-GB' : 'fr-FR', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -67,7 +69,7 @@ const PortfolioContent = ({ limit }) => {
 
         const uniqueCategories = [...new Set(mapped.map((p) => p.category))];
         const categoryList = [
-          { key: 'all', label: 'Tous les projets' },
+          { key: 'all', label: tx({ fr: 'Tous les projets', en: 'All projects', ar: 'جميع المشاريع' }) },
           ...uniqueCategories.map((cat) => ({
             key: cat,
             label: cat.charAt(0).toUpperCase() + cat.slice(1),
@@ -84,7 +86,8 @@ const PortfolioContent = ({ limit }) => {
     };
 
     loadPortfolios();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -175,7 +178,7 @@ const PortfolioContent = ({ limit }) => {
             <div className="cube-face"></div>
             <div className="cube-face"></div>
           </div>
-          <p className="loader-text">Chargement de nos réalisations</p>
+          <p className="loader-text">{tx({ fr: 'Chargement de nos réalisations', en: 'Loading our projects', ar: 'جارٍ تحميل أعمالنا' })}</p>
           <div className="loader-progress">
             <div className="loader-progress-bar"></div>
           </div>
@@ -194,25 +197,25 @@ const PortfolioContent = ({ limit }) => {
             <div className="header-content">
               <div className="badge-wrapper">
                 <span className="badge-dot"></span>
-                <span className="section-badge">Notre excellence en images</span>
+                <span className="section-badge">{tx({ fr: 'Notre excellence en images', en: 'Our excellence in pictures', ar: 'تميزنا بالصور' })}</span>
               </div>
               <h2 className="section-title">
                 {limit ? (
                   <>
-                    <span className="title-line">Nos dernières</span>
-                    <span className="title-highlight">réalisations</span>
+                    <span className="title-line">{tx({ fr: 'Nos dernières', en: 'Our latest', ar: 'أحدث' })}</span>
+                    <span className="title-highlight">{tx({ fr: 'réalisations', en: 'projects', ar: 'أعمالنا' })}</span>
                   </>
                 ) : (
                   <>
-                    <span className="title-line">Notre</span>
-                    <span className="title-highlight">portfolio complet</span>
+                    <span className="title-line">{tx({ fr: 'Notre', en: 'Our', ar: 'معرض' })}</span>
+                    <span className="title-highlight">{tx({ fr: 'portfolio complet', en: 'full portfolio', ar: 'أعمالنا الكامل' })}</span>
                   </>
                 )}
               </h2>
               <p className="section-subtitle">
                 {limit
-                  ? 'Découvrez une sélection de nos projets les plus récents'
-                  : 'Explorez l\'ensemble de nos réalisations et laissez-vous inspirer par notre savoir-faire'}
+                  ? tx({ fr: 'Découvrez une sélection de nos projets les plus récents', en: 'Discover a selection of our most recent projects', ar: 'اكتشفوا مجموعة من أحدث مشاريعنا' })
+                  : tx({ fr: "Explorez l'ensemble de nos réalisations et laissez-vous inspirer par notre savoir-faire", en: 'Explore all our projects and get inspired by our expertise', ar: 'استكشفوا جميع أعمالنا واستلهموا من خبرتنا' })}
               </p>
             </div>
           </div>
@@ -248,10 +251,10 @@ const PortfolioContent = ({ limit }) => {
                 <div className="empty-icon-wrapper">
                   <span className="empty-icon">🎯</span>
                 </div>
-                <h3>Aucun projet trouvé</h3>
-                <p>Essayez de modifier votre filtre ou revenez plus tard</p>
+                <h3>{tx({ fr: 'Aucun projet trouvé', en: 'No projects found', ar: 'لم يتم العثور على مشاريع' })}</h3>
+                <p>{tx({ fr: 'Essayez de modifier votre filtre ou revenez plus tard', en: 'Try changing your filter or come back later', ar: 'جرّبوا تغيير التصفية أو عودوا لاحقًا' })}</p>
                 <button className="empty-reset" onClick={() => setFilter('all')}>
-                  Réinitialiser les filtres
+                  {tx({ fr: 'Réinitialiser les filtres', en: 'Reset filters', ar: 'إعادة ضبط التصفية' })}
                 </button>
               </div>
             ) : (
@@ -283,14 +286,14 @@ const PortfolioContent = ({ limit }) => {
                                 <span className="overlay-tag">
                                   {categories.find((c) => c.key === project.category)?.label ||
                                     project.category ||
-                                    'Projet'}
+                                    tx({ fr: 'Projet', en: 'Project', ar: 'مشروع' })}
                                 </span>
                               </div>
                               <h3 className="overlay-title">{project.title}</h3>
                               <p className="overlay-desc">{project.shortDesc}</p>
                               <div className="overlay-action">
                                 <span className="overlay-link">
-                                  Explorer
+                                  {tx({ fr: 'Explorer', en: 'Explore', ar: 'استكشاف' })}
                                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
@@ -308,7 +311,7 @@ const PortfolioContent = ({ limit }) => {
                           >
                             {categories.find((c) => c.key === project.category)?.label ||
                               project.category ||
-                              'Projet'}
+                              tx({ fr: 'Projet', en: 'Project', ar: 'مشروع' })}
                           </span>
                           <h4 className="footer-title">{project.title}</h4>
                         </div>
@@ -330,7 +333,7 @@ const PortfolioContent = ({ limit }) => {
             <div className="view-all-wrapper">
               <Link href="/portfolio">
                 <span className="view-all-btn">
-                  <span className="btn-text">Voir tout le portfolio</span>
+                  <span className="btn-text">{tx({ fr: 'Voir tout le portfolio', en: 'See the full portfolio', ar: 'عرض المعرض كاملًا' })}</span>
                   <span className="btn-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -354,7 +357,7 @@ const PortfolioContent = ({ limit }) => {
                 <span className="modal-header-category">
                   {categories.find((c) => c.key === selectedProject.category)?.label ||
                     selectedProject.category ||
-                    'Projet'}
+                    tx({ fr: 'Projet', en: 'Project', ar: 'مشروع' })}
                 </span>
                 <span className="modal-header-divider">•</span>
                 <span className="modal-header-client">{selectedProject.client}</span>
@@ -363,7 +366,7 @@ const PortfolioContent = ({ limit }) => {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                <span className="modal-close-label">Fermer</span>
+                <span className="modal-close-label">{tx({ fr: 'Fermer', en: 'Close', ar: 'إغلاق' })}</span>
               </button>
             </div>
 
@@ -437,23 +440,23 @@ const PortfolioContent = ({ limit }) => {
                     <h2 className="modal-title">{selectedProject.title}</h2>
                     <div className="modal-meta">
                       <div className="meta-item">
-                        <span className="meta-label">Client</span>
+                        <span className="meta-label">{tx({ fr: 'Client', en: 'Client', ar: 'العميل' })}</span>
                         <span className="meta-value">{selectedProject.client}</span>
                       </div>
                       <div className="meta-item">
-                        <span className="meta-label">Date de livraison</span>
+                        <span className="meta-label">{tx({ fr: 'Date de livraison', en: 'Delivery date', ar: 'تاريخ التسليم' })}</span>
                         <span className="meta-value">{selectedProject.completionDate}</span>
                       </div>
                       {selectedProject.link && (
                         <div className="meta-item">
-                          <span className="meta-label">Lien</span>
+                          <span className="meta-label">{tx({ fr: 'Lien', en: 'Link', ar: 'الرابط' })}</span>
                           <a
                             href={selectedProject.link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="meta-link"
                           >
-                            Voir en ligne →
+                            {tx({ fr: 'Voir en ligne →', en: 'View online →', ar: 'عرض على الإنترنت ←' })}
                           </a>
                         </div>
                       )}
@@ -467,7 +470,7 @@ const PortfolioContent = ({ limit }) => {
                   <div className="modal-actions">
                     <Link href="/contact">
                       <span className="modal-cta primary" onClick={closeModal}>
-                        <span>Discuter de votre projet</span>
+                        <span>{tx({ fr: 'Discuter de votre projet', en: 'Discuss your project', ar: 'ناقشوا مشروعكم' })}</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                           <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -481,18 +484,18 @@ const PortfolioContent = ({ limit }) => {
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M12 15V3M12 3L9 6M12 3L15 6M5 15L5 17C5 18.1046 5.89543 19 7 19H17C18.1046 19 19 18.1046 19 17L19 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      Voir le projet
+                      {tx({ fr: 'Voir le projet', en: 'View project', ar: 'عرض المشروع' })}
                     </button>
                   </div>
 
                   <div className="modal-share">
-                    <span className="share-label">Partager</span>
+                    <span className="share-label">{tx({ fr: 'Partager', en: 'Share', ar: 'مشاركة' })}</span>
                     <div className="share-buttons">
                       <button className="share-btn" onClick={() => {
                         if (navigator.share) {
                           navigator.share({
                             title: selectedProject.title,
-                            text: `Découvrez ${selectedProject.title} par ICS GROUPE`,
+                            text: tx({ fr: `Découvrez ${selectedProject.title} par ICS GROUPE`, en: `Discover ${selectedProject.title} by ICS GROUPE`, ar: `اكتشفوا ${selectedProject.title} من ICS GROUPE` }),
                             url: window.location.href,
                           });
                         }

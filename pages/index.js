@@ -1,6 +1,7 @@
 // pages/index.js
 import React, { Component } from 'react';
 import SEO from '../components/SEO';
+import { I18nContext } from '../lib/i18n';
 import Link from 'next/link';
 import Navbar from '../components/Layouts/Navbar';
 import MainBanner from '../components/HomeOne/MainBanner';
@@ -19,14 +20,17 @@ import Rates from '../components/Rates/Rates';
 import PortfolioContent from '../components/portfolio/PortfolioContent';
 
 class Index extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <>
                 <SEO
                     home
-                    title="ICS GROUPE | Cybersécurité, énergie solaire et digital — Tchad, France, international"
-                    description="ICS GROUPE accompagne entreprises et institutions au Tchad, en France et à l'international : cybersécurité, énergies renouvelables, développement web et transformation digitale."
-                    keywords="ICS GROUPE, cybersécurité Tchad, cybersécurité France, énergie solaire N'Djamena, développement web Afrique, transformation digitale, audit sécurité informatique"
+                    title={{ fr: 'ICS GROUPE | Cybersécurité, énergie solaire et digital — Tchad, France, international', en: 'ICS GROUPE | Cybersecurity, solar energy and digital — Chad, France, worldwide', ar: 'ICS GROUPE | الأمن السيبراني والطاقة الشمسية والخدمات الرقمية — تشاد وفرنسا وحول العالم' }}
+                    description={{ fr: "ICS GROUPE accompagne entreprises et institutions au Tchad, en France et à l'international : cybersécurité, énergies renouvelables, développement web et transformation digitale.", en: 'ICS GROUPE supports businesses and institutions in Chad, France and worldwide: cybersecurity, renewable energy, web development and digital transformation.', ar: 'ترافق ICS GROUPE الشركات والمؤسسات في تشاد وفرنسا وحول العالم: الأمن السيبراني والطاقات المتجددة وتطوير المواقع والتحول الرقمي.' }}
+                    keywords={{ fr: "ICS GROUPE, cybersécurité Tchad, cybersécurité France, énergie solaire N'Djamena, développement web Afrique, transformation digitale, audit sécurité informatique", en: "ICS GROUPE, cybersecurity Chad, cybersecurity France, solar energy N'Djamena, web development Africa, digital transformation, IT security audit", ar: "ICS GROUPE، الأمن السيبراني تشاد، الطاقة الشمسية إنجامينا، تطوير المواقع أفريقيا، التحول الرقمي، تدقيق أمن المعلومات" }}
                     path="/"
                 />
 
@@ -40,13 +44,13 @@ class Index extends Component {
 
                 {/* Section des services en vedette */}
                 <section aria-labelledby="featured-services-title">
-                    <h2 id="featured-services-title" className="sr-only">Nos services en vedette</h2>
+                    <h2 id="featured-services-title" className="sr-only">{tx({ fr: 'Nos services en vedette', en: 'Our featured services', ar: 'خدماتنا المميزة' })}</h2>
                     <FeaturedCard limit={4} />
                 </section>
 
                 {/* Section des services */}
                 <section aria-labelledby="services-title">
-                    <h2 id="services-title" className="sr-only">Nos services ICS GROUPE</h2>
+                    <h2 id="services-title" className="sr-only">{tx({ fr: 'Nos services ICS GROUPE', en: 'ICS GROUPE services', ar: 'خدمات ICS GROUPE' })}</h2>
                     <ServicesCard />
                 </section>
 
@@ -59,12 +63,12 @@ class Index extends Component {
 
                 {/* Réalisations */}
                 <section aria-labelledby="portfolio-title">
-                    <h2 id="portfolio-title" className="sr-only">Nos réalisations</h2>
+                    <h2 id="portfolio-title" className="sr-only">{tx({ fr: 'Nos réalisations', en: 'Our projects', ar: 'أعمالنا' })}</h2>
                     <PortfolioContent limit={6} />
                     <div className="portfolio-cta">
                         <Link href="/portfolio">
                             <a className="btn-outline">
-                                Voir tout notre portfolio
+                                {tx({ fr: 'Voir tout notre portfolio', en: 'See our full portfolio', ar: 'عرض معرض أعمالنا كاملًا' })}
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>

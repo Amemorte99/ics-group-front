@@ -3,48 +3,27 @@ import React, { Component } from 'react';
 import Image from 'next/image';
 import ContactInfoContent from './ContactInfoContent';
 import ContactForm from './ContactForm';
+import { I18nContext } from '../../lib/i18n';
 
 class ContactContent extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <>
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "LocalBusiness",
-                            "name": "ICS GROUPE",
-                            "description": "Expert en cybersécurité, énergies renouvelables et développement web au Tchad et en Afrique",
-                            "url": "https://icsolution.fr",
-                            "telephone": "+235-XX-XX-XX-XX",
-                            "email": "contact@icsolution.fr",
-                            "address": {
-                                "@type": "PostalAddress",
-                                "addressLocality": "N'Djamena",
-                                "addressCountry": "Tchad"
-                            },
-                            "openingHours": "Mo-Fr 08:00-17:00",
-                            "priceRange": "$$",
-                            "sameAs": [
-                                "https://www.linkedin.com/company/ics-groupe",
-                                "https://twitter.com/ics_groupe",
-                                "https://www.facebook.com/icsgroupe"
-                            ]
-                        })
-                    }}
-                />
-
                 <section className="contact-section">
                     <div className="container">
                         <div className="section-header">
-                            <span className="section-tag">📞 Contact</span>
-                            <h2 className="section-title">Parlons de votre projet</h2>
+                            <span className="section-tag">📞 {tx({ fr: 'Contact', en: 'Contact', ar: 'اتصل بنا' })}</span>
+                            <h2 className="section-title">{tx({ fr: 'Parlons de votre projet', en: "Let's talk about your project", ar: 'لنتحدث عن مشروعكم' })}</h2>
                             <div className="section-bar"></div>
                             <p className="section-desc">
-                                Que ce soit pour un projet en <strong>cybersécurité</strong>, 
-                                <strong>énergies renouvelables</strong>, <strong>réseaux & télécommunications</strong>, 
-                                ou une formation, notre équipe est à votre écoute.
+                                {tx({
+                                    fr: 'Que ce soit pour un projet en cybersécurité, énergies renouvelables, réseaux & télécommunications, ou une formation, notre équipe est à votre écoute.',
+                                    en: 'Whether for a cybersecurity, renewable energy, networks & telecommunications project, or training, our team is here to listen.',
+                                    ar: 'سواء كان مشروعكم في الأمن السيبراني أو الطاقات المتجددة أو الشبكات والاتصالات أو التدريب، فريقنا في خدمتكم.',
+                                })}
                             </p>
                         </div>
 
@@ -59,9 +38,9 @@ class ContactContent extends Component {
                     </div>
 
                     <div className="bg-map">
-                        <Image 
+                        <Image unoptimized 
                             src="/images/bg-map.png" 
-                            alt="Carte de localisation ICS GROUPE - N'Djamena, Tchad"
+                            alt={tx({ fr: "Carte de localisation ICS GROUPE - N'Djamena, Tchad", en: "ICS GROUPE location map - N'Djamena, Chad", ar: "خريطة موقع ICS GROUPE - إنجامينا، تشاد" })}
                             width={800}
                             height={600}
                             loading="lazy"

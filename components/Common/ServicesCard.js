@@ -1,10 +1,38 @@
 // components/Common/ServicesCard.js
-import React, { Component } from 'react';
-import Image from 'next/image';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { I18nContext } from '../../lib/i18n';
+
+// Image du service : photo en ligne, remplacée par la photo locale si elle ne se charge pas.
+const ServiceImage = ({ src, fallback, alt, className }) => {
+    const [current, setCurrent] = useState(src);
+    const ref = useRef(null);
+
+    useEffect(() => {
+        // L'erreur peut survenir avant l'hydratation de React : on la détecte aussi au montage.
+        const img = ref.current;
+        if (img && img.complete && img.naturalWidth === 0) setCurrent(fallback);
+    }, [fallback]);
+
+    return (
+        <img
+            ref={ref}
+            src={current}
+            alt={alt}
+            width={800}
+            height={600}
+            loading="lazy"
+            className={className}
+            onError={() => current !== fallback && setCurrent(fallback)}
+        />
+    );
+};
 
 class ServicesCard extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx, t } = this.context;
         // Couleurs officielles de la charte graphique ICS GROUP
         const colors = {
             primary: '#49B96D',      // Vert principal
@@ -18,99 +46,129 @@ class ServicesCard extends Component {
         const services = [
             {
                 id: 1,
-                title: 'Design Graphique & Communication',
-                description: 'ICS GROUPE vous accompagne dans la conception de supports de communication optimisés, conformes aux normes marketing, avec des contenus visuels et textuels sur mesure pour renforcer votre image de marque et vos argumentaires commerciaux.',
+                title: { fr: 'Design Graphique & Communication', en: 'Graphic Design & Communication', ar: 'التصميم الجرافيكي والاتصال' },
+                description: {
+                    fr: "ICS GROUPE vous accompagne dans la conception de supports de communication optimisés, conformes aux normes marketing, avec des contenus visuels et textuels sur mesure pour renforcer votre image de marque et vos argumentaires commerciaux.",
+                    en: 'ICS GROUPE helps you design optimized communication materials that meet marketing standards, with tailor-made visual and written content to strengthen your brand image and sales pitches.',
+                    ar: 'ترافقكم ICS GROUPE في تصميم مواد اتصال محسّنة ومتوافقة مع معايير التسويق، بمحتوى بصري ونصي مصمم حسب الطلب لتعزيز صورة علامتكم التجارية وعروضكم التجارية.',
+                },
                 image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/design-graphique.webp',
                 icon: 'fa-palette',
                 color: colors.primary,
-                features: [
-                    'Création de logos & identités visuelles',
-                    'Supports print & digitaux (flyers, brochures, bannières)',
-                    'Optimisation du positionnement marketing',
-                    'Contenus adaptés à votre public cible'
-                ],
+                features: {
+                    fr: ['Création de logos & identités visuelles', 'Supports print & digitaux (flyers, brochures, bannières)', 'Optimisation du positionnement marketing', 'Contenus adaptés à votre public cible'],
+                    en: ['Logo & visual identity creation', 'Print & digital materials (flyers, brochures, banners)', 'Marketing positioning optimization', 'Content tailored to your target audience'],
+                    ar: ['تصميم الشعارات والهويات البصرية', 'مواد مطبوعة ورقمية (منشورات ونشرات ولافتات)', 'تحسين التموضع التسويقي', 'محتوى يناسب جمهوركم المستهدف'],
+                },
                 position: 'right',
-                slug: 'design-graphique-communication'
+                slug: 'design-graphique-communication',
+                href: '/services/design'
             },
             {
                 id: 2,
-                title: 'Site Web & Applications Mobiles',
-                description: 'Nous développons des solutions digitales performantes : sites web responsive, applications mobiles natives ou hybrides, informatisation des systèmes d\'information et gestion de bases de données.',
+                title: { fr: 'Site Web & Applications Mobiles', en: 'Website & Mobile Applications', ar: 'المواقع وتطبيقات الجوال' },
+                description: {
+                    fr: "Nous développons des solutions digitales performantes : sites web responsive, applications mobiles natives ou hybrides, informatisation des systèmes d'information et gestion de bases de données.",
+                    en: 'We build high-performance digital solutions: responsive websites, native or hybrid mobile apps, information system computerization and database management.',
+                    ar: 'نطوّر حلولًا رقمية عالية الأداء: مواقع متجاوبة، وتطبيقات جوال أصلية أو هجينة، ورقمنة نظم المعلومات، وإدارة قواعد البيانات.',
+                },
                 image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/web-mobile.webp',
                 icon: 'fa-laptop-code',
                 color: colors.secondary,
-                features: [
-                    'Création de sites web sur mesure',
-                    'Développement d\'applications mobiles',
-                    'Informatisation & automatisation',
-                    'Conception et gestion de bases de données'
-                ],
+                features: {
+                    fr: ['Création de sites web sur mesure', "Développement d'applications mobiles", 'Informatisation & automatisation', 'Conception et gestion de bases de données'],
+                    en: ['Custom website creation', 'Mobile app development', 'Computerization & automation', 'Database design and management'],
+                    ar: ['إنشاء مواقع ويب مخصصة', 'تطوير تطبيقات الجوال', 'الرقمنة والأتمتة', 'تصميم قواعد البيانات وإدارتها'],
+                },
                 position: 'left',
-                slug: 'site-web-applications-mobiles'
+                slug: 'site-web-applications-mobiles',
+                href: '/services/web'
             },
             {
                 id: 3,
-                title: 'Cybersécurité',
-                description: 'Renforcez la résilience de vos systèmes face aux cybermenaces grâce à nos experts certifiés (ISO 27001, CISSP, etc.) qui accompagnent, conseillent et déploient des solutions innovantes.',
+                title: { fr: 'Cybersécurité', en: 'Cybersecurity', ar: 'الأمن السيبراني' },
+                description: {
+                    fr: "Renforcez la résilience de vos systèmes face aux cybermenaces grâce à nos experts certifiés (ISO 27001, CISSP, etc.) qui accompagnent, conseillent et déploient des solutions innovantes.",
+                    en: 'Strengthen the resilience of your systems against cyber threats with our certified experts (ISO 27001, CISSP, etc.) who support, advise and deploy innovative solutions.',
+                    ar: 'عزّزوا صمود أنظمتكم في مواجهة التهديدات السيبرانية مع خبرائنا المعتمدين (ISO 27001 وCISSP وغيرها) الذين يرافقون ويستشيرون وينشرون حلولًا مبتكرة.',
+                },
                 image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/cybersecurite.webp',
                 icon: 'fa-shield-halved',
                 color: colors.primary,
-                features: [
-                    'Audit & conseil en sécurité',
-                    'Déploiement de solutions de protection',
-                    'Continuité d\'activité & investigation numérique',
-                    'Maîtrise des risques dans la transformation digitale'
-                ],
+                features: {
+                    fr: ['Audit & conseil en sécurité', 'Déploiement de solutions de protection', "Continuité d'activité & investigation numérique", 'Maîtrise des risques dans la transformation digitale'],
+                    en: ['Security audit & consulting', 'Protection solutions deployment', 'Business continuity & digital forensics', 'Risk management in digital transformation'],
+                    ar: ['التدقيق والاستشارات الأمنية', 'نشر حلول الحماية', 'استمرارية الأعمال والتحقيق الرقمي', 'إدارة المخاطر في التحول الرقمي'],
+                },
                 position: 'right',
-                slug: 'cybersecurite'
+                slug: 'cybersecurite',
+                href: '/services/cybersecurite'
             },
             {
                 id: 4,
-                title: 'Énergies Renouvelables',
-                description: 'De l\'étude à la maintenance, nous proposons des solutions solaires complètes adaptées à votre budget pour optimiser votre consommation et réduire votre empreinte écologique.',
+                title: { fr: 'Énergies Renouvelables', en: 'Renewable Energy', ar: 'الطاقات المتجددة' },
+                description: {
+                    fr: "De l'étude à la maintenance, nous proposons des solutions solaires complètes adaptées à votre budget pour optimiser votre consommation et réduire votre empreinte écologique.",
+                    en: 'From study to maintenance, we offer complete solar solutions tailored to your budget to optimize your consumption and reduce your environmental footprint.',
+                    ar: 'من الدراسة إلى الصيانة، نقدّم حلولًا شمسية متكاملة تناسب ميزانيتكم لتحسين استهلاككم وتقليل بصمتكم البيئية.',
+                },
                 image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/energie-solaire.webp',
                 icon: 'fa-solar-panel',
                 color: colors.secondary,
-                features: [
-                    'Vente & installation de panneaux solaires',
-                    'Batteries, onduleurs, régulateurs & accessoires',
-                    'Étude personnalisée & suivi',
-                    'Maintenance & formation'
-                ],
+                features: {
+                    fr: ['Vente & installation de panneaux solaires', 'Batteries, onduleurs, régulateurs & accessoires', 'Étude personnalisée & suivi', 'Maintenance & formation'],
+                    en: ['Solar panel sales & installation', 'Batteries, inverters, controllers & accessories', 'Personalized study & follow-up', 'Maintenance & training'],
+                    ar: ['بيع وتركيب الألواح الشمسية', 'البطاريات والمحوّلات والمنظّمات والملحقات', 'دراسة مخصصة ومتابعة', 'الصيانة والتدريب'],
+                },
                 position: 'left',
-                slug: 'energies-renouvelables'
+                slug: 'energies-renouvelables',
+                href: '/services/energie'
             },
             {
                 id: 5,
-                title: 'Réseaux & Télécommunications',
-                description: 'Nous concevons, déployons et maintenons des infrastructures réseaux fiables : interconnexion de sites, support FAI et conseil expert pour une connectivité optimale.',
+                title: { fr: 'Réseaux & Télécommunications', en: 'Networks & Telecommunications', ar: 'الشبكات والاتصالات' },
+                description: {
+                    fr: 'Nous concevons, déployons et maintenons des infrastructures réseaux fiables : interconnexion de sites, support FAI et conseil expert pour une connectivité optimale.',
+                    en: 'We design, deploy and maintain reliable network infrastructures: site interconnection, ISP support and expert advice for optimal connectivity.',
+                    ar: 'نصمم ونُنشئ ونصون بنى تحتية للشبكات موثوقة: ربط المواقع ودعم مزودي الإنترنت واستشارات الخبراء لاتصال مثالي.',
+                },
                 image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/reseaux-telecoms.webp',
                 icon: 'fa-network-wired',
                 color: colors.primary,
-                features: [
-                    'Interconnexion multisites',
-                    'Maintenance infrastructures internet',
-                    'Conseil & optimisation réseaux',
-                    'Solutions télécom sur mesure'
-                ],
+                features: {
+                    fr: ['Interconnexion multisites', 'Maintenance infrastructures internet', 'Conseil & optimisation réseaux', 'Solutions télécom sur mesure'],
+                    en: ['Multi-site interconnection', 'Internet infrastructure maintenance', 'Network consulting & optimization', 'Custom telecom solutions'],
+                    ar: ['ربط المواقع المتعددة', 'صيانة بنى الإنترنت التحتية', 'استشارات الشبكات وتحسينها', 'حلول اتصالات مخصصة'],
+                },
                 position: 'right',
-                slug: 'reseaux-telecommunications'
+                slug: 'reseaux-telecommunications',
+                href: '/services/reseaux'
             },
             {
                 id: 6,
-                title: 'Cloud & Infrastructure',
-                description: 'Optimisez votre infrastructure IT avec nos solutions cloud sécurisées, scalables et performantes pour une agilité maximale et une réduction des coûts.',
+                title: { fr: 'Cloud & Infrastructure', en: 'Cloud & Infrastructure', ar: 'الحوسبة السحابية والبنية التحتية' },
+                description: {
+                    fr: 'Optimisez votre infrastructure IT avec nos solutions cloud sécurisées, scalables et performantes pour une agilité maximale et une réduction des coûts.',
+                    en: 'Optimize your IT infrastructure with our secure, scalable and high-performance cloud solutions for maximum agility and lower costs.',
+                    ar: 'حسّنوا بنيتكم التحتية لتقنية المعلومات بحلولنا السحابية الآمنة والقابلة للتوسع وعالية الأداء لمرونة قصوى وتكاليف أقل.',
+                },
                 image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80',
+                fallback: '/images/services/cloud-infrastructure.webp',
                 icon: 'fa-cloud',
                 color: colors.secondary,
-                features: [
-                    'Migration vers le cloud',
-                    'Infrastructure as a Service (IaaS)',
-                    'Sauvegarde & reprise d\'activité',
-                    'Optimisation des coûts cloud'
-                ],
+                features: {
+                    fr: ['Migration vers le cloud', 'Infrastructure as a Service (IaaS)', "Sauvegarde & reprise d'activité", 'Optimisation des coûts cloud'],
+                    en: ['Cloud migration', 'Infrastructure as a Service (IaaS)', 'Backup & disaster recovery', 'Cloud cost optimization'],
+                    ar: ['الانتقال إلى السحابة', 'البنية التحتية كخدمة (IaaS)', 'النسخ الاحتياطي واستعادة النشاط', 'تحسين تكاليف السحابة'],
+                },
                 position: 'left',
-                slug: 'cloud-infrastructure'
+                slug: 'cloud-infrastructure',
+                href: '/services/reseaux'
             }
         ];
 
@@ -126,15 +184,15 @@ class ServicesCard extends Component {
                             "@context": "https://schema.org",
                             "@type": "ItemList",
                             "name": "Services ICS GROUPE",
-                            "description": "Nos services en cybersécurité, énergie, développement web et digital",
+                            "description": tx({ fr: "Nos services en cybersécurité, énergie, développement web et digital", en: "Our cybersecurity, energy, web development and digital services", ar: "خدماتنا في الأمن السيبراني والطاقة وتطوير المواقع والخدمات الرقمية" }),
                             "itemListElement": services.map((service, index) => ({
                                 "@type": "ListItem",
                                 "position": index + 1,
                                 "item": {
                                     "@type": "Service",
-                                    "name": service.title,
-                                    "description": service.description,
-                                    "url": `https://icsolution.fr/services/${service.slug}`,
+                                    "name": tx(service.title),
+                                    "description": tx(service.description),
+                                    "url": `https://www.icsolution.fr${service.href}`,
                                     "provider": {
                                         "@type": "Organization",
                                         "name": "ICS GROUPE"
@@ -152,14 +210,17 @@ class ServicesCard extends Component {
                             <div className="header-glow"></div>
                         </div>
                         <div className="header-content">
-                            <span className="header-tag">NOS EXPERTISES</span>
+                            <span className="header-tag">{tx({ fr: 'NOS EXPERTISES', en: 'OUR EXPERTISE', ar: 'خبراتنا' })}</span>
                             <h2 className="header-title">
-                                Des services <span className="highlight">complets</span><br />
-                                pour votre <span className="highlight">transformation</span>
+                                {tx({ fr: 'Des services', en: 'Complete', ar: 'خدمات' })} <span className="highlight">{tx({ fr: 'complets', en: 'services', ar: 'متكاملة' })}</span><br />
+                                {tx({ fr: 'pour votre', en: 'for your', ar: 'لـ' })} <span className="highlight">{tx({ fr: 'transformation', en: 'transformation', ar: 'تحوّلكم' })}</span>
                             </h2>
                             <p className="header-description">
-                                Découvrez notre gamme complète de services conçus pour répondre aux défis
-                                de votre entreprise et propulser votre croissance en Afrique.
+                                {tx({
+                                    fr: "Découvrez notre gamme complète de services conçus pour répondre aux défis de votre entreprise et propulser votre croissance en Afrique.",
+                                    en: 'Discover our full range of services designed to meet your business challenges and drive your growth in Africa.',
+                                    ar: 'اكتشفوا مجموعة خدماتنا المتكاملة المصممة لمواجهة تحديات شركتكم ودفع نموكم في أفريقيا.',
+                                })}
                             </p>
                         </div>
                     </div>
@@ -178,13 +239,11 @@ class ServicesCard extends Component {
                                         <div className="image-glow" style={{ background: `radial-gradient(circle, ${service.color}30, transparent 70%)` }}></div>
                                         
                                         {/* ✅ CORRECTION : Suppression de priority pour ne garder que loading="lazy" */}
-                                        <Image 
-                                            src={service.image} 
-                                            alt={`${service.title} - Services ICS GROUPE`}
-                                            width={800}
-                                            height={600}
+                                        <ServiceImage
+                                            src={service.image}
+                                            fallback={service.fallback}
+                                            alt={`${tx(service.title)} - ICS GROUPE`}
                                             className="service-image"
-                                            loading="lazy"
                                         />
                                         
                                         <div className="image-overlay-gradient"></div>
@@ -199,7 +258,7 @@ class ServicesCard extends Component {
                                         {/* Badge de statistique */}
                                         <div className="image-stats-badge">
                                             <span className="stats-number">{String(index + 1).padStart(2, '0')}</span>
-                                            <span className="stats-label">Service</span>
+                                            <span className="stats-label">{tx({ fr: 'Service', en: 'Service', ar: 'خدمة' })}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -215,13 +274,13 @@ class ServicesCard extends Component {
                                             <i className={`fas ${service.icon}`}></i>
                                         </div>
                                         
-                                        <h3 className="service-title">{service.title}</h3>
+                                        <h3 className="service-title">{tx(service.title)}</h3>
                                         <div className="service-bar" style={{ background: `linear-gradient(90deg, ${service.color}, ${service.color}60)` }}></div>
                                         
-                                        <p className="service-description">{service.description}</p>
+                                        <p className="service-description">{tx(service.description)}</p>
                                         
                                         <ul className="service-features">
-                                            {service.features.map((feature, idx) => (
+                                            {tx(service.features).map((feature, idx) => (
                                                 <li key={idx}>
                                                     <span className="feature-icon" style={{ color: service.color }}>
                                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -234,12 +293,12 @@ class ServicesCard extends Component {
                                         </ul>
                                         
                                         {/* ✅ CORRECTION : Un seul enfant dans <Link> */}
-                                        <Link href={`/services/${service.slug}`}>
+                                        <Link href={service.href}>
                                             <span className="service-cta" style={{ 
                                                 background: `linear-gradient(135deg, ${service.color}, ${service.color}80)`,
                                                 boxShadow: `0 8px 30px ${service.color}40`
                                             }}>
-                                                <span>En savoir plus</span>
+                                                <span>{t('common.learnMore')}</span>
                                                 <svg className="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
                                                 </svg>
@@ -264,22 +323,25 @@ class ServicesCard extends Component {
                                 <div className="cta-brand">
                                     <span className="cta-brand-dot"></span>
                                     <span className="cta-brand-text">ICS GROUPE</span>
-                                    <span className="cta-brand-badge">Expertise</span>
+                                    <span className="cta-brand-badge">{tx({ fr: 'Expertise', en: 'Expertise', ar: 'خبرة' })}</span>
                                 </div>
 
                                 <h3 className="final-cta-title">
-                                    Prêt à <span className="highlight">transformer</span> votre entreprise ?
+                                    {tx({ fr: 'Prêt à', en: 'Ready to', ar: 'هل أنتم مستعدون ل' })} <span className="highlight">{tx({ fr: 'transformer', en: 'transform', ar: 'تحويل' })}</span> {tx({ fr: 'votre entreprise ?', en: 'your business?', ar: 'شركتكم؟' })}
                                 </h3>
 
                                 <p className="final-cta-text">
-                                    Contactez-nous dès aujourd'hui pour discuter de votre projet et découvrir
-                                    comment <strong>ICS GROUPE</strong> peut vous accompagner vers le succès.
+                                    {tx({
+                                        fr: "Contactez-nous dès aujourd'hui pour discuter de votre projet et découvrir comment ICS GROUPE peut vous accompagner vers le succès.",
+                                        en: 'Contact us today to discuss your project and find out how ICS GROUPE can help you succeed.',
+                                        ar: 'تواصلوا معنا اليوم لمناقشة مشروعكم ومعرفة كيف تساعدكم ICS GROUPE على النجاح.',
+                                    })}
                                 </p>
 
                                 {/* ✅ CORRECTION : Un seul enfant dans <Link> */}
                                 <Link href="/contact">
                                     <span className="final-cta-button">
-                                        <span>Commencer maintenant</span>
+                                        <span>{tx({ fr: 'Commencer maintenant', en: 'Get started now', ar: 'ابدأوا الآن' })}</span>
                                         <svg className="final-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                             <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
@@ -292,7 +354,7 @@ class ServicesCard extends Component {
                                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round" strokeLinejoin="round"/>
                                             <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
-                                        Sécurisé
+                                        {tx({ fr: 'Sécurisé', en: 'Secure', ar: 'آمن' })}
                                     </span>
                                     <span className="trust-divider"></span>
                                     <span className="trust-item">

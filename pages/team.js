@@ -10,7 +10,7 @@ class Team extends Component {
     render() {
         return (
             <>
-                <SEO title="Notre équipe" description="Rencontrez les experts d'ICS GROUPE en cybersécurité, énergies renouvelables, développement et réseaux." path="/team" />
+                <SEO path="/team" />
                 <Navbar />
 
                 <PageBannerContent 

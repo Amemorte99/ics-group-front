@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import { I18nContext } from '../../lib/i18n';
 
 class EasyPaymentBorrow extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx, t } = this.context;
         return (
             <section className="invoicing-area ptb-70">
                 <div className="container-fluid">
                     <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12">
                             <div className="invoicing-content">
-                                <h2>Votre partenaire pour une transformation digitale et énergétique réussie</h2>
+                                <h2>{tx({ fr: 'Votre partenaire pour une transformation digitale et énergétique réussie', en: 'Your partner for a successful digital and energy transformation', ar: 'شريككم لتحول رقمي وطاقي ناجح' })}</h2>
                                 <div className="bar"></div>
-                                <p>ICS GROUPE vous accompagne avec des solutions innovantes en cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting sur mesure.</p>
-                                <p>De l’étude de vos besoins à la mise en œuvre et la maintenance, notre équipe d’experts certifiés assure une transition fluide, sécurisée et rentable, tout en respectant votre budget et vos objectifs écologiques.</p>
+                                <p>{tx({
+                                    fr: 'ICS GROUPE vous accompagne avec des solutions innovantes en cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting sur mesure.',
+                                    en: 'ICS GROUPE supports you with innovative solutions in cybersecurity, renewable energy, networks & telecommunications, data analysis and tailor-made consulting.',
+                                    ar: 'ترافقكم ICS GROUPE بحلول مبتكرة في الأمن السيبراني والطاقات المتجددة والشبكات والاتصالات وتحليل البيانات والاستشارات المصممة حسب الطلب.',
+                                })}</p>
+                                <p>{tx({
+                                    fr: 'De l’étude de vos besoins à la mise en œuvre et la maintenance, notre équipe d’experts certifiés assure une transition fluide, sécurisée et rentable, tout en respectant votre budget et vos objectifs écologiques.',
+                                    en: 'From assessing your needs to implementation and maintenance, our team of certified experts ensures a smooth, secure and cost-effective transition while respecting your budget and environmental goals.',
+                                    ar: 'من دراسة احتياجاتكم إلى التنفيذ والصيانة، يضمن فريق خبرائنا المعتمدين انتقالًا سلسًا وآمنًا ومجديًا اقتصاديًا، مع احترام ميزانيتكم وأهدافكم البيئية.',
+                                })}</p>
 
-                     ß           <Link href="/contact">
-                                    <a className="btn btn-primary">Nous Contacter</a>
+                                <Link href="/contact">
+                                    <a className="btn btn-primary">{t('common.contactUs')}</a>
                                 </Link>
                             </div>
                         </div>

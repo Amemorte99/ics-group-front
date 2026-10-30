@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { useI18n } from '../../lib/i18n';
 
-class Footer extends Component {
-    render() {
-        let currentYear = new Date().getFullYear();
+const Footer = () => {
+    const { t } = useI18n();
+    const currentYear = new Date().getFullYear();
+
         return (
             <footer className="footer-area">
                 <div className="container">
@@ -14,7 +16,7 @@ class Footer extends Component {
                                     <Link href="/">
                                 <a><img src="/images/logo-vert.png" alt="logo" style={{width:'150px', height:'100%',}}/></a>
                                     </Link>
-                                    <p>ICS GROUPE accompagne les entreprises et particuliers dans leurs projets de transformation digitale, cybersécurité, énergies renouvelables, réseaux & télécommunications, analyse de données et consulting. Des solutions innovantes, sécurisées et durables, adaptées à vos besoins et à votre budget.</p>
+                                    <p>{t('footer.about')}</p>
                                 </div>
                                 
                                 <ul className="social-links">
@@ -44,32 +46,32 @@ class Footer extends Component {
 
                         <div className="col-lg-3 col-sm-6 col-md-6">
                             <div className="single-footer-widget pl-5">
-                                <h3>Entreprise</h3>
+                                <h3>{t('footer.company')}</h3>
                                 
                                 <ul className="list">
                                     <li>
                                         <Link href="/about-us">
-                                            <a>À propos</a>
+                                            <a>{t('nav.about')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/services">
-                                            <a>Nos Services</a>
+                                            <a>{t('footer.ourServices')}</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/features">
-                                            <a>Nos Atouts</a>
+                                        <Link href="/portfolio">
+                                            <a>{t('nav.portfolio')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/blog">
-                                            <a>Actualités</a>
+                                            <a>{t('footer.news')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/contact">
-                                            <a>Nous Contacter</a>
+                                            <a>{t('common.contactUs')}</a>
                                         </Link>
                                     </li>
                                 </ul>
@@ -78,32 +80,32 @@ class Footer extends Component {
 
                         <div className="col-lg-3 col-sm-6 col-md-6">
                             <div className="single-footer-widget">
-                                <h3>Support</h3>
+                                <h3>{t('footer.support')}</h3>
                                 
                                 <ul className="list">
                                     <li>
                                         <Link href="/faq">
-                                            <a>FAQ</a>
+                                            <a>{t('footer.faq')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/privacy-policy">
-                                            <a>Politique de confidentialité</a>
+                                            <a>{t('footer.privacy')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/terms-condition">
-                                            <a>Conditions générales</a>
+                                            <a>{t('footer.terms')}</a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/formations">
-                                            <a>Formations</a>
+                                        <Link href="/services/consulting">
+                                            <a>{t('svc.consulting')}</a>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link href="/contact">
-                                            <a>Contact</a>
+                                            <a>{t('nav.contact')}</a>
                                         </Link>
                                     </li>
                                 </ul>
@@ -112,24 +114,20 @@ class Footer extends Component {
 
                         <div className="col-lg-3 col-sm-6 col-md-6">
                             <div className="single-footer-widget">
-                                <h3>Adresse</h3>
+                                <h3>{t('footer.address')}</h3>
                                 
                                 <ul className="footer-contact-info">
                                     <li>
-                                        <span className="mr-1">Siège :</span> 
-                                        Rue de Corniche, Sabangali, <br /> N'Djamena, Tchad
+                                        <span className="me-1 mr-1">{t('footer.hq')}</span> 
+                                        {t('footer.hqValue')}
                                     </li>
                                     <li>
-                                        <span className="mr-1">Email :</span> 
+                                        <span className="me-1 mr-1">{t('footer.email')}</span> 
                                         info@icsgroupe.com
                                     </li>
                                     <li>
-                                        <span className="mr-1">Téléphone :</span> 
-                                        +235 64 78 88 31
-                                    </li>
-                                    <li>
-                                        <span className="mr-1">Site web :</span> 
-                                        www.icsgroupe.com
+                                        <span className="me-1 mr-1">{t('footer.phone')}</span> 
+                                        <bdi dir="ltr">+235 64 78 88 31</bdi>
                                     </li>
                                 </ul>
                             </div>
@@ -137,12 +135,11 @@ class Footer extends Component {
                     </div>
 
                     <div className="copyright-area">
-                        <p>© {currentYear} ICS GROUPE - Tous droits réservés</p>
+                        <p>© {currentYear} ICS GROUPE - {t('footer.rights')}</p>
                     </div>
                 </div>
             </footer>
         );
-    }
-}
+};
 
 export default Footer;

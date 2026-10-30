@@ -1,8 +1,12 @@
 // components/Contact/ContactInfoContent.js
 import React, { Component } from 'react';
+import { I18nContext } from '../../lib/i18n';
 
 class ContactInfoContent extends Component {
+    static contextType = I18nContext;
+
     render() {
+        const { tx } = this.context;
         return (
             <>
                 {/* ============================================
@@ -39,10 +43,10 @@ class ContactInfoContent extends Component {
                 <div className="contact-info-wrapper">
                     {/* En-tête */}
                     <div className="info-header">
-                        <span className="info-badge">📌 Coordonnées</span>
-                        <h3 className="info-title">Nos informations de contact</h3>
+                        <span className="info-badge">📌 {tx({ fr: 'Coordonnées', en: 'Contact details', ar: 'بيانات الاتصال' })}</span>
+                        <h3 className="info-title">{tx({ fr: 'Nos informations de contact', en: 'Our contact information', ar: 'معلومات الاتصال بنا' })}</h3>
                         <p className="info-subtitle">
-                            N'hésitez pas à nous contacter par téléphone, email ou à nous rendre visite.
+                            {tx({ fr: "N'hésitez pas à nous contacter par téléphone, email ou à nous rendre visite.", en: 'Feel free to contact us by phone, email or visit us.', ar: 'لا تترددوا في الاتصال بنا هاتفيًا أو عبر البريد الإلكتروني أو زيارتنا.' })}
                         </p>
                     </div>
 
@@ -51,10 +55,10 @@ class ContactInfoContent extends Component {
                         <li className="info-item">
                             <div className="info-icon">📍</div>
                             <div className="info-content">
-                                <span className="info-label">Adresse</span>
+                                <span className="info-label">{tx({ fr: 'Adresse', en: 'Address', ar: 'العنوان' })}</span>
                                 <p className="info-text">
-                                    Rue de Corniche, Sabangali<br />
-                                    N'Djamena, Tchad
+                                    {tx({ fr: 'Rue de Corniche, Sabangali', en: 'Rue de Corniche, Sabangali', ar: 'شارع الكورنيش، سابانغالي' })}<br />
+                                    {tx({ fr: "N'Djamena, Tchad", en: "N'Djamena, Chad", ar: 'إنجامينا، تشاد' })}
                                 </p>
                                 <a 
                                     href="https://maps.google.com/maps?q=Rue+de+Corniche+Sabangali+N'Djamena+Tchad" 
@@ -62,7 +66,7 @@ class ContactInfoContent extends Component {
                                     rel="noopener noreferrer"
                                     className="info-map-link"
                                 >
-                                    Voir sur Google Maps →
+                                    {tx({ fr: 'Voir sur Google Maps →', en: 'View on Google Maps →', ar: 'عرض على خرائط جوجل ←' })}
                                 </a>
                             </div>
                         </li>
@@ -70,29 +74,29 @@ class ContactInfoContent extends Component {
                         <li className="info-item">
                             <div className="info-icon">📧</div>
                             <div className="info-content">
-                                <span className="info-label">Email</span>
+                                <span className="info-label">{tx({ fr: 'Email', en: 'Email', ar: 'البريد الإلكتروني' })}</span>
                                 <a href="mailto:info@icsgroupe.com" className="info-link">
                                     info@icsgroupe.com
                                 </a>
-                                <span className="info-hint">Réponse sous 24h</span>
+                                <span className="info-hint">{tx({ fr: 'Réponse sous 24h', en: 'Reply within 24h', ar: 'الرد خلال 24 ساعة' })}</span>
                             </div>
                         </li>
 
                         <li className="info-item">
                             <div className="info-icon">📞</div>
                             <div className="info-content">
-                                <span className="info-label">Téléphone</span>
+                                <span className="info-label">{tx({ fr: 'Téléphone', en: 'Phone', ar: 'الهاتف' })}</span>
                                 <a href="tel:+23564788831" className="info-link">
-                                    +235 64 78 88 31
+                                    <bdi dir="ltr">+235 64 78 88 31</bdi>
                                 </a>
-                                <span className="info-hint">Lun-Ven, 8h-17h</span>
+                                <span className="info-hint">{tx({ fr: 'Lun-Ven, 8h-17h', en: 'Mon-Fri, 8am-5pm', ar: 'الاثنين-الجمعة، 8ص-5م' })}</span>
                             </div>
                         </li>
 
                         <li className="info-item">
                             <div className="info-icon">🌐</div>
                             <div className="info-content">
-                                <span className="info-label">Site web</span>
+                                <span className="info-label">{tx({ fr: 'Site web', en: 'Website', ar: 'الموقع الإلكتروني' })}</span>
                                 <a 
                                     href="https://www.icsgroupe.com" 
                                     target="_blank" 
@@ -107,7 +111,7 @@ class ContactInfoContent extends Component {
 
                     {/* Réseaux sociaux */}
                     <div className="social-section">
-                        <span className="social-label">Suivez-nous</span>
+                        <span className="social-label">{tx({ fr: 'Suivez-nous', en: 'Follow us', ar: 'تابعونا' })}</span>
                         <div className="social-links">
                             <a href="#" className="social-link linkedin">
                                 <svg viewBox="0 0 24 24" fill="currentColor">

@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { SeoContext } from '../lib/SeoContext';
+import { PAGE_SEO } from '../lib/seoPages';
+import { LOCALES, LOCALE_META, localizedUrl, useI18n } from '../lib/i18n';
 import {
   SITE_URL,
   SITE_NAME,
@@ -14,17 +16,20 @@ import {
   websiteJsonLd,
 } from '../lib/site';
 
-const DEFAULT_DESCRIPTION =
-  'ICS GROUPE : cybersécurité, énergies renouvelables, développement web et transformation digitale pour les entreprises au Tchad, en France et à l\'international.';
+const DEFAULT_DESCRIPTION = {
+  fr: "ICS GROUPE : cybersécurité, énergies renouvelables, développement web et transformation digitale pour les entreprises au Tchad, en France et à l'international.",
+  en: 'ICS GROUPE: cybersecurity, renewable energy, web development and digital transformation for businesses in Chad, France and worldwide.',
+  ar: 'ICS GROUPE: الأمن السيبراني والطاقات المتجددة وتطوير المواقع والتحول الرقمي للشركات في تشاد وفرنسا وحول العالم.',
+};
 
 const jsonLd = (data) => (
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
 );
 
 export default function SEO({
-  title: defaultTitle,
-  description: defaultDescription = DEFAULT_DESCRIPTION,
-  keywords: defaultKeywords,
+  title: rawTitle,
+  description: rawDescription,
+  keywords: rawKeywords,
   image: defaultImage = DEFAULT_IMAGE,
   type = 'website',
   path,
@@ -34,12 +39,19 @@ export default function SEO({
   article,
 }) {
   const router = useRouter();
+  const { locale, tx } = useI18n();
   const cleanPath = (path ?? router.asPath).split('?')[0].split('#')[0] || '/';
   const normalized = cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '');
-  const url = absoluteUrl(normalized);
+  const url = localizedUrl(normalized, locale);
+  const preset = PAGE_SEO[normalized] || {};
+  const defaultTitle = tx(rawTitle ?? preset.title);
+  const defaultDescription = tx(rawDescription ?? preset.description ?? undefined) || tx(DEFAULT_DESCRIPTION);
+  const defaultKeywords = tx(rawKeywords);
 
   // Les réglages saisis dans le back office priment sur les valeurs par défaut de la page.
-  const override = useContext(SeoContext)[normalized] || {};
+  // Réglages du back office : chemin tel quel en français, préfixé par la langue (/en/contact) sinon.
+  const overrideKey = locale === 'fr' ? normalized : `/${locale}${normalized === '/' ? '' : normalized}`;
+  const override = useContext(SeoContext)[overrideKey] || {};
   const title = override.title || defaultTitle;
   const description = override.description || defaultDescription;
   const keywords = override.keywords || defaultKeywords;
@@ -49,7 +61,7 @@ export default function SEO({
   const imageUrl = absoluteUrl(image);
   const robots = noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
-  const crumbs = breadcrumb || (home ? null : [{ name: title || SITE_NAME, path: cleanPath }]);
+  const crumbs = breadcrumb || (home ? null : [{ name: title || SITE_NAME, path: normalized }]);
 
   return (
     <Head>
@@ -60,9 +72,17 @@ export default function SEO({
       <link rel="canonical" href={url} />
 
       {/* Même contenu français pour chaque marché ciblé (Tchad, France, monde francophone) */}
-      {!noIndex &&
-        MARKETS.map((m) => <link key={m.hreflang} rel="alternate" hrefLang={m.hreflang} href={url} />)}
-      {!noIndex && <link rel="alternate" hrefLang="x-default" href={url} />}
+      {!noIndex && (
+        <>
+          {LOCALES.map((code) => (
+            <link key={code} rel="alternate" hrefLang={code} href={localizedUrl(normalized, code)} />
+          ))}
+          {MARKETS.filter((m) => m.hreflang !== 'fr').map((m) => (
+            <link key={m.hreflang} rel="alternate" hrefLang={m.hreflang} href={localizedUrl(normalized, 'fr')} />
+          ))}
+          <link rel="alternate" hrefLang="x-default" href={localizedUrl(normalized, 'fr')} />
+        </>
+      )}
 
       {/* Géolocalisation du siège */}
       <meta name="geo.region" content="TD-ND" />
@@ -74,7 +94,7 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:locale" content="fr_FR" />
+      <meta property="og:locale" content={LOCALE_META[locale].og} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
@@ -92,19 +112,19 @@ export default function SEO({
         </>
       )}
 
-      {home && jsonLd(organizationJsonLd())}
-      {home && jsonLd(websiteJsonLd())}
+      {home && jsonLd(organizationJsonLd(locale))}
+      {home && jsonLd(websiteJsonLd(locale))}
       {crumbs &&
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+            { '@type': 'ListItem', position: 1, name: tx({ fr: 'Accueil', en: 'Home', ar: 'الرئيسية' }), item: localizedUrl('/', locale) },
             ...crumbs.map((c, i) => ({
               '@type': 'ListItem',
               position: i + 2,
-              name: c.name,
-              item: absoluteUrl(c.path),
+              name: tx(c.name),
+              item: c.path ? localizedUrl(c.path, locale) : url,
             })),
           ],
         })}

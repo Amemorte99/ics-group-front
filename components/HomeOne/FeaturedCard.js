@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import featuredServices from '../../data/featuredServices';
+import { useI18n } from '../../lib/i18n';
 
 const FeaturedCard = ({ limit }) => {
+    const { tx, t } = useI18n();
     const servicesToShow = limit ? featuredServices.slice(0, limit) : featuredServices;
 
     return (
@@ -17,11 +19,11 @@ const FeaturedCard = ({ limit }) => {
                                         <i className={service.icon}></i>
                                     </div>
 
-                                    <h3>{service.title}</h3>
-                                    <p>{service.description}</p>
+                                    <h3>{tx(service.title)}</h3>
+                                    <p>{tx(service.description)}</p>
 
                                     <Link href={service.link}>
-                                        <a className="read-more-btn">En savoir plus</a>
+                                        <a className="read-more-btn">{t('common.learnMore')}</a>
                                     </Link>
                                 </div>
                             </div>
@@ -34,7 +36,7 @@ const FeaturedCard = ({ limit }) => {
             {limit && (
                 <div className="text-center mt-4">
                     <Link href="/services">
-                        <a className="btn btn-primary">Voir tous les services →</a>
+                        <a className="btn btn-primary">{t('common.seeAllServices')}</a>
                     </Link>
                 </div>
             )}

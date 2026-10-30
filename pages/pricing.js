@@ -10,7 +10,7 @@ class Pricing extends Component {
     render() {
         return (
             <>
-                <SEO title="Tarifs et devis" description="Découvrez les formules d'accompagnement d'ICS GROUPE et demandez un devis personnalisé pour votre projet." path="/pricing" />
+                <SEO path="/pricing" />
                 <Navbar />
 
                 <PageBannerContent 
