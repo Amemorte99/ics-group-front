@@ -39,6 +39,8 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package*.json ./
+# Indispensable au démarrage : sans ce fichier, Next ignore les langues (/en, /ar), redirections et en-têtes
+COPY --from=builder /app/next.config.js ./next.config.js
 COPY --from=builder /app/node_modules ./node_modules
 
 # Ajouter un utilisateur non-root pour la sécurité
